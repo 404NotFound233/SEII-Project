@@ -26,5 +26,9 @@ public class ActivityController {
         return activityService.getActivities();
     }
 
-
+    //以下为自己写的
+    @GetMapping("/get/{movieId}")
+    public ResponseVO getActivitiesByMovieId(@PathVariable int movieId){
+        return activityService.getActivitiesByMovieId(movieId);
+    }
 }
