@@ -56,4 +56,16 @@ public class CouponServiceImpl implements CouponService {
         }
 
     }
+
+    //自己写的
+    @Override
+    public ResponseVO deleteCouponUser(int couponId,int userId){
+        try{
+            couponMapper.deleteCouponUser(couponId,userId);
+            return ResponseVO.buildSuccess();
+        }catch(Exception e){
+            e.printStackTrace();;
+            return ResponseVO.buildFailure("失败");
+        }
+    }
 }
