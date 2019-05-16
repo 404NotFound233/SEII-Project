@@ -55,4 +55,14 @@ public class ActivityServiceImpl implements ActivityService {
         }
     }
 
+    //以下为自己写的
+    @Override
+    public ResponseVO getActivitiesByMovieId(int movieId){
+        try {
+            return ResponseVO.buildSuccess(activityMapper.selectActivitiesByMovie(movieId).stream().map(Activity::getVO));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseVO.buildFailure("失败");
+        }
+    }
 }
