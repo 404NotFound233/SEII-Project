@@ -17,8 +17,8 @@ public class TicketController {
     @Autowired
     TicketService ticketService;
 
-    @PostMapping("/vip/buy/{ticketId}/{couponId}")
-    public ResponseVO buyTicketByVIPCard(@PathVariable List<Integer> ticketId, @PathVariable int couponId){
+    @PostMapping("/vip/buy")
+    public ResponseVO buyTicketByVIPCard(@RequestParam List<Integer> ticketId, @RequestParam int couponId){
         return ticketService.completeByVIPCard(ticketId,couponId);
     }
 
@@ -26,8 +26,8 @@ public class TicketController {
     public ResponseVO lockSeat(@RequestBody TicketForm ticketForm){
         return ticketService.addTicket(ticketForm);
     }
-    @PostMapping("/buy/{ticketId}/{couponId}")
-    public ResponseVO buyTicket(@PathVariable List<Integer> ticketId,@PathVariable int couponId){
+    @PostMapping("/buy")
+    public ResponseVO buyTicket(@RequestParam List<Integer> ticketId,@RequestParam int couponId){
         return ticketService.completeTicket(ticketId,couponId);
     }
     @GetMapping("/get/{userId}")

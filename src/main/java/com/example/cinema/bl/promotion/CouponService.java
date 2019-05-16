@@ -14,7 +14,4 @@ public interface CouponService {
 
     ResponseVO issueCoupon(int couponId,int userId);
 
-    //自己写的
-    ResponseVO deleteCouponUser(int couponId,int userId);
-
 }
