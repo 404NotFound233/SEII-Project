@@ -37,8 +37,8 @@ public class StatisticsController {
         return statisticsService.getMoviePlacingRateByDate(date);
     }
 
-    @RequestMapping(value = "statistics/popular/movie/{days}/{movieNum}", method = RequestMethod.GET)
-    public ResponseVO getPopularMovies(@PathVariable int days, @PathVariable int movieNum){
+    @RequestMapping(value = "statistics/popular/movie", method = RequestMethod.GET)
+    public ResponseVO getPopularMovies(@RequestParam int days, @RequestParam int movieNum){
         return statisticsService.getPopularMovies(days, movieNum);
     }
 

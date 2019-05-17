@@ -30,7 +30,6 @@ public interface MovieService {
      */
     ResponseVO searchAllMovie();
 
-
     /**
      * 搜索全部电影(不包括已经下架的)
      * @return
