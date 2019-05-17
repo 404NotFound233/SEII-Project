@@ -12,8 +12,7 @@ public interface ActivityService {
 
     ResponseVO getActivities();
 
-    //以下为我自己写的
-    ResponseVO getActivitiesByMovieId(int movieId);
+
 
 
 }
