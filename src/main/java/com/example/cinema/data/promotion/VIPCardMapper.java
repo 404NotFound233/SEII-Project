@@ -19,5 +19,5 @@ public interface VIPCardMapper {
     VIPCard selectCardByUserId(int userId);
 
 
-    void updateCardBalanceByUserId(@Param("user_id") int userId,@Param("balance")  double balance);
+
 }

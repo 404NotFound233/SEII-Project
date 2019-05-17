@@ -111,19 +111,18 @@ $(document).ready(function() {
         );
     }
 
-    //此方法获取了原输入！！！
     $(document).on('click','.schedule-item',function (e) {
-            var schedule = JSON.parse(e.target.dataset.schedule);
-            $("#schedule-edit-hall-input").children('option[value='+schedule.hallId+']').attr('selected',true);
-            $("#schedule-edit-movie-input").children('option[value='+schedule.movieId+']').attr('selected',true);
-            $("#schedule-edit-start-date-input").val(schedule.startTime.slice(0,16));
-            $("#schedule-edit-end-date-input").val(schedule.endTime.slice(0,16));
-            $("#schedule-edit-price-input").val(schedule.fare);
-            $('#scheduleEditModal').modal('show');
-            $('#scheduleEditModal')[0].dataset.scheduleId = schedule.id;
-            console.log(schedule);
-        });
-
+        var schedule = JSON.parse(e.target.dataset.schedule);
+        $("#schedule-edit-hall-input").children('option[value='+schedule.hallId+']').attr('selected',true);
+        $("#schedule-edit-movie-input").children('option[value='+schedule.movieId+']').attr('selected',true);
+        $("#schedule-edit-start-date-input").val(schedule.startTime.slice(0,16));
+        $("#schedule-edit-end-date-input").val(schedule.endTime.slice(0,16));
+        $("#schedule-edit-price-input").val(schedule.fare);
+        $('#scheduleEditModal').modal('show');
+        $('#scheduleEditModal')[0].dataset.scheduleId = schedule.id;
+        console.log(schedule);
+    });
+    
     $('#schedule-form-btn').click(function () {
         var form = {
             hallId: $("#schedule-hall-input").children('option:selected').val(),
@@ -132,9 +131,8 @@ $(document).ready(function() {
             endTime: $("#schedule-end-date-input").val(),
             fare: $("#schedule-price-input").val()
         };
-        if(!validateScheduleForm(form)){
-			return;
-		}
+        //todo 需要做一下表单验证？
+
         postRequest(
             '/schedule/add',
             form,
@@ -161,9 +159,8 @@ $(document).ready(function() {
             endTime: $("#schedule-edit-end-date-input").val(),
             fare: $("#schedule-edit-price-input").val()
         };
-        if(!validateScheduleForm(form)){
-			return;
-		}
+        //todo 需要做一下表单验证？
+
         postRequest(
             '/schedule/update',
             form,
@@ -202,26 +199,5 @@ $(document).ready(function() {
         }
     })
 
-	
-	function validateScheduleForm(data){
-		var isValidate = true;
-		if(!data.startTime){
-			isValidate = false;
-			$('#schedule-start-date-input').parent('.form-group').addClass('has-error');
-			$('#schedule-start-date-error').css("visibility","visible");
-		}
-		if(!data.endTime){
-			isValidate = false;
-			$('#schedule-end-date-input').parent('.form-group').addClass('has-error');
-			$('#schedule-end-date-error').css("visibility","visible");
-		}
-		if(!data.fare){
-			isValidate = false;
-			$('#schedule-price-input').parent('.form-group').addClass('has-error');
-			$('#schedule-price-error').css("visibility","visible");
-		}
-		return isValidate;
-	}
-	 
 });
 

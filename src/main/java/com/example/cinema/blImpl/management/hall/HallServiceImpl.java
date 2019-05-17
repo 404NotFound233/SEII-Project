@@ -40,6 +40,16 @@ public class HallServiceImpl implements HallService, HallServiceForBl {
         }
 
     }
+    
+    @Override
+    public List<Hall> getAllHall() {
+    	try {
+    		return hallMapper.selectAllHall();
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    		return null;
+    	}
+    }
 
     private List<HallVO> hallList2HallVOList(List<Hall> hallList){
         List<HallVO> hallVOList = new ArrayList<>();
