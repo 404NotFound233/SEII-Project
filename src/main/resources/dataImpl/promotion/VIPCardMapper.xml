@@ -26,5 +26,10 @@
         update vip_card set balance = #{balance} where id=#{id}
     </update>
 
+    <!--自己写的-->
+    <update id="updateCardBalanceByUserId" >
+        update vip_card set balance = #{balance} where user_id=#{user_id}
+    </update>
+
 
 </mapper>

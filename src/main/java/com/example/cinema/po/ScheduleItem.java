@@ -1,12 +1,15 @@
 package com.example.cinema.po;
 
-import java.util.Date;
+import java.util.*;
+import java.text.*;
 
 /**
  * @author fjj
  * @date 2019/4/12 3:34 PM
  */
 public class ScheduleItem {
+
+    SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
     /**
      * id
      */
@@ -31,6 +34,7 @@ public class ScheduleItem {
      * 开始放映时间
      */
     private Date startTime;
+
     /**
      * 结束放映时间
      */
@@ -39,6 +43,8 @@ public class ScheduleItem {
      * 票价
      */
     private double fare;
+
+
 
     public Integer getId() {
         return id;
