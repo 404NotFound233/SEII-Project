@@ -151,7 +151,7 @@ $(document).ready(function() {
 
     function getPlacingRate() {
         getRequest(
-            '/statistics/PlacingRate',
+            '/statistics/PlacingRate/',
             function (res) {
                 var data = res.content || [];
                 var tableData = data.map(function (item) {
@@ -191,14 +191,14 @@ $(document).ready(function() {
             function (res) {
                 var data = res.content || [];
                 var tableData = data.map(function (item) {
-                    return item.placingRate;
+                    return item.boxOffice;
                 });
                 var nameList = data.map(function (item) {
                     return item.name;
                 });
                  var option = {
                     title : {
-                        text: '每日上座率',
+                        text: '今日最受欢迎电影',
                         x:'center'
                     },
                     xAxis: {
@@ -213,8 +213,8 @@ $(document).ready(function() {
                         type: 'bar'
                     }]
                 };
-                var placingRateChart = echarts.init($("#popular-movie-container")[0]);
-                placingRateChart.setOption(option);
+                var mostPopularMovieChart = echarts.init($("#popular-movie-container")[0]);
+                mostPopularMovieChart.setOption(option);
             },
             function (error) {
                 alert(JSON.stringify(error));
