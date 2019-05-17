@@ -51,7 +51,7 @@ public class ScheduleServiceImpl implements ScheduleService, ScheduleServiceForB
             return ResponseVO.buildSuccess();
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseVO.buildFailure("添加失败");
+            return ResponseVO.buildFailure("失败");
         }
     }
 

@@ -24,8 +24,6 @@ public class MovieController {
     public ResponseVO addMovie(@RequestBody MovieForm addMovieForm){
         return movieService.addMovie(addMovieForm);
     }
-    //前端的请求发到了这儿来啊！！postRequest&getRequest,然后再交给相应的Service去做，ServiceImpl去实现与后端的交互！
-
 
     @RequestMapping(value = "/movie/{id}/{userId}", method = RequestMethod.GET)
     public ResponseVO searchOneMovieByIdAndUserId(@PathVariable int id, @PathVariable int userId){
@@ -77,7 +75,6 @@ public class MovieController {
     public ResponseVO updateMovie(@RequestBody MovieForm updateMovieForm){
         return movieService.updateMovie(updateMovieForm);
     }
-
 
 
 

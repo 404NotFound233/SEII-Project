@@ -82,16 +82,5 @@ public class VIPServiceImpl implements VIPService {
         }
     }
 
-    //自己定义的接口的实现
-    @Override
-    public ResponseVO payByCard(int userId,double balance){
-        try{
-            vipCardMapper.updateCardBalanceByUserId(userId,balance);
-            return ResponseVO.buildSuccess();
-        }catch (Exception e) {
-            e.printStackTrace();
-            return ResponseVO.buildFailure("失败");
-        }
-    }
 
 }

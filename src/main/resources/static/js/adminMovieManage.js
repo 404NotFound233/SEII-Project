@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
     getMovieList();
-//当用户按下确认按钮，获取电影信息，验证是否有效
+
     $("#movie-form-btn").click(function () {
         var formData = getMovieForm();
         if(!validateMovieForm(formData)) {
@@ -12,7 +12,6 @@ $(document).ready(function(){
             formData,
             function (res) {
                 getMovieList();
-                //获得新增电影之后的新电影列表
                 $("#movieModal").modal('hide');
             },
              function (error) {
@@ -35,23 +34,20 @@ $(document).ready(function(){
             language: $('#movie-language-input').val()
         };
     }
-//验证是否有效，无效则变成has-error的样式
+
     function validateMovieForm(data) {
         var isValidate = true;
         if(!data.name) {
             isValidate = false;
             $('#movie-name-input').parent('.form-group').addClass('has-error');
-			$('#movie-name-error').css("visibility", "visible");
         }
         if(!data.posterUrl) {
             isValidate = false;
             $('#movie-img-input').parent('.form-group').addClass('has-error');
-			$('#movie-img-error').css("visibility", "visible");
         }
         if(!data.startDate) {
             isValidate = false;
             $('#movie-date-input').parent('.form-group').addClass('has-error');
-			$('#movie-date-error').css("visibility", "visible");
         }
         return isValidate;
     }
@@ -61,7 +57,6 @@ $(document).ready(function(){
             '/movie/all',
             function (res) {
                 renderMovieList(res.content);
-                //新增电影
             },
             function (error) {
                 alert(error);
