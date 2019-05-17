@@ -105,15 +105,16 @@ public class MovieServiceImpl implements MovieService, MovieServiceForBl {
     @Override
     public ResponseVO updateMovie(MovieForm updateMovieForm) {
         try {
-            ResponseVO responseVO = preCheck(Arrays.asList(updateMovieForm.getId()));
+            int id=updateMovieForm.getId();
+            ResponseVO responseVO = preCheck(Arrays.asList(id));
             if(!responseVO.getSuccess()){
                 return responseVO;
             }
             movieMapper.updateMovie(updateMovieForm);
-            return ResponseVO.buildSuccess();
+            return ResponseVO.buildSuccess(movieMapper.selectMovieById(id));
         }catch (Exception e) {
             e.printStackTrace();
-            return ResponseVO.buildFailure("失败");
+            return ResponseVO.buildFailure("更新失败");
         }
     }
 

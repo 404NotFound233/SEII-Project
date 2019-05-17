@@ -33,12 +33,12 @@ public class StatisticsController {
     }
 
     @RequestMapping(value = "statistics/PlacingRate", method = RequestMethod.GET)
-    public ResponseVO getMoviePlacingRateByDate(@RequestParam(required = false) Date date){
+    public ResponseVO getMoviePlacingRateByDate(@RequestParam Date date){
         return statisticsService.getMoviePlacingRateByDate(date);
     }
 
-    @RequestMapping(value = "statistics/popular/movie", method = RequestMethod.GET)
-    public ResponseVO getPopularMovies(@RequestParam(required = false) int days, @RequestParam(required = false) int movieNum){
+    @RequestMapping(value = "statistics/popular/movie/{days}/{movieNum}", method = RequestMethod.GET)
+    public ResponseVO getPopularMovies(@PathVariable int days, @PathVariable int movieNum){
         return statisticsService.getPopularMovies(days, movieNum);
     }
 

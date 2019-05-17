@@ -1,7 +1,5 @@
 package com.example.cinema.blImpl.management.hall;
 
-import java.util.List;
-
 import com.example.cinema.po.Hall;
 /**
  * @author fjj
@@ -14,9 +12,4 @@ public interface HallServiceForBl {
      * @return
      */
     Hall getHallById(int id);
-    
-    /**
-     * 搜索全部影厅
-     */
-    List<Hall> getAllHall();
 }

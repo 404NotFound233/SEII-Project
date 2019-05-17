@@ -85,7 +85,7 @@ $(document).ready(function() {
                     return item.boxOffice;
                 });
                 var nameList = data.map(function (item) {
-                    return item.date;
+                    return item.name;
                 });
                 var option = {
                     title : {
@@ -150,44 +150,14 @@ $(document).ready(function() {
     }
 
     function getPlacingRate() {
-        getRequest(
-            '/statistics/PlacingRate/',
-            function (res) {
-                var data = res.content || [];
-                var tableData = data.map(function (item) {
-                    return item.placingRate;
-                });
-                var nameList = data.map(function (item) {
-                    return formatDate(new Date(item.date));
-                });
-                 var option = {
-                    title : {
-                        text: '每日上座率',
-                        x:'center'
-                    },
-                    xAxis: {
-                        type: 'category',
-                        data: nameList
-                    },
-                    yAxis: {
-                        type: 'value'
-                    },
-                    series: [{
-                        data: tableData,
-                        type: 'bar'
-                    }]
-                };
-                var placingRateChart = echarts.init($("#place-rate-container")[0]);
-                placingRateChart.setOption(option);
-            },
-            function (error) {
-                alert(JSON.stringify(error));
-            });
+        // todo
     }
 
     function getPolularMovie() {
-                getRequest(
-            '/statistics/popular/movie',
+		var days=40;
+		var movieNum=5;
+        getRequest(
+             '/statistics/popular/movie'+'/'+days+'/'+movieNum,
             function (res) {
                 var data = res.content || [];
                 var tableData = data.map(function (item) {
@@ -196,9 +166,13 @@ $(document).ready(function() {
                 var nameList = data.map(function (item) {
                     return item.name;
                 });
-                 var option = {
+				var endDate=new Date();
+				var date=new Date();
+				date.setDate(endDate.getDate()-days);
+                var option = {
                     title : {
-                        text: '今日最受欢迎电影',
+                        text: '近'+days+'日最受欢迎的电影',
+                        subtext: '自'+date.toLocaleDateString()+'起截止至'+endDate.toLocaleDateString(),
                         x:'center'
                     },
                     xAxis: {
@@ -213,8 +187,7 @@ $(document).ready(function() {
                         type: 'bar'
                     }]
                 };
-                var mostPopularMovieChart = echarts.init($("#popular-movie-container")[0]);
-                mostPopularMovieChart.setOption(option);
+                echarts.init($("#popular-movie-container")[0]).setOption(option);
             },
             function (error) {
                 alert(JSON.stringify(error));

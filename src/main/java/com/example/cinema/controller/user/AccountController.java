@@ -28,6 +28,7 @@ public class AccountController {
            return ResponseVO.buildFailure(ACCOUNT_INFO_ERROR);
         }
         //注册session
+        //InterceptorConfiguration.SESSION_KEY指"user"
         session.setAttribute(InterceptorConfiguration.SESSION_KEY,userForm);
         return ResponseVO.buildSuccess(user);
     }
@@ -38,6 +39,7 @@ public class AccountController {
 
     @PostMapping("/logout")
     public String logOut(HttpSession session){
+        //remove session
         session.removeAttribute(InterceptorConfiguration.SESSION_KEY);
         return "index";
     }
