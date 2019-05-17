@@ -1,4 +1,4 @@
-package com.example.cinema.controller.statistics;
+﻿package com.example.cinema.controller.statistics;
 
 import com.example.cinema.bl.statistics.StatisticsService;
 import com.example.cinema.vo.ResponseVO;
@@ -33,12 +33,15 @@ public class StatisticsController {
     }
 
     @RequestMapping(value = "statistics/PlacingRate", method = RequestMethod.GET)
-    public ResponseVO getMoviePlacingRateByDate(@RequestParam Date date){
+    public ResponseVO getMoviePlacingRateByDate(@RequestParam(required = false) Date date){
         return statisticsService.getMoviePlacingRateByDate(date);
     }
 
     @RequestMapping(value = "statistics/popular/movie/{days}/{movieNum}", method = RequestMethod.GET)
     public ResponseVO getPopularMovies(@PathVariable int days, @PathVariable int movieNum){
+
+    @RequestMapping(value = "statistics/popular/movie", method = RequestMethod.GET)
+    public ResponseVO getPopularMovies(@RequestParam(required = false) int days, @RequestParam(required = false) int movieNum){
         return statisticsService.getPopularMovies(days, movieNum);
     }
 
