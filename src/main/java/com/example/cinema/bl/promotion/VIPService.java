@@ -21,5 +21,8 @@ public interface VIPService {
 
     ResponseVO getCardByUserId(int userId);
 
+    //自己写的接口
+    ResponseVO payByCard(int userId,double balance);
+
 
 }
