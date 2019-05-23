@@ -1,4 +1,4 @@
-﻿package com.example.cinema.blImpl.statistics;
+package com.example.cinema.blImpl.statistics;
 
 import com.example.cinema.bl.statistics.StatisticsService;
 import com.example.cinema.data.statistics.StatisticsMapper;
