@@ -36,11 +36,13 @@
         </button>
         <ul class="dropdown-menu">
             <li><a href="/user/buy">电影票</a></li>
-            <li><a href="#">卡包</a></li>
+            <li><a href="#">卡包</a></li>			
+			<li><a href="/user/recharge/record">查看历史充值</a></li>
             <li id="logout"><a href="#">登出</a></li>
         </ul>
     </div>
 </div>
+
 <div class="content-container">
     <!--非会员-->
     <div class="card col-md-8 col-md-offset-2" id="nonmember-card" style="display: none;">
@@ -91,7 +93,7 @@
                     <div id="member-balance"></div>
                 </div>
             </div>
-            <button onclick="chargeClick()">立即充值</button>
+			<button onclick="chargeClick()">立即充值</button>
         </div>
     </div>
 

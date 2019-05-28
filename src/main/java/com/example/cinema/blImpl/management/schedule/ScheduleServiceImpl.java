@@ -1,6 +1,4 @@
 package com.example.cinema.blImpl.management.schedule;
-import java.util.Date;
-
 import com.example.cinema.bl.management.ScheduleService;
 import com.example.cinema.blImpl.management.hall.HallServiceForBl;
 import com.example.cinema.data.management.ScheduleMapper;
@@ -200,7 +198,6 @@ public class ScheduleServiceImpl implements ScheduleService, ScheduleServiceForB
             if(scheduleIdList.size() == 0){
                 return ResponseVO.buildFailure(ID_LIST_NULL_ERROR_MESSAGE);
             }
-
             if(isAudienceCanView(scheduleIdList)){
                 return ResponseVO.buildFailure(VIEW_CONFLICT_ERROR_MESSAGE);
             }
@@ -211,8 +208,21 @@ public class ScheduleServiceImpl implements ScheduleService, ScheduleServiceForB
             return ResponseVO.buildFailure("失败");
         }
     }
-
-
+    
+    
+    /**
+     * /**
+     * 根据影厅，在所给的时间段之间寻找排片信息
+     * 接口在scheduleforBL类中
+     */
+     @Override
+    public List<ScheduleItem> getScheduleByHall(int hallId,Date startDate,Date endDate) {
+    	List<ScheduleItem> scheduleitem = scheduleMapper.selectSchedule(hallId, startDate, endDate);
+    	return scheduleitem;
+    }
+    
+    
+    
     /**
      * 获得num天后的日期
      * @param oldDate
@@ -319,7 +329,7 @@ public class ScheduleServiceImpl implements ScheduleService, ScheduleServiceForB
         return scheduleVOList;
     }
 
-
+   
 
     private List<ScheduleItemVO> scheduleItemList2ScheduleItemVOList(List<ScheduleItem> scheduleItemList){
         List<ScheduleItemVO> scheduleItemVOList = new ArrayList<>();

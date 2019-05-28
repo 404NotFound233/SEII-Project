@@ -161,7 +161,7 @@ $(document).ready(function() {
             endTime: $("#schedule-edit-end-date-input").val(),
             fare: $("#schedule-edit-price-input").val()
         };
-        if(!validateScheduleForm(form)){
+        if(!validateScheduleEditForm(form)){
 			return;
 		}
         postRequest(
@@ -219,6 +219,26 @@ $(document).ready(function() {
 			isValidate = false;
 			$('#schedule-price-input').parent('.form-group').addClass('has-error');
 			$('#schedule-price-error').css("visibility","visible");
+		}
+		return isValidate;
+	}
+	
+	function validateScheduleEditForm(data){
+		var isValidate = true;
+		if(!data.startTime){
+			isValidate = false;
+			$('#schedule-edit-start-date-input').parent('.form-group').addClass('has-error');
+			$('#schedule-edit-start-date-error').css("visibility","visible");
+		}
+		if(!data.endTime){
+			isValidate = false;
+			$('#schedule-edit-end-date-input').parent('.form-group').addClass('has-error');
+			$('#schedule-edit-end-date-error').css("visibility","visible");
+		}
+		if(!data.fare){
+			isValidate = false;
+			$('#schedule-edit-price-input').parent('.form-group').addClass('has-error');
+			$('#schedule-edit-price-error').css("visibility","visible");
 		}
 		return isValidate;
 	}

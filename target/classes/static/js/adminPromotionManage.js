@@ -1,3 +1,8 @@
+var movieList=[];
+var init_select_movie=true;
+//ES6新api 不重复集合 Set
+var selectedMovieIds = new Set();
+var selectedMovieNames = new Set();
 $(document).ready(function() {
 
     getAllMovies();
@@ -60,7 +65,7 @@ $(document).ready(function() {
         getRequest(
             '/movie/all/exclude/off',
             function (res) {
-                var movieList = res.content;
+                movieList = res.content;
                 $('#activity-movie-input').append("<option value="+ -1 +">所有电影</option>");
                 movieList.forEach(function (movie) {
                     $('#activity-movie-input').append("<option value="+ movie.id +">"+movie.name+"</option>");
@@ -106,22 +111,50 @@ $(document).ready(function() {
         );
     });
 
-    //ES6新api 不重复集合 Set
-    var selectedMovieIds = new Set();
-    var selectedMovieNames = new Set();
 
+        get_ac_movie();
     $('#activity-movie-input').change(function () {
         var movieId = $('#activity-movie-input').val();
         var movieName = $('#activity-movie-input').children('option:selected').text();
+
+        if(init_select_movie){
+            selectedMovieIds.clear();
+            selectedMovieNames.clear();
+            init_select_movie=false;
+        }
+
         if(movieId==-1){
             selectedMovieIds.clear();
             selectedMovieNames.clear();
+            for(var i=0;i<movieList.length;i++){
+                var movieVO=movieList[i];
+                selectedMovieIds.add(movieVO.id);
+                selectedMovieNames.add(movieVO.name);
+            }
         } else {
             selectedMovieIds.add(movieId);
             selectedMovieNames.add(movieName);
         }
         renderSelectedMovies();
     });
+
+    function get_ac_movie(){
+        getRequest(
+                    '/movie/all/exclude/off',
+                    function (res) {
+                        movieList = res.content;
+                        for(var i=0;i<movieList.length;i++){
+                            var movieVO=movieList[i];
+                            selectedMovieIds.add(movieVO.id);
+                            selectedMovieNames.add(movieVO.name);
+                        }
+                        renderSelectedMovies();
+                    },
+                    function (error) {
+                        alert(error);
+                    }
+             );
+        }
 
     //渲染选择的参加活动的电影
     function renderSelectedMovies() {

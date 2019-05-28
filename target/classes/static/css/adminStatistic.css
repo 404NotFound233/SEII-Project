@@ -1,5 +1,6 @@
 .table-container {
-    width: 100%;
+    width: 2000px;
+    overflow-x: scroll;
     height:380px;
     margin: 20px 0;
 }

@@ -148,14 +148,45 @@ $(document).ready(function() {
                 alert(JSON.stringify(error));
             });
     }
-
     function getPlacingRate() {
-        // todo
+        getRequest(
+            '/statistics/PlacingRate/',
+            function (res) {
+                var data = res.content || [];
+                var tableData = data.map(function (item) {
+                    return item.placingRate;
+                });
+                var nameList = data.map(function (item) {
+                    return formatDate(new Date(item.date));
+                });
+                 var option = {
+                    title : {
+                        text: '每日上座率',
+                        x:'center'
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: nameList
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [{
+                        data: tableData,
+                        type: 'bar'
+                    }]
+                };
+                var placingRateChart = echarts.init($("#place-rate-container")[0]);
+                placingRateChart.setOption(option);
+            },
+            function (error) {
+                alert(JSON.stringify(error));
+            });
     }
 
     function getPolularMovie() {
-		var days=40;
-		var movieNum=5;
+		var days=30;
+		var movieNum=8;
         getRequest(
              '/statistics/popular/movie'+'/'+days+'/'+movieNum,
             function (res) {
@@ -166,12 +197,13 @@ $(document).ready(function() {
                 var nameList = data.map(function (item) {
                     return item.name;
                 });
+				
 				var endDate=new Date();
 				var date=new Date();
 				date.setDate(endDate.getDate()-days);
                 var option = {
                     title : {
-                        text: '近'+days+'日最受欢迎的电影',
+                        text: '近'+days+'日最受欢迎的'+movieNum+'部电影',
                         subtext: '自'+date.toLocaleDateString()+'起截止至'+endDate.toLocaleDateString(),
                         x:'center'
                     },
@@ -187,7 +219,9 @@ $(document).ready(function() {
                         type: 'bar'
                     }]
                 };
+
                 echarts.init($("#popular-movie-container")[0]).setOption(option);
+
             },
             function (error) {
                 alert(JSON.stringify(error));

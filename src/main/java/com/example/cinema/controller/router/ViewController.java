@@ -57,6 +57,11 @@ public class ViewController {
     public String getUserBuy() {
         return "userBuy";
     }
+	
+	@RequestMapping(value = "/user/recharge/record")
+	public String getRechargeRecord() {
+		return "userRechargeRecord";
+	}
 
     @RequestMapping(value = "/user/movieDetail")
     public String getUserMovieDetail(@RequestParam int id) {

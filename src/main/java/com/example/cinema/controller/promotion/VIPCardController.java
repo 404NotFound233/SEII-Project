@@ -15,13 +15,19 @@ public class VIPCardController {
     @Autowired
     VIPService vipService;
 
+
     @PostMapping("/add")
     public ResponseVO addVIP(@RequestParam int userId){
         return vipService.addVIPCard(userId);
     }
-    @GetMapping("{userId}/get")
+    @GetMapping("{userId}/get")//这有没有少加一个斜杠？？
     public ResponseVO getVIP(@PathVariable int userId){
         return vipService.getCardByUserId(userId);
+    }
+
+    @GetMapping("/get/record/{userId}")
+    public ResponseVO getRecord(@PathVariable int userId){
+        return vipService.getRecord(userId);
     }
 
     @GetMapping("/getVIPInfo")
@@ -34,6 +40,10 @@ public class VIPCardController {
         return vipService.charge(vipCardForm);
     }
 
+    @PostMapping("/pay/{userId}/{balance}")
+    public ResponseVO pay(@PathVariable int userId,@PathVariable double balance ){
+        return vipService.payByCard(userId,balance);
+    }
 
 
 
