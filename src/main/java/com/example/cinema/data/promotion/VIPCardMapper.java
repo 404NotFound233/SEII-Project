@@ -12,12 +12,16 @@ public interface VIPCardMapper {
 
     int insertOneCard(VIPCard vipCard);
 
+
     VIPCard selectCardById(int id);
+
 
     void updateCardBalance(@Param("id") int id,@Param("balance") double balance);
 
+
     VIPCard selectCardByUserId(int userId);
 
+    int selectUserIdById(int id);
 
     void updateCardBalanceByUserId(@Param("user_id") int userId,@Param("balance")  double balance);
 }

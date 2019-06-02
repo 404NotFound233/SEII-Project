@@ -198,7 +198,6 @@ public class ScheduleServiceImpl implements ScheduleService, ScheduleServiceForB
             if(scheduleIdList.size() == 0){
                 return ResponseVO.buildFailure(ID_LIST_NULL_ERROR_MESSAGE);
             }
-
             if(isAudienceCanView(scheduleIdList)){
                 return ResponseVO.buildFailure(VIEW_CONFLICT_ERROR_MESSAGE);
             }

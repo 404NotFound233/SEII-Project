@@ -19,4 +19,5 @@ public interface HallServiceForBl {
      * 搜索全部影厅
      */
     List<Hall> getAllHall();
+
 }
