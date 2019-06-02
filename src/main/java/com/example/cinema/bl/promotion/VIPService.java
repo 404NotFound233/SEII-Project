@@ -24,6 +24,7 @@ public interface VIPService {
     //自己写的接口
     ResponseVO payByCard(int userId,double balance);
 
+
     //wqy
     ResponseVO publishVIP(VIPInfoVO vip);
 
@@ -32,5 +33,8 @@ public interface VIPService {
 
     //wqy
     ResponseVO getLength();
+
+    ResponseVO getRecord(int userId);
+
 
 }

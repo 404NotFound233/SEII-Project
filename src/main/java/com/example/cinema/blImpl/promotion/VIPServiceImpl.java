@@ -2,14 +2,23 @@ package com.example.cinema.blImpl.promotion;
 
 import com.example.cinema.bl.promotion.VIPService;
 import com.example.cinema.data.promotion.VIPCardMapper;
+
 import com.example.cinema.data.sales.TicketMapper;
+
+import com.example.cinema.data.promotion.VIPRechargeMapper;
+import com.example.cinema.po.VIPRecharge;
+
 import com.example.cinema.vo.VIPCardForm;
 import com.example.cinema.po.VIPCard;
 import com.example.cinema.po.VIPInfo;
 import com.example.cinema.vo.ResponseVO;
 import com.example.cinema.vo.VIPInfoVO;
+import com.example.cinema.vo.VIPRechargeRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -20,7 +29,11 @@ public class VIPServiceImpl implements VIPService {
     @Autowired
     VIPCardMapper vipCardMapper;
     @Autowired
+
     TicketMapper ticketMapper;
+    @Autowired
+    VIPRechargeMapper vipRechargeMapper;
+
 
     @Override
     public ResponseVO addVIPCard(int userId,double price) {
@@ -70,12 +83,23 @@ public class VIPServiceImpl implements VIPService {
         if (vipCard == null) {
             return ResponseVO.buildFailure("会员卡不存在");
         }
+
         double balance = vipCardForm.calculate(vipCardForm.getAmount());
-        vipCard.setBalance(vipCard.getBalance() + balance);
+        double before_balance=vipCard.getBalance();  
+      
+        vipCard.setBalance(before_balance + balance);//原先金额加此次充值金额
         try {
             ticketMapper.insertNormalRecord(vipCard.getUserId(),vipCardForm.getAmount(),1);
             ticketMapper.insertVIPRecord(vipCard.getUserId(),vipCardForm.getAmount(),vipCard.getBalance()-balance,1);
             vipCardMapper.updateCardBalance(vipCardForm.getVipId(), vipCard.getBalance());
+
+
+
+
+            double after_balance=vipCard.getBalance();//充值后总金额
+            int user_id=vipCardMapper.selectUserIdById(vipCardForm.getVipId());
+            int id=vipRechargeMapper.insertOneRecharge(user_id, before_balance,balance,after_balance);
+
             return ResponseVO.buildSuccess(vipCard);
         } catch (Exception e) {
             e.printStackTrace();
@@ -95,6 +119,23 @@ public class VIPServiceImpl implements VIPService {
             e.printStackTrace();
             return ResponseVO.buildFailure("失败");
         }
+    }
+    @Override
+    public ResponseVO getRecord(int userId){
+        try{
+            return ResponseVO.buildSuccess(VIPRecharge2VIPRechargeRecordList(vipRechargeMapper.getRecordByUserId(userId)));
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseVO.buildFailure("失败");
+        }
+    }
+
+    private List<VIPRechargeRecord> VIPRecharge2VIPRechargeRecordList(List<VIPRecharge> rechargeList){
+        List<VIPRechargeRecord> VIPRechargeRecordList = new ArrayList<>();
+        for(VIPRecharge recharge : rechargeList){
+            VIPRechargeRecordList.add(recharge.getRecord());
+        }
+        return VIPRechargeRecordList;
     }
 
     //自己定义的接口的实现

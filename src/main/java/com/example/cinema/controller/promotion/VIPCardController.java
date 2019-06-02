@@ -16,13 +16,20 @@ public class VIPCardController {
     @Autowired
     VIPService vipService;
 
+
     @PostMapping("/add/{userId}/{price}")
     public ResponseVO addVIP(@PathVariable int userId,@PathVariable double price){
         return vipService.addVIPCard(userId,price);
     }
     @GetMapping("/{userId}/get")
+
     public ResponseVO getVIP(@PathVariable int userId){
         return vipService.getCardByUserId(userId);
+    }
+
+    @GetMapping("/get/record/{userId}")
+    public ResponseVO getRecord(@PathVariable int userId){
+        return vipService.getRecord(userId);
     }
 
     @GetMapping("/getVIPInfo")
