@@ -342,6 +342,35 @@ INSERT INTO `vip_card` VALUES (1,15,375,'2019-04-21 13:54:38'),(2,12,660,'2019-0
 UNLOCK TABLES;
 
 --
+-- Table structure for table `recharge_record`
+--
+
+DROP TABLE IF EXISTS `recharge_record`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `recharge_record` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `before_balance` float DEFAULT NULL,
+  `single_recharge` float DEFAULT NULL,
+  `after_balance` float DEFAULT NULL,
+  `join_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `recharge_record_user_id_uindex` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `recharge_record`
+--
+
+LOCK TABLES `recharge_record` WRITE;
+/*!40000 ALTER TABLE `recharge_record` DISABLE KEYS */;
+INSERT INTO `recharge_record` VALUES (1,15,375,100,475,'2019-04-21 13:54:38'),(2,12,660,190,850,'2019-04-17 18:47:42');
+/*!40000 ALTER TABLE `recharge_record` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Dumping events for database 'cinema'
 --
 
