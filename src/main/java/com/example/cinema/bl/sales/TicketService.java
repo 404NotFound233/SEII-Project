@@ -59,4 +59,12 @@ public interface TicketService {
      * @return
      */
     ResponseVO cancelTicket(List<Integer> id);
+
+    ResponseVO VIPRecord(int userId, double amount, double before_Balance, int reason);
+
+    ResponseVO normalRecord(int userId, double amount, int reason);
+
+    ResponseVO getNormalRecord(int userId);
+
+    ResponseVO getVIPRecord(int userId);
 }

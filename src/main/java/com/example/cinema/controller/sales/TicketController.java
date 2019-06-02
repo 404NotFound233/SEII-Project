@@ -40,12 +40,27 @@ public class TicketController {
         return ticketService.getBySchedule(scheduleId);
     }
     @PostMapping("/cancel")
-    public ResponseVO cancelTicket(@RequestParam List<Integer> ticketId){
+    public ResponseVO cancelTicket(@RequestParam List<Integer> ticketId) {
         return ticketService.cancelTicket(ticketId);
     }
 
+    @PostMapping("/VIPRecord/{userId}/{amount}/{before_Balance}/{reason}")
+    public ResponseVO VIPRecord(@PathVariable int userId,@PathVariable double amount,@PathVariable double before_Balance,@PathVariable int reason){
+        return ticketService.VIPRecord(userId,amount,before_Balance,reason);
+    }
 
+    @PostMapping("/normalRecord/{userId}/{amount}/{reason}")
+    public ResponseVO normalRecord(@PathVariable int userId,@PathVariable double amount,@PathVariable int reason){
+        return ticketService.normalRecord(userId,amount,reason);
+    }
 
+    @GetMapping("/get/normalRecord/{userId}")
+    public ResponseVO getNormalRecord(@PathVariable int userId){
+        return ticketService.getNormalRecord(userId);
+    }
 
-
+    @GetMapping("/get/VIPRecord/{userId}")
+    public ResponseVO getVIPRecord(@PathVariable int userId){
+        return ticketService.getVIPRecord(userId);
+    }
 }

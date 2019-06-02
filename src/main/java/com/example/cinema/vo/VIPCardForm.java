@@ -13,8 +13,29 @@ public class VIPCardForm {
     /**
      * 付款金额
      */
-    private int amount;
+    private double amount;
 
+    //wqy
+    private double reach;
+
+    //wqy
+    private double send;
+
+    public double getReach() {
+        return reach;
+    }
+
+    public void setReach(double reach) {
+        this.reach = reach;
+    }
+
+    public double getSend() {
+        return send;
+    }
+
+    public void setSend(double send) {
+        this.send = send;
+    }
 
     public int getVipId() {
         return vipId;
@@ -24,13 +45,17 @@ public class VIPCardForm {
         this.vipId = vipId;
     }
 
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
-
+    public double calculate(double amount) {
+        int num=(int)(amount/reach);
+        System.out.println(amount);
+        return num*send+amount;
+    }
 }

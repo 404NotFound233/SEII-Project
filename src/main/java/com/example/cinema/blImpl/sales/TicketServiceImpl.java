@@ -112,7 +112,6 @@ public class TicketServiceImpl implements TicketService {
     //此处的id为ticketId
     public ResponseVO completeTicket(List<Integer> id, int couponId) {
         try{
-            System.out.println(id.size()+"****");
             int userId=0;
             for(int i=0;i<id.size();i++){
                 ticketMapper.updateTicketState(id.get(i),1);
@@ -169,16 +168,13 @@ public class TicketServiceImpl implements TicketService {
     @Override
     @Transactional
     public ResponseVO completeByVIPCard(List<Integer> id, int couponId) {
-        System.out.println("look!!!!!");
         try{
-            System.out.println("look!!");
             int userId=0;
             for(int i=0;i<id.size();i++){
                 ticketMapper.updateTicketState(id.get(i),1);
                 Ticket t=ticketMapper.selectTicketById(id.get(i));
                 userId=t.getUserId();
             }
-            System.out.println("look");
             couponMapper.deleteCouponUser(couponId,userId);//取消优惠券
             return ResponseVO.buildSuccess();
         }catch (Exception e) {
@@ -201,6 +197,67 @@ public class TicketServiceImpl implements TicketService {
         }
     }
 
+    //wqy
+    @Override
+    public ResponseVO VIPRecord(int userId, double amount, double before_Balance, int reason){
+        try{
+            ticketMapper.insertVIPRecord(userId,amount,before_Balance,reason);
+            return ResponseVO.buildSuccess();
+        }catch (Exception e) {
+            e.printStackTrace();
+            return ResponseVO.buildFailure("失败");
+        }
+    }
 
+    //wqy
+    @Override
+    public ResponseVO normalRecord(int userId, double amount, int reason){
+        try{
+            ticketMapper.insertNormalRecord(userId,amount,reason);
+            return ResponseVO.buildSuccess();
+        }catch (Exception e) {
+            e.printStackTrace();
+            return ResponseVO.buildFailure("失败");
+        }
+    }
 
+    //wqy
+    @Override
+    public ResponseVO getNormalRecord(int userId){
+        try{
+            return ResponseVO.buildSuccess(normalRecord2NormalRecordVOList(ticketMapper.selectNormalRecord(userId)));
+        }catch (Exception e) {
+            e.printStackTrace();
+            return ResponseVO.buildFailure("失败");
+        }
+    }
+
+    //wqy
+    private List<NormalRecordVO> normalRecord2NormalRecordVOList(List<NormalRecord> normalRecordList){
+        List<NormalRecordVO> normalRecordVOList = new ArrayList<>();
+        for(NormalRecord normalRecord : normalRecordList){
+            normalRecordVOList.add(normalRecord.getVO());
+        }
+        return normalRecordVOList;
+    }
+
+    //wqy
+    @Override
+    public ResponseVO getVIPRecord(int userId){
+        try{
+            return ResponseVO.buildSuccess(vipRecord2VIPRecordVOList(ticketMapper.selectVIPRecord(userId)));
+        }catch (Exception e) {
+            e.printStackTrace();
+            return ResponseVO.buildFailure("失败");
+        }
+    }
+
+    //wqy
+    private List<VIPRecordVO> vipRecord2VIPRecordVOList(List<VIPRecord> vipRecordList){
+        List<VIPRecordVO> vipRecordVOList = new ArrayList<>();
+        for(VIPRecord vipRecord : vipRecordList){
+            vipRecordVOList.add(vipRecord.getVO());
+        }
+        return vipRecordVOList;
+    }
 }

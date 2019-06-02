@@ -1,12 +1,7 @@
-package com.example.cinema.vo;
+package com.example.cinema.po;
+import com.example.cinema.vo.VIPInfoVO;
 
-
-
-/**
- * Created by liying on 2019/4/15.
- */
-public class VIPInfoVO {
-
+public class VIPInfo {
     private double price;
     private String description;
     private double discount;
@@ -53,4 +48,18 @@ public class VIPInfoVO {
         this.send = send;
     }
 
+    public double calculate(double amount) {
+        return (int)(amount/reach)*send+amount;
+
+    }
+
+    public VIPInfoVO getVO(){
+        VIPInfoVO vip_vo=new VIPInfoVO();
+        vip_vo.setPrice(this.getPrice());
+        vip_vo.setDescription(this.getDescription());
+        vip_vo.setDiscount(this.getDiscount());
+        vip_vo.setReach(this.getReach());
+        vip_vo.setSend(this.getSend());
+        return vip_vo;
+    }
 }

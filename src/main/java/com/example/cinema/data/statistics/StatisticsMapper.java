@@ -1,6 +1,7 @@
 package com.example.cinema.data.statistics;
 
 import com.example.cinema.po.AudiencePrice;
+import com.example.cinema.po.MostPopularMovies;
 import com.example.cinema.po.MovieScheduleTime;
 import com.example.cinema.po.MovieTotalBoxOffice;
 import org.apache.ibatis.annotations.Mapper;
@@ -35,4 +36,13 @@ public interface StatisticsMapper {
      * @return
      */
     List<AudiencePrice> selectAudiencePrice(@Param("date") Date date, @Param("nextDate") Date nextDate);
+
+    /**
+     * 查询days天内票房最高的MovieNum部电影
+     * @param date
+     * @param endDate
+     * @param movieNum
+     * @return
+     */
+    List<MostPopularMovies> selectPopularMovies(@Param("date") Date date, @Param("endDate") Date endDate, @Param("movieNum") int movieNum);
 }

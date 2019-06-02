@@ -38,6 +38,7 @@
         <ul class="dropdown-menu">
             <li><a href="/user/buy">电影票</a></li>
             <li><a href="/user/member">卡包</a></li>
+            <li><a href="/user/payRecord">查看消费记录</a></li>
             <li id="logout"><a href="#">登出</a></li>
         </ul>
     </div>
@@ -128,16 +129,16 @@
 
             <div class="order-info">
                 <div>
-                    优惠券：
-                    <select style="height: 30px;" id="order-coupons"
-                            onchange="changeCoupon(this.options.selectedIndex)">
-                    </select>
+                优惠券：
+                        <select style="height: 30px;" id="order-coupons"
+                                onchange="changeCoupon(this.options.selectedIndex)">
+                        </select>
                 </div>
-
                 <div>
                     <div class="item" id="order-footer-total"></div>
                     <div class="item" id="order-discount"></div>
                 </div>
+
             </div>
 
             <hr class="dashed-line"/>
@@ -179,6 +180,8 @@
 
                 <div id="modal-body-member" style="margin-bottom: 20px;">
                     <div id="member-balance"><b>会员卡余额：</b>&nbsp;&nbsp;90元</div>
+                    <br>
+                    <div id="vip-pay-amount"><b>金额：</b>&nbsp;&nbsp;90元</div>
                 </div>
 
                 <div id="modal-body-nonmember" style="display: none;">
@@ -192,9 +195,9 @@
                         <input type="password" class="form-control" id="userBuy-cardPwd" placeholder="请输入密码">
                         <p id="userBuy-cardPwd-error" class="notice">密码不能为空</p>
                     </div>
+                    <div id="pay-amount"><b>金额：</b>&nbsp;&nbsp;90元</div>
                 </div>
 
-                <div id="pay-amount"><b>金额：</b>&nbsp;&nbsp;90元</div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>

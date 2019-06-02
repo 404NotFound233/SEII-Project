@@ -3,12 +3,20 @@ package com.example.cinema.blImpl.statistics;
 import com.example.cinema.bl.statistics.StatisticsService;
 import com.example.cinema.data.statistics.StatisticsMapper;
 import com.example.cinema.po.AudiencePrice;
+import com.example.cinema.po.MostPopularMovies;
+import com.example.cinema.po.Hall;
 import com.example.cinema.po.MovieScheduleTime;
 import com.example.cinema.po.MovieTotalBoxOffice;
+import com.example.cinema.po.ScheduleItem;
 import com.example.cinema.vo.AudiencePriceVO;
+import com.example.cinema.vo.MoviePlacingRateVO;
 import com.example.cinema.vo.MovieScheduleTimeVO;
 import com.example.cinema.vo.MovieTotalBoxOfficeVO;
+import com.example.cinema.vo.MostPopularMoviesVO;
 import com.example.cinema.vo.ResponseVO;
+import com.example.cinema.blImpl.management.hall.HallServiceForBl;
+import com.example.cinema.blImpl.management.schedule.ScheduleServiceForBl;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +32,14 @@ import java.util.List;
  */
 @Service
 public class StatisticsServiceImpl implements StatisticsService {
-    @Autowired
+   
+	@Autowired
     private StatisticsMapper statisticsMapper;
+    @Autowired
+    private HallServiceForBl hallservice;
+    @Autowired
+    private ScheduleServiceForBl scheduleservice;
+    
     @Override
     public ResponseVO getScheduleRateByDate(Date date) {
         try{
@@ -80,14 +94,52 @@ public class StatisticsServiceImpl implements StatisticsService {
 
     @Override
     public ResponseVO getMoviePlacingRateByDate(Date date) {
-        //要求见接口说明
-        return null;
+        try {
+        	MoviePlacingRateVO moviePlacingVO = new MoviePlacingRateVO();
+        	
+        	Date requireDate = date;
+            if(requireDate == null){
+                requireDate = new Date();
+            }
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            requireDate = simpleDateFormat.parse(simpleDateFormat.format(requireDate));
+            moviePlacingVO.setDate(requireDate);
+            Date nextDate = getNumDayAfterDate(requireDate, 1);                              //以上处理date信息，生成requireDate和nextDate
+        	
+            List<Hall> halls = hallservice.getAllHall();
+        	int totalschedule = 0;
+        	int totalseat = 0;
+        	for (Hall hall : halls) {
+        		List<ScheduleItem> scheduleitem = scheduleservice.getScheduleByHall(hall.getId(), requireDate, nextDate);
+        		totalschedule += scheduleitem.size();
+        		totalseat += hall.getColumn() * hall.getRow();
+        	}                                                                               //以上根据影厅来统计总的座位数和排片数
+        	
+        	List<AudiencePrice> audiencePriceList = statisticsMapper.selectAudiencePrice(requireDate, nextDate);
+                                                                                               //以上统计当天的观影人数
+        	moviePlacingVO.setPlacingRate(totalseat, totalschedule, audiencePriceList.size());
+        	
+        	List<MoviePlacingRateVO> moviePlacingVOList = new ArrayList<MoviePlacingRateVO>();
+        	moviePlacingVOList.add(moviePlacingVO);
+        	return ResponseVO.buildSuccess(moviePlacingVOList);
+        	
+        } catch (Exception e) {
+        	e.printStackTrace();
+        	return ResponseVO.buildFailure("失败");
+        }
     }
 
     @Override
     public ResponseVO getPopularMovies(int days, int movieNum) {
-        //要求见接口说明
-        return null;
+        try{
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date endDate = simpleDateFormat.parse(simpleDateFormat.format(new Date()));
+            Date date = getNumDayAfterDate(endDate, 1-days);
+            return ResponseVO.buildSuccess(mostPopularMoviesList2MostPopularMovieVOList(statisticsMapper.selectPopularMovies(date,endDate,movieNum)));
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseVO.buildFailure("get fail");
+        }
     }
 
 
@@ -121,5 +173,13 @@ public class StatisticsServiceImpl implements StatisticsService {
             movieTotalBoxOfficeVOList.add(new MovieTotalBoxOfficeVO(movieTotalBoxOffice));
         }
         return movieTotalBoxOfficeVOList;
+    }
+
+    private List<MostPopularMoviesVO> mostPopularMoviesList2MostPopularMovieVOList(List<MostPopularMovies> mostPopularMoviesList){
+        List<MostPopularMoviesVO> mostPopularMoviesVOList = new ArrayList<>();
+        for(MostPopularMovies mostPopularMovies : mostPopularMoviesList){
+            mostPopularMoviesVOList.add(new MostPopularMoviesVO(mostPopularMovies));
+        }
+        return mostPopularMoviesVOList;
     }
 }
