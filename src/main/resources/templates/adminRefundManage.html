@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>退票管理</title>
+    <link rel="stylesheet" type="text/css" href="/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/adminRefund.css"/>
+
+
+    <script src="/js/jquery.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/request.js"></script>
+    <script src="/js/adminRefundManage.js"></script>
+
+</head>
+<body>
+<div class="main-container">
+    <div class="nav-left-container">
+        <div class="nav-user-container" style="margin-bottom: 50px;">
+            <img class="avatar-lg" src="/images/defaultAvatar.jpg" />
+            <p class="title">Admin</p>
+        </div>
+        <ul class="nav nav-pills nav-stacked">
+            <li role="presentation"><a href="/admin/movie/manage"><i class="icon-film"></i> 电影管理</a></li>
+            <li role="presentation"><a href="/admin/session/manage"><i class="icon-calendar"></i> 排片管理</a></li>
+            <li role="presentation"><a href="/admin/promotion/manage"><i class="icon-gift"></i> 活动管理</a></li>
+            <li role="presentation"><a href="/admin/cinema/manage"><i class="icon-cogs"></i> 影院管理</a></li>
+            <li role="presentation"><a href="/admin/cinema/statistic"><i class="icon-bar-chart"></i> 影院统计</a></li>
+            <li role="presentation" class="active"><a href="#"><i class="icon-gift"></i> 退票管理</a></li>
+        </ul>
+    </div>
+    <div class="content-container">
+        <div class="content-header">
+            <span class="title gray-text">退票管理</span>
+            <!--发布退票的按钮-->
+            <button id="releaseBtn" type="button" class="btn btn-primary" data-backdrop="static" data-toggle="modal" data-target="#refundModal"><i class="icon-plus-sign"></i> 发布退票</button>
+            <!--修改退票的按钮-->
+            <button id="changeBtn" type="button" disabled="disabled" background=gray class="btn btn-primary" data-backdrop="static" data-toggle="modal" data-target="#c-refundModal"><i class="icon-plus-sign"></i> 修改退票</button>
+
+        </div>
+        <div class="content-refund">
+
+        </div>
+    </div>
+</div>
+<!--此处现在隐藏 发布退票策略表单内容 id=refundModal
+退款策略需输入的信息 电影范围，允许日期范围，退款百分比-->
+<div class="modal fade" id="refundModal" tabindex="-1" role="dialog" aria-labelledby="movieModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="refundModalLabel">发布退票</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <p>输入规范：退款天数为整数且全价退款天数>>不退款天数</p>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="refund-free-input"><span class="error-text">*</span>全价退款期限</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="refund-free-input" placeholder="请输入全价退款期限（天）">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="refund-discount-input"><span class="error-text">*</span>退款折算</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="refund-discount-input" placeholder="请输入退票金额百分比，若退票价50%请输入50">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="refund-full-input"><span class="error-text">*</span>无法退款期限</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="refund-full-input" placeholder="请输入无法退款期限（天）">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="refund-movie-input">电影范围</label>
+                        <div class="col-sm-10">
+                            <select id="refund-movie-input" class="form-control">
+                            </select>
+                            <p class="help-block">不选择代表所有电影</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="refund-movie-input">已选电影</label>
+                        <div id="selected-movies" class="col-sm-10">
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!--确认和取消按钮 确认按钮id:refund-form-btn-->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="refund-form-btn">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--此处现在隐藏 修改退票策略表单内容 id=c-refundModal
+退款策略需输入的信息 电影范围，允许日期范围，退款百分比-->
+<div class="modal fade" id="c-refundModal" tabindex="-1" role="dialog" aria-labelledby="movieModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="c-refundModalLabel">修改退票</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <p>输入规范：退款天数为整数且全价退款天数>不退款天数</p>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="c-refund-free-input"><span class="error-text">*</span>全价退款期限</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="c-refund-free-input" placeholder="<输入>天外全价退款期限">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="c-refund-discount-input"><span class="error-text">*</span>折算退款</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="c-refund-discount-input" placeholder="请输入退票金额百分比，若退票价50%请输入50">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="c-refund-full-input"><span class="error-text">*</span>无法退款期限</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="c-refund-full-input" placeholder="<输入>天内无法退款期限">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="c-refund-movie-input">电影范围</label>
+                        <div class="col-sm-10">
+                            <select id="c-refund-movie-input" class="form-control">
+                            </select>
+                            <p class="help-block">不选择代表所有电影</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="c-refund-movie-input">已选电影</label>
+                        <div id="c-selected-movies" class="col-sm-10">
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!--确认和取消按钮 确认按钮id:c-refund-form-btn-->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="c-refund-form-btn">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

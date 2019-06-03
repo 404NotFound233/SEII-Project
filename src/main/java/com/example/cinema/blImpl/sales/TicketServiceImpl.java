@@ -7,7 +7,9 @@ import com.example.cinema.data.promotion.ActivityMapper;
 import com.example.cinema.data.promotion.CouponMapper;
 import com.example.cinema.data.sales.TicketMapper;
 import com.example.cinema.data.management.ScheduleMapper;
+import com.example.cinema.data.promotion.RefundMapper;
 import com.example.cinema.data.user.AccountMapper;
+import com.example.cinema.data.promotion.VIPCardMapper;
 import com.example.cinema.po.*;
 import com.example.cinema.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.Array;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by liying on 2019/4/16.
@@ -37,6 +39,10 @@ public class TicketServiceImpl implements TicketService {
     ActivityMapper activityMapper;
     @Autowired
     ScheduleMapper scheduleMapper;
+    @Autowired
+    VIPCardMapper VIPCardMapper;
+    @Autowired
+    RefundMapper refundMapper;
     @Override
     @Transactional
     public ResponseVO addTicket(TicketForm ticketForm) {
@@ -157,6 +163,17 @@ public class TicketServiceImpl implements TicketService {
         }
     }
 
+    @Override
+    public ResponseVO changeTicket(int ticketId) {
+        try{
+            ticketMapper.updateTicketState(ticketId,3);
+            return ResponseVO.buildSuccess();
+        }catch (Exception e) {
+            e.printStackTrace();
+            return ResponseVO.buildFailure("失败");
+        }
+    }
+
     private List<TicketVO> ticket2TicketVOList(List<Ticket> ticketList){
         List<TicketVO> ticketVOList = new ArrayList<>();
         for(Ticket ticket : ticketList){
@@ -184,13 +201,57 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public ResponseVO cancelTicket(List<Integer> id) {
+    //传入的id参数是ticketid
+    public ResponseVO cancelTicket(int id) {
         try {
-            for(int i=0;i<id.size();i++){
-                int oneid=id.get(i);
-                ticketMapper.deleteTicket(oneid);
+            double[] list=new double[4];
+            //电影票 ticket
+            Ticket ticket=ticketMapper.selectTicketById(id);
+            int location=ticket.getLocation();
+            int userId=ticket.getUserId();
+            VIPCard vipCard=VIPCardMapper.selectCardByUserId(userId);
+            //排片情况 scheduleItem
+            ScheduleItem scheduleItem=scheduleMapper.selectScheduleById(ticket.getScheduleId());
+            int movieId=scheduleItem.getMovieId();
+            Date startTime=scheduleItem.getStartTime();
+            Date moment=new Date();
+            //时间差 day
+            long day=(startTime.getTime()-moment.getTime())/(24*60*60*1000);
+            //不知道要不要加一
+            day+=1;
+            System.out.println("时间差："+day);
+            int len=refundMapper.selectRefundsByMovie(movieId).size();
+            Refund refund=new Refund();
+            if(len!=0){refund=refundMapper.selectRefundsByMovie(movieId).get(0);}
+            else{
+                return ResponseVO.buildFailure("该电影不在退票策略中，不能退票");}
+            double money=0;//退款金额
+            int fulltime=refund.getFulltime();//min
+            //int discounttime=refund.getDiscounttime();
+            int freetime=refund.getFreetime();//max
+            //System.out.println("全款时间："+freetime);
+            //System.out.println("拒绝时间："+fulltime);
+            if(day>freetime){money=ticket.getActualTotal();}
+            else{if(day<=fulltime){
+                    return ResponseVO.buildFailure("距离电影开始时间过近，不能退票");}
+                else{money=ticket.getActualTotal()*refund.getDiscount()/100.0;}}
+
+            //System.out.println(money);
+            double balancewithrefund=vipCard.getBalance()+money;
+            //System.out.println("票价："+ticket.getActualTotal());
+            //System.out.println("退票金额："+ticket.getActualTotal()*refund.getDiscount()/100.0);
+            if(location==0){
+                VIPCardMapper.updateCardBalanceByUserId(userId,balancewithrefund);
+                ticketMapper.deleteTicket(id);
             }
-            return ResponseVO.buildSuccess();
+            else{
+                ticketMapper.deleteTicket(id);
+            }
+            list[0]=vipCard.getBalance();
+            list[1]=balancewithrefund;
+            list[2]=ticket.getActualTotal();
+            list[3]=money;
+            return ResponseVO.buildSuccess(list);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseVO.buildFailure("失败");

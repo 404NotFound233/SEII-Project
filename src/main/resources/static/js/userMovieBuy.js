@@ -163,6 +163,20 @@ function orderConfirmClick() {
     // TODO:这里是假数据，需要连接后端获取真数据，数据格式可以自行修改，但如果改了格式，别忘了修改renderOrder方法
     var orderInfo={ }
 
+
+	$('#order-total').text(ticketprice*selectedSeats);
+	var SeatFormlist = [];
+	for (let seatLoc of selectedSeats){
+		//seat是后台Seat的json对象
+			var seat={"columnIndex":(seatLoc[1] ),"rowIndex":(seatLoc[0])};
+			SeatFormlist.push(seat);}
+	var userId=parseInt(window.location.href.split('?')[1].split('&')[0].split('=')[1]);
+	var TicketForm={
+		"userId":userId,
+		"scheduleId":scheduleId,
+		"seats":SeatFormlist
+	};
+
     getRequest(
         '/vip/' + sessionStorage.getItem('id') + '/get',
         function (res) {

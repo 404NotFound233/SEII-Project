@@ -1,6 +1,7 @@
 package com.example.cinema.po;
 
 import java.util.Date;
+import com.example.cinema.vo.MovieVO;
 
 /**
  * @author fjj
@@ -69,6 +70,27 @@ public class Movie {
      * @return
      */
     private Integer likeCount;
+
+    public MovieVO getVO(){
+        Movie movie=this;
+        MovieVO mvo = new MovieVO();
+        mvo.setId(movie.getId());
+        mvo.setName(movie.getName());
+        mvo.setPosterUrl(movie.getPosterUrl());
+        mvo.setDirector(movie.getDirector());
+        mvo.setScreenWriter(movie.getScreenWriter());
+        mvo.setStarring(movie.getStarring());
+        mvo.setType(movie.getType());
+        mvo.setCountry(movie.getCountry());
+        mvo.setLanguage(movie.getLanguage());
+        mvo.setStartDate(movie.getStartDate());
+        mvo.setLength(movie.getLength());
+        mvo.setDescription(movie.getDescription());
+        mvo.setStatus(movie.getStatus());
+        mvo.setIslike(movie.getIslike());
+        mvo.setLikeCount(movie.getLikeCount());
+        return mvo;
+    }
 
     public Integer getId() {
         return id;
