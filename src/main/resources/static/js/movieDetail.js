@@ -129,6 +129,7 @@ $(document).ready(function(){
        //alert('交给你们啦，修改时需要在对应html文件添加表单然后获取用户输入，提交给后端，别忘记对用户输入进行验证。（可参照添加电影&添加排片&修改排片）');
        //要在html的实现中把原数据设成初始数据（修改打开来不为空），从数据库里调一个出来，然后 下架的部分可以通过update实现（status改为1？还是0？）
         //修改排片！！
+
 		var Name = $('#movie-name-input').val();
 		var Startdate = $('#movie-date-input').val();
         var Img = $('#movie-img-input').val();
@@ -153,6 +154,7 @@ $(document).ready(function(){
            director: Director,
            screenWriter: Writer,
            language: Language
+
        };
         if(!validateMovieForm(formData)) {
             return;
@@ -163,6 +165,7 @@ $(document).ready(function(){
             function (res) {
                 getMovieList();
                 //获得新增电影之后的新电影列表
+
 				$("#movie-name").text(Name);
 				$("#movie-description").text(Description);
 				$("#movie-startDate").text(new Date(Startdate).toLocaleDateString());
@@ -173,6 +176,7 @@ $(document).ready(function(){
 				$("#movie-language").text(Language);
 				$("#movie-starring").text(Star);
 				$("#movie-writer").text(Writer);		
+
                 $("#movieModal").modal('hide');
 				
             },

@@ -1,5 +1,6 @@
 package com.example.cinema.data.promotion;
 
+import com.example.cinema.po.VIPInfo;
 import com.example.cinema.po.VIPCard;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -24,4 +25,12 @@ public interface VIPCardMapper {
     int selectUserIdById(int id);
 
     void updateCardBalanceByUserId(@Param("user_id") int userId,@Param("balance")  double balance);
+
+    int insertVIPInfo(VIPInfo vip);
+
+    VIPInfo selectVIPInfo();
+
+    void updateVIPInfo(@Param("price") double price,@Param("description") String description,@Param("discount") double discount,@Param("reach") double reach,@Param("send") double send);
+
+    int selectLength();
 }

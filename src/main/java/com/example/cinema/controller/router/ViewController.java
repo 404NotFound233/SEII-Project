@@ -82,4 +82,14 @@ public class ViewController {
     public String getUserMember() {
         return "userMember";
     }
+
+    @RequestMapping(value="/user/payRecord")
+    public String getUserPayRecord(){
+        return "userPayRecord";
+    }
+
+    @RequestMapping(value="/admin/vip/manage")
+    public String getAdminVipManage(){
+        return "adminVipManage";
+    }
 }

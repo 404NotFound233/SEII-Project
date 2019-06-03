@@ -197,6 +197,67 @@ public class TicketServiceImpl implements TicketService {
         }
     }
 
+    //wqy
+    @Override
+    public ResponseVO VIPRecord(int userId, double amount, double before_Balance, int reason){
+        try{
+            ticketMapper.insertVIPRecord(userId,amount,before_Balance,reason);
+            return ResponseVO.buildSuccess();
+        }catch (Exception e) {
+            e.printStackTrace();
+            return ResponseVO.buildFailure("失败");
+        }
+    }
 
+    //wqy
+    @Override
+    public ResponseVO normalRecord(int userId, double amount, int reason){
+        try{
+            ticketMapper.insertNormalRecord(userId,amount,reason);
+            return ResponseVO.buildSuccess();
+        }catch (Exception e) {
+            e.printStackTrace();
+            return ResponseVO.buildFailure("失败");
+        }
+    }
 
+    //wqy
+    @Override
+    public ResponseVO getNormalRecord(int userId){
+        try{
+            return ResponseVO.buildSuccess(normalRecord2NormalRecordVOList(ticketMapper.selectNormalRecord(userId)));
+        }catch (Exception e) {
+            e.printStackTrace();
+            return ResponseVO.buildFailure("失败");
+        }
+    }
+
+    //wqy
+    private List<NormalRecordVO> normalRecord2NormalRecordVOList(List<NormalRecord> normalRecordList){
+        List<NormalRecordVO> normalRecordVOList = new ArrayList<>();
+        for(NormalRecord normalRecord : normalRecordList){
+            normalRecordVOList.add(normalRecord.getVO());
+        }
+        return normalRecordVOList;
+    }
+
+    //wqy
+    @Override
+    public ResponseVO getVIPRecord(int userId){
+        try{
+            return ResponseVO.buildSuccess(vipRecord2VIPRecordVOList(ticketMapper.selectVIPRecord(userId)));
+        }catch (Exception e) {
+            e.printStackTrace();
+            return ResponseVO.buildFailure("失败");
+        }
+    }
+
+    //wqy
+    private List<VIPRecordVO> vipRecord2VIPRecordVOList(List<VIPRecord> vipRecordList){
+        List<VIPRecordVO> vipRecordVOList = new ArrayList<>();
+        for(VIPRecord vipRecord : vipRecordList){
+            vipRecordVOList.add(vipRecord.getVO());
+        }
+        return vipRecordVOList;
+    }
 }

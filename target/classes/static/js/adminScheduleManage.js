@@ -161,7 +161,9 @@ $(document).ready(function() {
             endTime: $("#schedule-edit-end-date-input").val(),
             fare: $("#schedule-edit-price-input").val()
         };
+
         if(!validateScheduleEditForm(form)){
+
 			return;
 		}
         postRequest(
@@ -222,6 +224,7 @@ $(document).ready(function() {
 		}
 		return isValidate;
 	}
+
 	
 	function validateScheduleEditForm(data){
 		var isValidate = true;
@@ -242,6 +245,7 @@ $(document).ready(function() {
 		}
 		return isValidate;
 	}
+
 	 
 });
 

@@ -2,7 +2,7 @@ package com.example.cinema.bl.promotion;
 
 import com.example.cinema.vo.VIPCardForm;
 import com.example.cinema.vo.ResponseVO;
-
+import com.example.cinema.vo.VIPInfoVO;
 
 
 /**
@@ -11,7 +11,7 @@ import com.example.cinema.vo.ResponseVO;
 
 public interface VIPService {
 
-    ResponseVO addVIPCard(int userId);
+    ResponseVO addVIPCard(int userId, double price);
 
     ResponseVO getCardById(int id);
 
@@ -24,6 +24,17 @@ public interface VIPService {
     //自己写的接口
     ResponseVO payByCard(int userId,double balance);
 
+
+    //wqy
+    ResponseVO publishVIP(VIPInfoVO vip);
+
+    //wqy
+    ResponseVO modifyVIP(VIPInfoVO vip);
+
+    //wqy
+    ResponseVO getLength();
+
     ResponseVO getRecord(int userId);
+
 
 }
