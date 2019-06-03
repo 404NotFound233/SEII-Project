@@ -177,14 +177,7 @@ function orderConfirmClick() {
 		"scheduleId":scheduleId,
 		"seats":SeatFormlist
 	};
-	var one,two,three,four;
-	postRequest(
-	    "/ticket/test",
-	    function(res){
-	        if(res.success){$('#order-total').text("成功");}
-	        else{$('#order-total').text("失败");}
-	    }
-	)*/
+	*/
     getRequest(
         '/vip/' + sessionStorage.getItem('id') + '/get',
         function (res) {

@@ -7,9 +7,19 @@ package com.example.cinema.vo;
  */
 public class VIPInfoVO {
 
-    String description;
+    private double price;
+    private String description;
+    private double discount;
+    private double reach;
+    private double send;
 
-    double price;
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
 
     public String getDescription() {
         return description;
@@ -19,11 +29,28 @@ public class VIPInfoVO {
         this.description = description;
     }
 
-    public double getPrice() {
-        return price;
+    public double getDiscount() {
+        return discount;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setDiscount(double discount) {
+        this.discount = discount;
     }
+
+    public double getReach() {
+        return reach;
+    }
+
+    public void setReach(double reach) {
+        this.reach = reach;
+    }
+
+    public double getSend() {
+        return send;
+    }
+
+    public void setSend(double send) {
+        this.send = send;
+    }
+
 }

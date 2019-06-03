@@ -3,6 +3,7 @@ package com.example.cinema.controller.promotion;
 import com.example.cinema.bl.promotion.VIPService;
 import com.example.cinema.vo.VIPCardForm;
 import com.example.cinema.vo.ResponseVO;
+import com.example.cinema.vo.VIPInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,13 +16,20 @@ public class VIPCardController {
     @Autowired
     VIPService vipService;
 
-    @PostMapping("/add")
-    public ResponseVO addVIP(@RequestParam int userId){
-        return vipService.addVIPCard(userId);
+
+    @PostMapping("/add/{userId}/{price}")
+    public ResponseVO addVIP(@PathVariable int userId,@PathVariable double price){
+        return vipService.addVIPCard(userId,price);
     }
-    @GetMapping("{userId}/get")
+    @GetMapping("/{userId}/get")
+
     public ResponseVO getVIP(@PathVariable int userId){
         return vipService.getCardByUserId(userId);
+    }
+
+    @GetMapping("/get/record/{userId}")
+    public ResponseVO getRecord(@PathVariable int userId){
+        return vipService.getRecord(userId);
     }
 
     @GetMapping("/getVIPInfo")
@@ -39,6 +47,21 @@ public class VIPCardController {
         return vipService.payByCard(userId,balance);
     }
 
+    //wqy
+    @PostMapping("/publish")
+    public ResponseVO publishVip(@RequestBody VIPInfoVO vip){
+        return vipService.publishVIP(vip);
+    }
 
+    //wqy
+    @PostMapping("/modify")
+    public ResponseVO modifyVip(@RequestBody VIPInfoVO vip){
+        return vipService.modifyVIP(vip);
+    }
 
+    //wqy
+    @GetMapping("/length")
+    public ResponseVO getLength(){
+        return vipService.getLength();
+    }
 }

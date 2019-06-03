@@ -27,6 +27,14 @@ public class TicketVO {
      * 排号
      */
     private int rowIndex;
+    /**
+     * 实际开销
+     */
+    private int actualTotal;
+    /**
+     * 会员卡=0 银行卡=1
+     */
+    private int location;
 
     /**
      * 订单状态
@@ -44,6 +52,22 @@ public class TicketVO {
     }
 
     public TicketVO() {
+    }
+
+    public int getLocation() {
+        return location;
+    }
+
+    public void setLocation(int location) {
+        this.location = location;
+    }
+
+    public int getActualTotal() {
+        return actualTotal;
+    }
+
+    public void setActualTotal(int actualTotal) {
+        this.actualTotal = actualTotal;
     }
 
     public int getId() {

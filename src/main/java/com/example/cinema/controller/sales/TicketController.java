@@ -39,11 +39,14 @@ public class TicketController {
     public ResponseVO getOccupiedSeats(@RequestParam int scheduleId){
         return ticketService.getBySchedule(scheduleId);
     }
-    @PostMapping("/cancel")
-    public ResponseVO cancelTicket(@RequestParam List<Integer> ticketId){
+    @GetMapping("/cancel")
+    public ResponseVO cancelTicket(@RequestParam int ticketId){
         return ticketService.cancelTicket(ticketId);
     }
-
+    @GetMapping("/change")
+    public ResponseVO changeTicket(@RequestParam int ticketId){
+        return ticketService.changeTicket(ticketId);
+    }
 
 
 

@@ -36,7 +36,11 @@
         </button>
         <ul class="dropdown-menu">
             <li><a href="/user/buy">电影票</a></li>
+
             <li><a href="#">卡包</a></li>
+            <li><a href="/user/payRecord">查看消费记录</a></li>
+			<li><a href="/user/recharge/record">查看历史充值</a></li>
+
             <li id="logout"><a href="#">登出</a></li>
         </ul>
     </div>
@@ -81,7 +85,15 @@
                     <div id="member-joinDate"></div>
                 </div>
                 <div class="line">
+                    <div><b>购票优惠：</b></div>
+                    <div id="member-discount"></div>
+                </div>
+                <div class="line">
                     <div><b>充值优惠：</b></div>
+                    <div id="member-charge"></div>
+                </div>
+                <div class="line">
+                    <div><b>会员卡描述：</b></div>
                     <div id="member-description"></div>
                 </div>
 
@@ -92,7 +104,7 @@
                     <div id="member-balance"></div>
                 </div>
             </div>
-            <button onclick="chargeClick()">立即充值</button>
+			<button onclick="chargeClick()">立即充值</button>
         </div>
     </div>
 
