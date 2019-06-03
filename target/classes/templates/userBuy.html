@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>购票</title>
+    <!-- Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <!-- font-asesome图标库 -->
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css"/>
+
+    <!-- 引入css样式文件 -->
+    <link rel="stylesheet" type="text/css" href="/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/userBuy.css"/>
+
+    <!-- 引入js脚本文件 -->
+    <!-- jquery -->
+    <script src="/js/jquery.js"></script>
+    <!-- Bootstrap 核心 JavaScript 文件 -->
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/request.js"></script>
+    <script src="/js/userBuy.js"></script>
+
+</head>
+<body>
+<!--企图睁着一下表单-->
+<!-- 以下为自己写的 -->
+<div class="content-container">
+    <div class="card col-md-8 col-md-offset-2" id="member-card">
+        <div class="header">
+            <div class="title">我的电影票</div>
+        </div>
+        <div class="table-wrapper">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th style="text-align: center">电影名称</th>
+                    <th style="text-align: center">影厅名</th>
+                    <th style="text-align: center">座位</th>
+                    <th style="text-align: center">放映时间</th>
+                    <th style="text-align: center">预计结束时间</th>
+                    <th style="text-align: center">状态</th>
+                    <th style="text-align: center">退票</th>
+                    <th style="text-align: center">出票</th>
+                </tr>
+                </thead>
+                <tbody id="ticket-body" style="text-align: center">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!--表单的内容-->
+
+
+
+
+<!--先备份一份免得改坏了-->
+<div class="modal fade" id="tpModal" tabindex="-1" role="dialog" aria-labelledby="movieModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">退票详情</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"><span class="error-text">★</span>电影名称</label>
+                        <div class="col-sm-10">
+                            <p id="movieName" >movieName</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"><span class="error-text">★</span>影厅名称</label>
+                        <div class="col-sm-10">
+                            <p id="hallName" >hallName</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"><span class="error-text">★</span>座位</label>
+                        <div class="col-sm-10">
+                            <p id="seatName" >seatName</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"><span class="error-text">★</span>开始时间</label>
+                        <div class="col-sm-10">
+                            <p id="startTime" >startTime</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"><span class="error-text">★</span>结束时间</label>
+                        <div class="col-sm-10">
+                            <p id="finishTime" >finishTime</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"><span class="error-text">★</span>电影票价</label>
+                        <div class="col-sm-10">
+                            <p id="actualTotal" >actualTotal</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"><span class="error-text">★</span>退款方式</label>
+                        <div class="col-sm-10">
+                            <p id="location" >location</p>
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+            <!--确认和取消按钮 确认按钮id:c-refund-form-btn-->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="tp-form-btn">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</body>
+</html>

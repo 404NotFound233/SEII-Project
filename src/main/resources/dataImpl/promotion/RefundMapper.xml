@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.cinema.data.promotion.RefundMapper">
+    <insert id="insertRefund" parameterType="com.example.cinema.po.Refund"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into refund(id,discount,free_time,discount_time,full_time)
+        values(#{id},#{discount},#{freetime},#{discounttime},#{fulltime})
+    </insert>
+    <insert id="insertRefundAndMovie">
+        insert into refund_movie(refund_id,movie_id) values
+        <foreach collection="movieId" item="item" index="index"
+                 separator=",">
+            (#{refundId},#{item})
+        </foreach>
+    </insert>
+    <select id="selectById" resultMap="Refund">
+        select
+            *
+        from
+            refund a
+        left join
+            refund_movie am
+        on
+            a.id=am.refund_id
+        left join
+            movie m
+        on
+            am.movie_id=m.id
+        WHERE a.id=#{id}
+    </select>
+
+    <select id="selectRefunds" resultMap="Refund">
+        select
+            *
+        from
+            refund a
+        left join
+            refund_movie am
+        on
+            a.id=am.refund_id
+        left join
+            movie m
+        on
+            am.movie_id=m.id
+
+    </select>
+
+    <select id="selectRefundsByMovie" resultMap="Refund">
+        select
+        *
+        from
+        refund a
+        left join
+        refund_movie am
+        on
+        a.id=am.refund_id
+        left join
+        movie m
+        on
+        am.movie_id=m.id
+
+        where am.movie_id=#{movieId}
+
+    </select>
+    <select id="selectRefundsWithoutMovie" resultMap="Refund">
+        select
+        *
+        from
+        refund a
+        left join
+        refund_movie am
+        on
+        a.id=am.refund_id
+        where a.start_time &lt; Now() and a.end_time &gt; Now() and movie_id is null
+
+    </select>
+
+
+    <delete id="clearRefund">
+        truncate table refund
+    </delete>
+
+    <delete id="clearRefundAndMovie">
+        truncate table refund_movie
+    </delete>
+
+    <resultMap id="Refund" type="com.example.cinema.po.Refund">
+        <result column="id" property="id"></result>
+        <result column="free_time" property="freetime"></result>
+        <result column="discount_time" property="discounttime"></result>
+        <result column="full_time" property="fulltime"></result>
+        <result column="discount" property="discount"></result>
+        <collection property="movieList" ofType="com.example.cinema.po.Movie">
+            <id column="movie_id" property="id"></id>
+            <result column="poster_url" property="posterUrl"></result>
+            <result column="screen_writer" property="screenWriter"></result>
+            <result column="start_date" property="startDate"></result>
+            <result column="end_date" property="endDate"></result>
+            <result column="name" property="name"></result>
+            <result column="director" property="director"></result>
+            <result column="type" property="type"></result>
+            <result column="country" property="country"></result>
+            <result column="language" property="language"></result>
+            <result column="length" property="length"></result>
+            <result column="description" property="description"></result>
+            <result column="status" property="status"></result>
+            <result column="starring" property="starring"></result>
+        </collection>
+    </resultMap>
+
+</mapper>
