@@ -90,7 +90,7 @@ public class VIPServiceImpl implements VIPService {
         vipCard.setBalance(before_balance + balance);//原先金额加此次充值金额
         try {
             ticketMapper.insertNormalRecord(vipCard.getUserId(),vipCardForm.getAmount(),1);
-            ticketMapper.insertVIPRecord(vipCard.getUserId(),vipCardForm.getAmount(),vipCard.getBalance()-balance,1);
+            ticketMapper.insertVIPRecord(vipCard.getUserId(),vipCard.getBalance()-before_balance,vipCard.getBalance()-balance,1);
             vipCardMapper.updateCardBalance(vipCardForm.getVipId(), vipCard.getBalance());
 
 

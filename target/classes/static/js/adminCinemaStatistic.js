@@ -85,7 +85,7 @@ $(document).ready(function() {
                     return item.boxOffice;
                 });
                 var nameList = data.map(function (item) {
-                    return item.name;
+                    return item.date;
                 });
                 var option = {
                     title : {
@@ -185,8 +185,10 @@ $(document).ready(function() {
     }
 
     function getPolularMovie() {
+
 		var days=30;
 		var movieNum=8;
+
         getRequest(
              '/statistics/popular/movie'+'/'+days+'/'+movieNum,
             function (res) {
@@ -197,13 +199,15 @@ $(document).ready(function() {
                 var nameList = data.map(function (item) {
                     return item.name;
                 });
-				
+
 				var endDate=new Date();
 				var date=new Date();
 				date.setDate(endDate.getDate()-days);
                 var option = {
                     title : {
+
                         text: '近'+days+'日最受欢迎的'+movieNum+'部电影',
+
                         subtext: '自'+date.toLocaleDateString()+'起截止至'+endDate.toLocaleDateString(),
                         x:'center'
                     },

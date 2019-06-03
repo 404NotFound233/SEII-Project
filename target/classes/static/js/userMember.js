@@ -1,10 +1,26 @@
 $(document).ready(function () {
     getVIP();
     getCoupon();
+    getVIPInfo();
 });
 
 var isBuyState = true;
 var vipCardId;
+var reach;
+var send;
+var price;
+function getVIPInfo(){
+   getRequest(
+        '/vip/getVIPInfo',
+        function(res){
+             reach=res.content.reach;
+             send=res.content.send;
+        },
+        function (error) {
+             alert(error);
+        }
+   );
+}
 
 function getVIP() {
     getRequest(
@@ -34,8 +50,12 @@ function getVIP() {
         '/vip/getVIPInfo',
         function (res) {
             if (res.success) {
+                price=res.content.price;
                 $("#member-buy-price").text(res.content.price);
-                $("#member-buy-description").text("充值优惠：" + res.content.description + "。永久有效");
+                $("#member-buy-description").text("充值优惠：满" + res.content.reach + "减"+res.content.send+"。永久有效");
+                $("#member-description").text(res.content.description);
+                $("#member-discount").text(res.content.discount+"折");
+                $("#member-charge").text("满" + res.content.reach + "减"+res.content.send);
                 $("#member-description").text(res.content.description);
             } else {
                 alert(res.content);
@@ -70,9 +90,9 @@ function clearForm() {
 function confirmCommit() {
     if (validateForm()) {
         if ($('#userMember-cardNum').val() === "123123123" && $('#userMember-cardPwd').val() === "123123") {
-            if (isBuyState) {
+            if (isBuyState){
                 postRequest(
-                    '/vip/add?userId=' + sessionStorage.getItem('id'),
+                    '/vip/add/' + sessionStorage.getItem('id')+'/'+price,
                     null,
                     function (res) {
                         $('#buyModal').modal('hide');
@@ -85,7 +105,7 @@ function confirmCommit() {
             } else {
                 postRequest(
                     '/vip/charge',
-                    {vipId: vipCardId, amount: parseInt($('#userMember-amount').val())},
+                    {vipId: vipCardId, amount: $('#userMember-amount').val(),reach:reach,send:send},
                     function (res) {
                         $('#buyModal').modal('hide');
                         alert("充值成功");

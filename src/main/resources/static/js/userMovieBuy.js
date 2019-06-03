@@ -242,6 +242,7 @@ function renderOrder(orderInfo) {
         $('#order-discount').text("优惠金额：无");
         $('#order-actual-total').text(" ¥" + total);
         $('#pay-amount').html("<div><b>金额：</b>" + total + "元</div>");
+        $('#vip-pay-amount').html("<div><b>金额：</b>" + total*(vip_discount/10).toFixed(2) + "元</div>");
     } else {
         coupons = orderInfo.coupons;
         for (let coupon of coupons) {
