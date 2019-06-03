@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.cinema.data.promotion.VIPCardMapper">
+    <insert id="insertOneCard" parameterType="com.example.cinema.po.VIPCard"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into vip_card(user_id,balance)
+        values(#{userId}, #{balance})
+    </insert>
+
+    <select id="selectCardById" resultMap="VIPCard">
+        select * from vip_card where id=#{id}
+    </select>
+
+    <select id="selectCardByUserId" resultMap="VIPCard">
+        select * from vip_card where user_id=#{userId}
+    </select>
+
+    <resultMap id="VIPCard" type="com.example.cinema.po.VIPCard">
+        <result column="join_time" property="joinDate"></result>
+        <result column="id" property="id"></result>
+        <result column="user_id" property="userId"></result>
+        <result column="balance" property="balance"></result>
+    </resultMap>
+
+    <update id="updateCardBalance" >
+        update vip_card set balance = #{balance} where id=#{id}
+    </update>
+
+    <!--自己写的-->
+    <update id="updateCardBalanceByUserId" >
+        update vip_card set balance = #{balance} where user_id=#{user_id}
+    </update>
+
+
+    <!--wqy-->
+    <insert id="insertVIPInfo">
+        insert into vip(price,description,discount,reach,send)
+        values(#{price}, #{description}, #{discount}, #{reach}, #{send})
+    </insert>
+
+    <!--wqy-->
+    <select id="selectVIPInfo" resultMap="VIPInfo">
+        select * from vip
+    </select>
+
+    <!--wqy-->
+    <update id="updateVIPInfo" >
+        update vip set price = #{price},description=#{description},discount=#{discount},reach=#{reach},send=#{send}
+    </update>
+
+	<select id="selectUserIdById" resultType="int">
+		select user_id from vip_card where id=#{id};
+	</select>
+
+
+    <!--wqy-->
+    <select id="selectLength" resultType="java.lang.Integer">
+        select count(*) from vip
+    </select>
+
+
+    <!--wqy-->
+    <resultMap id="VIPInfo" type="com.example.cinema.po.VIPInfo">
+        <result column="price" property="price"></result>
+        <result column="description" property="description"></result>
+        <result column="discount" property="discount"></result>
+        <result column="reach" property="reach"></result>
+        <result column="send" property="send"></result>
+    </resultMap>
+</mapper>

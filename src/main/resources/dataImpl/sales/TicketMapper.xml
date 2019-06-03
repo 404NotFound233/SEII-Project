@@ -59,4 +59,41 @@
         update ticket SET  state =2 WHERE minute(timediff(now(),time))>15 and state=0;
     </update>
 
+    <resultMap id="VIPRecord" type="com.example.cinema.po.VIPRecord">
+        <result column="id" property="id"></result>
+        <result column="user_id" property="userId"></result>
+        <result column="amount" property="amount"></result>
+        <result column="before_Balance" property="before_Balance"></result>
+        <result column="reason" property="reason"></result>
+        <result column="join_time" property="join_time"></result>
+    </resultMap>
+
+    <insert id="insertVIPRecord" parameterType="com.example.cinema.po.VIPRecord"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into vip_record(user_id,amount,before_Balance,reason)
+        values(#{userId}, #{amount},#{before_Balance},#{reason})
+    </insert>
+
+    <select id="selectVIPRecord" resultMap="VIPRecord">
+        select * from vip_record where user_id=#{userId}
+    </select>
+
+    <resultMap id="NormalRecord" type="com.example.cinema.po.NormalRecord">
+        <result column="id" property="id"></result>
+        <result column="user_id" property="userId"></result>
+        <result column="amount" property="amount"></result>
+        <result column="reason" property="reason"></result>
+        <result column="join_time" property="join_time"></result>
+    </resultMap>
+
+    <insert id="insertNormalRecord" parameterType="com.example.cinema.po.NormalRecord"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into normal_record(user_id,amount,reason)
+        values(#{userId}, #{amount},#{reason})
+    </insert>
+
+    <select id="selectNormalRecord" resultMap="NormalRecord">
+        select * from normal_record where user_id=#{userId}
+    </select>
+
 </mapper>

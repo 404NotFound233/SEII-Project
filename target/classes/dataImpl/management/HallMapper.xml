@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.cinema.data.management.HallMapper">
+    <select id="selectAllHall" resultMap="Hall">
+        select * from hall
+    </select>
+    <select id="selectHallById" resultMap="Hall">
+        select * from hall where id = #{hallId}
+	</select>
+	<insert id="insertOneHall" parameterType="com.example.cinema.vo.HallForm" useGeneratedKeys="true" keyProperty="id">
+        insert into hall(name, `column`, `row`)
+        values(#{name}, #{column}, #{row})
+    </insert>
+	<delete id="deleteHall" parameterType="java.util.List">
+        delete from hall where id in
+        <foreach collection="list" index="index" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </delete>
+	<select id="getEndDate" resultType="java.util.Date">
+		select end_time from schedule where hall_id=#{hallId} order by end_time desc limit 1;
+	</select>
+	<update id="updateHall" parameterType="com.example.cinema.vo.HallForm">
+        update hall set name = #{name}, `column` = #{column}, `row` = #{row} where id = #{id}
+    </update>
+	
+	
+    <resultMap id="Hall" type="com.example.cinema.po.Hall">
+	<id column="id" property="id"></id>
+	<result column="name" property="name"></result>
+    <result column="column" property="column"></result>
+    <result column="row" property="row"></result>
+    </resultMap>
+
+</mapper>

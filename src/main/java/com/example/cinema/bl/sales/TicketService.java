@@ -60,4 +60,12 @@ public interface TicketService {
      */
     ResponseVO cancelTicket(int id);
     ResponseVO changeTicket(int id);
+   
+    ResponseVO VIPRecord(int userId, double amount, double before_Balance, int reason);
+
+    ResponseVO normalRecord(int userId, double amount, int reason);
+
+    ResponseVO getNormalRecord(int userId);
+
+    ResponseVO getVIPRecord(int userId);
 }
