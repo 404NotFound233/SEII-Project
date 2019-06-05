@@ -88,6 +88,11 @@ public class ViewController {
         return "userPayRecord";
     }
 
+    @RequestMapping(value = "/admin/refund/manage")
+    public String getAdminRefundManage() {
+        return "adminRefundManage";
+    }
+
     @RequestMapping(value="/admin/vip/manage")
     public String getAdminVipManage(){
         return "adminVipManage";

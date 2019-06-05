@@ -128,15 +128,15 @@ $(document).ready(function () {
                                              "</tr>";
                                         }
                                       else{
-                                      bodyContent += "<tr><td>" + "something wrong" + "</td>" +
-                                                     "<td>" + (state=="已失效") + "</td>" +
-                                                     "<td>" + (state=="已完成") + "</td>" +
-                                                     "<td>" + startTime + "</td>" +
-                                                     "<td>" + endTime + "</td>" +
-                                                     "<td>" + state + "</td>"+
-                                                     "<td>"+"<button type='button' disabled='disabled' id="+list.id+" class='btn btn-primary'>退票</button>"+"</td>"+
-                                                     "<td>"+"<button type='button' disabled='disabled' id="+list[i].id*(-1)+" class='btn btn-primary cp'>出票</button>"+"</td>"+
-                                                     "</tr>";
+                              bodyContent += "<tr><td>" + movieName + "</td>" +
+                                             "<td>" + hallName + "</td>" +
+                                             "<td>" + seatName + "</td>" +
+                                             "<td>" + startTime + "</td>" +
+                                             "<td>" + endTime + "</td>" +
+                                             "<td>" + state + "</td>"+
+                                             "<td>"+"<button type='button' disabled='disabled' id="+list.id+" class='btn btn-primary'>退票</button>"+"</td>"+
+                                             "<td>"+"<button type='button' disabled='disabled' id="+list[i].id*(-1)+" class='btn btn-primary cp'>出票</button>"+"</td>"+
+                                             "</tr>";
                                       }
                               }
                           $('#ticket-body').html(bodyContent);

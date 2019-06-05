@@ -69,6 +69,57 @@ INSERT INTO `activity_movie` VALUES (2,10),(2,11),(2,16),(4,10);
 UNLOCK TABLES;
 
 --
+-- Table structure for table `refund`
+--
+SET @@session.sql_mode ='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
+
+DROP TABLE IF EXISTS `refund`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `refund` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `discount` int DEFAULT NULL,
+  `free_time` int DEFAULT NULL,
+  `discount_time` int DEFAULT NULL,
+  `full_time` int DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `refund`
+--
+
+LOCK TABLES `refund` WRITE;
+/*!40000 ALTER TABLE `refund` DISABLE KEYS */;
+/*!40000 ALTER TABLE `refund` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `refund_movie`
+--
+
+DROP TABLE IF EXISTS `refund_movie`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `refund_movie` (
+  `refund_id` int(11) DEFAULT NULL,
+  `movie_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `refund_movie`
+--
+
+LOCK TABLES `refund_movie` WRITE;
+/*!40000 ALTER TABLE `refund_movie` DISABLE KEYS */;
+/*!40000 ALTER TABLE `refund_movie` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+
+--
 -- Table structure for table `coupon`
 --
 
@@ -249,6 +300,8 @@ CREATE TABLE `ticket` (
   `state` tinyint(4) DEFAULT NULL,
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `actual_total` int NOT NULL DEFAULT 66,
+  `location` int NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -506,3 +559,5 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2019-04-24 21:20:52
+
+

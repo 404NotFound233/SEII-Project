@@ -12,8 +12,6 @@ var useVIP = true;
 
 //var ticket_vo_list;
 var actualTotal;
-var disc_actual;
-var vip_discount;
 var total;
 var balance=1000000;//此处表示银行卡或会员卡的余额，初始化为银行卡余额，应该是无穷大嘛？
 
@@ -26,19 +24,7 @@ $(document).ready(function () {
     //userId=parseInt(window.location.href.split('?')[1].split('&')[0].split('=')[1]);
 
     getInfo();
-    getVIPInfo();
 
-    function getVIPInfo(){
-        getRequest(
-             '/vip/getVIPInfo',
-             function(res){
-                 vip_discount=res.content.discount;
-             },
-             function (error) {
-                 alert(error);
-             }
-         );
-    }
     function getInfo() {
     //获得已经被占的座位以及movieId
         getRequest(
@@ -162,6 +148,21 @@ function orderConfirmClick() {
     };
     // TODO:这里是假数据，需要连接后端获取真数据，数据格式可以自行修改，但如果改了格式，别忘了修改renderOrder方法
     var orderInfo={ }
+    /*
+        "ticketVOList":ticket_vo_list,
+        "total": selectedSeats.length*schedule00.fare.toFixed(2),
+        "coupons":coupons,
+        "activities":activities*/
+
+/*
+    var orderInfo = {
+            "ticketVOList":ticket_vo_list,
+            "total": selectedSeats.length*schedule00.fare.toFixed(2),
+            "coupons":coupons,
+            "activities":activities
+    };
+
+    //renderOrder(orderInfo);
 
 
 	$('#order-total').text(ticketprice*selectedSeats);
@@ -176,7 +177,7 @@ function orderConfirmClick() {
 		"scheduleId":scheduleId,
 		"seats":SeatFormlist
 	};
-
+	*/
     getRequest(
         '/vip/' + sessionStorage.getItem('id') + '/get',
         function (res) {
@@ -256,7 +257,6 @@ function renderOrder(orderInfo) {
         $('#order-discount').text("优惠金额：无");
         $('#order-actual-total').text(" ¥" + total);
         $('#pay-amount').html("<div><b>金额：</b>" + total + "元</div>");
-        $('#vip-pay-amount').html("<div><b>金额：</b>" + total*(vip_discount/10).toFixed(2) + "元</div>");
     } else {
         coupons = orderInfo.coupons;
         for (let coupon of coupons) {
@@ -275,20 +275,17 @@ function changeCoupon(couponIndex) {
         actualTotal = (parseFloat($('#order-total').text()) - parseFloat(coupons[couponIndex].discountAmount)).toFixed(2);
         $('#order-actual-total').text(" ¥" + actualTotal);
         $('#pay-amount').html("<div><b>金额：</b>" + actualTotal + "元</div>");
-        $('#vip-pay-amount').html("<div><b>金额：</b>" + parseFloat(actualTotal*(vip_discount/10)).toFixed(2) + "元</div>");
     }
     else{
         $('#order-discount').text("优惠金额：无");
         $('#order-actual-total').text(" ¥" + total);
         $('#pay-amount').html("<div><b>金额：</b>" + total + "元</div>");
-        $('#vip-pay-amount').html("<div><b>金额：</b>" + parseFloat(total*(vip_discount/10)).toFixed(2) + "元</div>");
     }
 }
 
 function payConfirmClick() {
     if (useVIP) {
-        disc_actual=parseFloat(actualTotal*(vip_discount/10)).toFixed(2);
-        if(parseFloat(balance)<parseFloat(disc_actual)){
+        if(parseFloat(balance)<parseFloat(actualTotal)){
             alert("会员卡余额不足");
         }
         else{
@@ -313,6 +310,8 @@ function postPayRequest(str) {
     if(str=="memberPay"){
         vip_buy();
         vip_pay();
+
+
     }
     else{
         user_buy();
@@ -325,9 +324,10 @@ function postPayRequest(str) {
 
 function vip_buy(){
     postRequest(
-            '/ticket/vip/buy/'+order.ticketId+'/'+order.couponId,
+            '/ticket/vip/buy/'+order.ticketId+'/'+order.couponId+'/'+actualTotal,
             order.ticketId,
             order.couponId,
+            actualTotal,
             function (res) {
             //此处经过测试可以运行到
             },
@@ -339,52 +339,30 @@ function vip_buy(){
 
 function vip_pay(){
     postRequest(
-            '/vip/pay/'+sessionStorage.getItem('id')+'/'+parseFloat(balance-disc_actual),
+            '/vip/pay/'+sessionStorage.getItem('id')+'/'+parseFloat(balance-actualTotal),
             sessionStorage.getItem('id'),
-            parseFloat(balance-disc_actual),
+            parseFloat(balance-actualTotal),
             function(res){
              alert("ok!!!!!");//此处未能运行到
             },
             function(error){
                 alert(error);
             }
-    );
-    postRequest(
-        '/ticket/VIPRecord/'+sessionStorage.getItem('id')+'/'+disc_actual+'/'+balance+'/'+2,
-        sessionStorage.getItem('id'),
-        disc_actual,
-        balance,
-        2,
-        function(res){
-        },
-        function(error){
-            alert(error);
-        }
-    )
+        );
 }
 
 function user_buy(){
       postRequest(
-            '/ticket/buy/'+order.ticketId+'/'+order.couponId,
+            '/ticket/buy/'+order.ticketId+'/'+order.couponId+'/'+actualTotal,
             order.ticketId,
             order.couponId,
+            actualTotal,
             function (res) {
             },
             function (error) {
                  alert(error);
             }
         );
-      postRequest(
-          '/ticket/normalRecord/'+sessionStorage.getItem('id')+'/'+actualTotal+'/'+3,
-          sessionStorage.getItem('id'),
-          actualTotal,
-          3,
-          function(res){
-          },
-          function(error){
-              alert(error);
-          }
-      )
 }
 
 function give_coupons(couponId,user_Id){

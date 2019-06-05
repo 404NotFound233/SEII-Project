@@ -43,7 +43,7 @@ public class VIPCardController {
     }
 
     @PostMapping("/pay/{userId}/{balance}")
-    public ResponseVO pay(@PathVariable int userId,@PathVariable double balance ){
+    public ResponseVO pay(@PathVariable int userId,@PathVariable double balance){
         return vipService.payByCard(userId,balance);
     }
 

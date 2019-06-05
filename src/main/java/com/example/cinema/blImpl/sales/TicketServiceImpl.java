@@ -116,13 +116,16 @@ public class TicketServiceImpl implements TicketService {
     @Override
     @Transactional
     //此处的id为ticketId
-    public ResponseVO completeTicket(List<Integer> id, int couponId) {
+    public ResponseVO completeTicket(List<Integer> id, int couponId,double actualTotal) {
         try{
             int userId=0;
+            double average=actualTotal/id.size();
             for(int i=0;i<id.size();i++){
                 ticketMapper.updateTicketState(id.get(i),1);
                 Ticket t=ticketMapper.selectTicketById(id.get(i));
                 userId=t.getUserId();
+                ticketMapper.updateTicketLocation(id.get(i),1);
+                ticketMapper.updateTicketTotal(id.get(i),average);
                 System.out.println(couponId);
             }
             couponMapper.deleteCouponUser(couponId,userId);//取消优惠券
@@ -184,13 +187,16 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     @Transactional
-    public ResponseVO completeByVIPCard(List<Integer> id, int couponId) {
+    public ResponseVO completeByVIPCard(List<Integer> id, int couponId,double actualTotal) {
         try{
             int userId=0;
+            double average=actualTotal/id.size();
             for(int i=0;i<id.size();i++){
                 ticketMapper.updateTicketState(id.get(i),1);
                 Ticket t=ticketMapper.selectTicketById(id.get(i));
                 userId=t.getUserId();
+                ticketMapper.updateTicketTotal(id.get(i),average);
+                ticketMapper.updateTicketLocation(id.get(i),0);
             }
             couponMapper.deleteCouponUser(couponId,userId);//取消优惠券
             return ResponseVO.buildSuccess();
@@ -243,14 +249,19 @@ public class TicketServiceImpl implements TicketService {
             if(location==0){
                 VIPCardMapper.updateCardBalanceByUserId(userId,balancewithrefund);
                 ticketMapper.deleteTicket(id);
+                list[0]=vipCard.getBalance();
+                list[1]=balancewithrefund;
+                list[2]=ticket.getActualTotal();
+                list[3]=money;
             }
             else{
                 ticketMapper.deleteTicket(id);
+                list[0]=-1;
+                list[1]=-1;
+                list[2]=ticket.getActualTotal();
+                list[3]=money;
             }
-            list[0]=vipCard.getBalance();
-            list[1]=balancewithrefund;
-            list[2]=ticket.getActualTotal();
-            list[3]=money;
+
             return ResponseVO.buildSuccess(list);
         } catch (Exception e) {
             e.printStackTrace();

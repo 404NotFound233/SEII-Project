@@ -17,18 +17,19 @@ public class TicketController {
     @Autowired
     TicketService ticketService;
 
-    @PostMapping("/vip/buy/{ticketId}/{couponId}")
-    public ResponseVO buyTicketByVIPCard(@PathVariable List<Integer> ticketId, @PathVariable int couponId){
-        return ticketService.completeByVIPCard(ticketId,couponId);
+    @PostMapping("/vip/buy/{ticketId}/{couponId}/{actualTotal}")
+    public ResponseVO buyTicketByVIPCard(@PathVariable List<Integer> ticketId, @PathVariable int couponId,@PathVariable double actualTotal){
+
+        return ticketService.completeByVIPCard(ticketId,couponId,actualTotal);
     }
 
     @PostMapping("/lockSeat")
     public ResponseVO lockSeat(@RequestBody TicketForm ticketForm){
         return ticketService.addTicket(ticketForm);
     }
-    @PostMapping("/buy/{ticketId}/{couponId}")
-    public ResponseVO buyTicket(@PathVariable List<Integer> ticketId,@PathVariable int couponId){
-        return ticketService.completeTicket(ticketId,couponId);
+    @PostMapping("/buy/{ticketId}/{couponId}/{actualTotal}")
+    public ResponseVO buyTicket(@PathVariable List<Integer> ticketId,@PathVariable int couponId,@PathVariable double actualTotal){
+        return ticketService.completeTicket(ticketId,couponId,actualTotal);
     }
     @GetMapping("/get/{userId}")
     public ResponseVO getTicketByUserId(@PathVariable int userId){
@@ -45,8 +46,9 @@ public class TicketController {
         return ticketService.cancelTicket(ticketId);
     }
     @GetMapping("/change")
-    public ResponseVO changeTicket(@RequestParam int ticketId){
+    public ResponseVO changeTicket(@RequestParam int ticketId) {
         return ticketService.changeTicket(ticketId);
+    }
 
     @PostMapping("/VIPRecord/{userId}/{amount}/{before_Balance}/{reason}")
     public ResponseVO VIPRecord(@PathVariable int userId,@PathVariable double amount,@PathVariable double before_Balance,@PathVariable int reason){

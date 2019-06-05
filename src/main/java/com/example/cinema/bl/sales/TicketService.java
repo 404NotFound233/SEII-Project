@@ -25,7 +25,7 @@ public interface TicketService {
      * @param couponId
      * @return
      */
-    ResponseVO completeTicket(List<Integer> id, int couponId);
+    ResponseVO completeTicket(List<Integer> id, int couponId,double actualTotal);
 
     /**
      * 获得该场次的被锁座位和场次信息
@@ -50,7 +50,7 @@ public interface TicketService {
      * @param couponId
      * @return
      */
-    ResponseVO completeByVIPCard(List<Integer> id, int couponId);
+    ResponseVO completeByVIPCard(List<Integer> id, int couponId,double actualTotal);
 
     /**
      * TODO:取消锁座（只有状态是"锁定中"的可以取消）
