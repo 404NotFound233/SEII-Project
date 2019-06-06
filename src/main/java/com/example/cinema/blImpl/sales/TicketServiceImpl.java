@@ -206,6 +206,18 @@ public class TicketServiceImpl implements TicketService {
         }
     }
 
+    //wqy
+    @Override
+    public ResponseVO deleteTicket(int id){
+        try {
+            ticketMapper.deleteTicket(id);
+            return ResponseVO.buildSuccess();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseVO.buildFailure("失败");
+        }
+    }
+
     @Override
     //传入的id参数是ticketid
     public ResponseVO cancelTicket(int id) {
@@ -243,10 +255,10 @@ public class TicketServiceImpl implements TicketService {
                 else{money=ticket.getActualTotal()*refund.getDiscount()/100.0;}}
 
             //System.out.println(money);
-            double balancewithrefund=vipCard.getBalance()+money;
             //System.out.println("票价："+ticket.getActualTotal());
             //System.out.println("退票金额："+ticket.getActualTotal()*refund.getDiscount()/100.0);
             if(location==0){
+                double balancewithrefund=vipCard.getBalance()+money;
                 VIPCardMapper.updateCardBalanceByUserId(userId,balancewithrefund);
                 ticketMapper.deleteTicket(id);
                 list[0]=vipCard.getBalance();

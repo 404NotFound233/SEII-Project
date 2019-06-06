@@ -45,6 +45,13 @@ public class TicketController {
     public ResponseVO cancelTicket(@RequestParam int ticketId){
         return ticketService.cancelTicket(ticketId);
     }
+
+    //wqy
+    @PostMapping("/delete/{ticketId}")
+    public ResponseVO deleteTicket(@PathVariable int ticketId){
+        return ticketService.deleteTicket(ticketId);
+    }
+
     @GetMapping("/change")
     public ResponseVO changeTicket(@RequestParam int ticketId) {
         return ticketService.changeTicket(ticketId);

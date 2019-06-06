@@ -17,7 +17,7 @@ function getVIPInfo(){
              send=res.content.send;
         },
         function (error) {
-             alert(error);
+
         }
    );
 }
@@ -58,7 +58,9 @@ function getVIP() {
                 $("#member-charge").text("满" + res.content.reach + "减"+res.content.send);
                 $("#member-description").text(res.content.description);
             } else {
-                alert(res.content);
+                $("#member-buy-price").text(0);
+                $("#member-buy-description").text("暂无会员卡");
+                $("#member-card-buy").attr("disabled", "disabled");
             }
 
         },

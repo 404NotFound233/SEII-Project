@@ -65,12 +65,17 @@ public class VIPServiceImpl implements VIPService {
         try{
             VIPInfoVO vipInfoVO = new VIPInfoVO();
             VIPInfo vip=vipCardMapper.selectVIPInfo();
-            vipInfoVO.setDescription(vip.getDescription());
-            vipInfoVO.setPrice(vip.getPrice());
-            vipInfoVO.setDiscount(vip.getDiscount());
-            vipInfoVO.setReach(vip.getReach());
-            vipInfoVO.setSend(vip.getSend());
-            return ResponseVO.buildSuccess(vipInfoVO);
+            if(vip!=null){
+                vipInfoVO.setDescription(vip.getDescription());
+                vipInfoVO.setPrice(vip.getPrice());
+                vipInfoVO.setDiscount(vip.getDiscount());
+                vipInfoVO.setReach(vip.getReach());
+                vipInfoVO.setSend(vip.getSend());
+                return ResponseVO.buildSuccess(vipInfoVO);
+            }
+            else{
+                return ResponseVO.buildFailure("暂无会员卡");
+            }
         }catch (Exception e) {
             e.printStackTrace();
             return ResponseVO.buildFailure("失败");
@@ -92,10 +97,6 @@ public class VIPServiceImpl implements VIPService {
             ticketMapper.insertNormalRecord(vipCard.getUserId(),vipCardForm.getAmount(),1);
             ticketMapper.insertVIPRecord(vipCard.getUserId(),vipCard.getBalance()-before_balance,vipCard.getBalance()-balance,1);
             vipCardMapper.updateCardBalance(vipCardForm.getVipId(), vipCard.getBalance());
-
-
-
-
             double after_balance=vipCard.getBalance();//充值后总金额
             int user_id=vipCardMapper.selectUserIdById(vipCardForm.getVipId());
             int id=vipRechargeMapper.insertOneRecharge(user_id, before_balance,balance,after_balance);

@@ -68,4 +68,8 @@ public interface TicketService {
     ResponseVO getNormalRecord(int userId);
 
     ResponseVO getVIPRecord(int userId);
+
+    //wqy
+    //取消订单
+    ResponseVO deleteTicket(int id);
 }

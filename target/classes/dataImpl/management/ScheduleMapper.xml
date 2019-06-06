@@ -88,6 +88,7 @@
             order by end_time asc
     </select>
 
+
     <resultMap id="ScheduleItem" type="com.example.cinema.po.ScheduleItem">
         <id column="id" property="id"></id>
         <result column="hall_id" property="hallId"></result>

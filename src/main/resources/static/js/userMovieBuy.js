@@ -12,6 +12,8 @@ var useVIP = true;
 
 //var ticket_vo_list;
 var actualTotal;
+var disc_actual;
+var vip_discount;
 var total;
 var balance=1000000;//此处表示银行卡或会员卡的余额，初始化为银行卡余额，应该是无穷大嘛？
 
@@ -24,7 +26,18 @@ $(document).ready(function () {
     //userId=parseInt(window.location.href.split('?')[1].split('&')[0].split('=')[1]);
 
     getInfo();
-
+    getVIPInfo();
+    function getVIPInfo(){
+        getRequest(
+             '/vip/getVIPInfo',
+             function(res){
+                 vip_discount=res.content.discount;
+             },
+             function (error) {
+                 alert(error);
+             }
+        );
+    }
     function getInfo() {
     //获得已经被占的座位以及movieId
         getRequest(
@@ -257,10 +270,11 @@ function renderOrder(orderInfo) {
         $('#order-discount').text("优惠金额：无");
         $('#order-actual-total').text(" ¥" + total);
         $('#pay-amount').html("<div><b>金额：</b>" + total + "元</div>");
+        $('#vip-pay-amount').html("<div><b>金额：</b>" + total*(vip_discount/10).toFixed(2) + "元</div>");
     } else {
         coupons = orderInfo.coupons;
         for (let coupon of coupons) {
-            couponTicketStr += "<option>满" + coupon.targetAmount + "减" + coupon.discountAmount + "</option>"
+            couponTicketStr += "<option>满" + coupon.targetAmount + "减" + coupon.discountAmount + "</option>";
         }
         $('#order-coupons').html(couponTicketStr);
         changeCoupon(0);//此处的0是什么意思？此行是不是应该删除？因为html里面已经发出了此方法的请求，还是默认第一个？
@@ -275,17 +289,20 @@ function changeCoupon(couponIndex) {
         actualTotal = (parseFloat($('#order-total').text()) - parseFloat(coupons[couponIndex].discountAmount)).toFixed(2);
         $('#order-actual-total').text(" ¥" + actualTotal);
         $('#pay-amount').html("<div><b>金额：</b>" + actualTotal + "元</div>");
+        $('#vip-pay-amount').html("<div><b>金额：</b>" + parseFloat(actualTotal*(vip_discount/10)).toFixed(2) + "元</div>");
     }
     else{
         $('#order-discount').text("优惠金额：无");
         $('#order-actual-total').text(" ¥" + total);
         $('#pay-amount').html("<div><b>金额：</b>" + total + "元</div>");
+        $('#vip-pay-amount').html("<div><b>金额：</b>" + parseFloat(total*(vip_discount/10)).toFixed(2) + "元</div>");
     }
 }
 
 function payConfirmClick() {
     if (useVIP) {
-        if(parseFloat(balance)<parseFloat(actualTotal)){
+        disc_actual=parseFloat(actualTotal*(vip_discount/10)).toFixed(2);
+        if(parseFloat(balance)<parseFloat(disc_actual)){
             alert("会员卡余额不足");
         }
         else{
@@ -310,8 +327,6 @@ function postPayRequest(str) {
     if(str=="memberPay"){
         vip_buy();
         vip_pay();
-
-
     }
     else{
         user_buy();
@@ -324,10 +339,10 @@ function postPayRequest(str) {
 
 function vip_buy(){
     postRequest(
-            '/ticket/vip/buy/'+order.ticketId+'/'+order.couponId+'/'+actualTotal,
+            '/ticket/vip/buy/'+order.ticketId+'/'+order.couponId+'/'+disc_actual,
             order.ticketId,
             order.couponId,
-            actualTotal,
+            disc_actual,
             function (res) {
             //此处经过测试可以运行到
             },
@@ -339,16 +354,28 @@ function vip_buy(){
 
 function vip_pay(){
     postRequest(
-            '/vip/pay/'+sessionStorage.getItem('id')+'/'+parseFloat(balance-actualTotal),
+            '/vip/pay/'+sessionStorage.getItem('id')+'/'+parseFloat(balance-disc_actual),
             sessionStorage.getItem('id'),
-            parseFloat(balance-actualTotal),
+            parseFloat(balance-disc_actual),
             function(res){
              alert("ok!!!!!");//此处未能运行到
             },
             function(error){
                 alert(error);
             }
-        );
+    );
+    postRequest(
+        '/ticket/VIPRecord/'+sessionStorage.getItem('id')+'/'+disc_actual+'/'+balance+'/'+2,
+        sessionStorage.getItem('id'),
+        disc_actual,
+        balance,
+        2,
+        function(res){
+        },
+        function(error){
+            alert(error);
+        }
+    )
 }
 
 function user_buy(){
@@ -363,6 +390,17 @@ function user_buy(){
                  alert(error);
             }
         );
+      postRequest(
+                  '/ticket/normalRecord/'+sessionStorage.getItem('id')+'/'+actualTotal+'/'+3,
+                  sessionStorage.getItem('id'),
+                  actualTotal,
+                  3,
+                  function(res){
+                  },
+                  function(error){
+                      alert(error);
+                  }
+              )
 }
 
 function give_coupons(couponId,user_Id){

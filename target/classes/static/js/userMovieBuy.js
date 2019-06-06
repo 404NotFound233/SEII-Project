@@ -27,7 +27,6 @@ $(document).ready(function () {
 
     getInfo();
     getVIPInfo();
-
     function getVIPInfo(){
         getRequest(
              '/vip/getVIPInfo',
@@ -37,7 +36,7 @@ $(document).ready(function () {
              function (error) {
                  alert(error);
              }
-         );
+        );
     }
     function getInfo() {
     //获得已经被占的座位以及movieId
@@ -162,7 +161,36 @@ function orderConfirmClick() {
     };
     // TODO:这里是假数据，需要连接后端获取真数据，数据格式可以自行修改，但如果改了格式，别忘了修改renderOrder方法
     var orderInfo={ }
+    /*
+        "ticketVOList":ticket_vo_list,
+        "total": selectedSeats.length*schedule00.fare.toFixed(2),
+        "coupons":coupons,
+        "activities":activities*/
 
+/*
+    var orderInfo = {
+            "ticketVOList":ticket_vo_list,
+            "total": selectedSeats.length*schedule00.fare.toFixed(2),
+            "coupons":coupons,
+            "activities":activities
+    };
+
+    //renderOrder(orderInfo);
+
+
+	$('#order-total').text(ticketprice*selectedSeats);
+	var SeatFormlist = [];
+	for (let seatLoc of selectedSeats){
+		//seat是后台Seat的json对象
+			var seat={"columnIndex":(seatLoc[1] ),"rowIndex":(seatLoc[0])};
+			SeatFormlist.push(seat);}
+	var userId=parseInt(window.location.href.split('?')[1].split('&')[0].split('=')[1]);
+	var TicketForm={
+		"userId":userId,
+		"scheduleId":scheduleId,
+		"seats":SeatFormlist
+	};
+	*/
     getRequest(
         '/vip/' + sessionStorage.getItem('id') + '/get',
         function (res) {
@@ -246,7 +274,7 @@ function renderOrder(orderInfo) {
     } else {
         coupons = orderInfo.coupons;
         for (let coupon of coupons) {
-            couponTicketStr += "<option>满" + coupon.targetAmount + "减" + coupon.discountAmount + "</option>"
+            couponTicketStr += "<option>满" + coupon.targetAmount + "减" + coupon.discountAmount + "</option>";
         }
         $('#order-coupons').html(couponTicketStr);
         changeCoupon(0);//此处的0是什么意思？此行是不是应该删除？因为html里面已经发出了此方法的请求，还是默认第一个？
@@ -311,9 +339,10 @@ function postPayRequest(str) {
 
 function vip_buy(){
     postRequest(
-            '/ticket/vip/buy/'+order.ticketId+'/'+order.couponId,
+            '/ticket/vip/buy/'+order.ticketId+'/'+order.couponId+'/'+disc_actual,
             order.ticketId,
             order.couponId,
+            disc_actual,
             function (res) {
             //此处经过测试可以运行到
             },
@@ -351,9 +380,10 @@ function vip_pay(){
 
 function user_buy(){
       postRequest(
-            '/ticket/buy/'+order.ticketId+'/'+order.couponId,
+            '/ticket/buy/'+order.ticketId+'/'+order.couponId+'/'+actualTotal,
             order.ticketId,
             order.couponId,
+            actualTotal,
             function (res) {
             },
             function (error) {
@@ -361,16 +391,16 @@ function user_buy(){
             }
         );
       postRequest(
-          '/ticket/normalRecord/'+sessionStorage.getItem('id')+'/'+actualTotal+'/'+3,
-          sessionStorage.getItem('id'),
-          actualTotal,
-          3,
-          function(res){
-          },
-          function(error){
-              alert(error);
-          }
-      )
+                  '/ticket/normalRecord/'+sessionStorage.getItem('id')+'/'+actualTotal+'/'+3,
+                  sessionStorage.getItem('id'),
+                  actualTotal,
+                  3,
+                  function(res){
+                  },
+                  function(error){
+                      alert(error);
+                  }
+              )
 }
 
 function give_coupons(couponId,user_Id){
