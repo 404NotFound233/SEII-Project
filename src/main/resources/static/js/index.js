@@ -1,20 +1,20 @@
 $(document).ready(function () {
-//文档就绪函数，避免在完全加载之前运行jquery
 
+//文档就绪函数，避免在完全加载之前运行jquery
     $("#login-btn").click(function () {
         var formData = getLoginForm();
         if (!validateLoginForm(formData)) {
             //不符合输入格式时
             return;
         }
-
         postRequest(
             '/login',
             formData,
             function (res) {
                 if (res.success) {
                     sessionStorage.setItem('username', formData.username);
-                    sessionStorage.setItem('id', res.content.id);
+                    sessionStorage.setItem('id', res.content.id);         //建立连接
+
                     if (formData.username == "root") {
                         sessionStorage.setItem('role', 'admin');
                         window.location.href = "/admin/movie/manage"
@@ -24,6 +24,7 @@ $(document).ready(function () {
                         window.location.href = "/user/home"
                         //普通用户登陆界面
                     }
+                    
                 } else {
                     alert(res.message);
                 }
@@ -31,6 +32,7 @@ $(document).ready(function () {
             function (error) {
                 alert(error);
             });
+
     });
 
     function getLoginForm() {

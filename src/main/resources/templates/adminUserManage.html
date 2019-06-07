@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>角色管理</title>
+    <!-- 引入css样式文件 -->
+    <link rel="stylesheet" type="text/css" href="/css/common.css"/>
+    <!-- Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <!-- font-asesome图标库 -->
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/adminUserManage.css"/>
+
+
+    <!-- 引入js脚本文件 -->
+    <!-- jquery -->
+    <script src="/js/jquery.js"></script>
+    <!-- Bootstrap 核心 JavaScript 文件 -->
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/request.js"></script>
+    <script src="/js/adminUserManage.js"></script>
+</head>
+
+<body>
+<div class="main-container">
+    <div class="nav-left-container">
+        <div class="nav-user-container" style="margin-bottom: 50px;">
+            <img class="avatar-lg" src="/images/defaultAvatar.jpg" />
+            <p class="title">Admin</p>
+        </div>
+        <ul class="nav nav-pills nav-stacked">
+            <li role="presentation"><a href="/admin/movie/manage"><i class="icon-film"></i> 电影管理</a></li>
+            <li role="presentation"><a href="/admin/session/manage"><i class="icon-calendar"></i> 排片管理</a></li>
+            <li role="presentation"><a href="/admin/promotion/manage"><i class="icon-gift"></i> 活动管理</a></li>
+            <li role="presentation"><a href="/admin/cinema/manage"><i class="icon-cogs"></i> 影院管理</a></li>
+            <li role="presentation"><a href="/admin/cinema/statistic"><i class="icon-bar-chart"></i> 影院统计</a></li>
+            <li role="presentation" class="active"><a href="#"><i class="icon-pencil"></i> 角色管理</a></li>
+        </ul>
+    </div>
+     <div class="content-container">
+       <div class="content-item">
+            <span class="title gray-text">角色查询</span>
+            <div class="content-card card">
+                <span>请输入需要查询的用户名：</span>
+                <input class="form-control" id="user-search-input" style="width: 200px;" type="text">
+                <span class="content-return" id="search-name-prompt" style="display: none;">用户名：</span><span class="content-return" id="search-name-return" style="display:none;"></span>
+                <br />
+                <span class="content-return" id="search-password-prompt" style="display: none;">密码：</span><span class="content-return" id="search-password-return" style="display:none;"></span>
+                <br />
+                <a class="primary-text" id="user-search-btn"><br />查询</a>
+            </div>
+             <span class="title gray-text">角色增加</span>
+            <div class="content-card card">
+                <span>请输入需要添加的用户名：</span>
+                <input class="form-control" id="user-add-name-input" style="width: 200px;" type="text">
+                <span><br />请设置添加的用户密码：</span>
+                <input class="form-control" id="user-add-password-input" style="width: 200px;" type="password">
+                <span><br />请再次输入确认用户密码：</span>
+                <input class="form-control" id="user-add-password-confirm" style="width: 200px;" type="password">
+                <span><br />请选择需要添加的角色类型：</span>
+                <select class="form-control" style="width:180px" id="user-add-type-input">
+                    <option value="admin">管理员</option>
+                    <option value="audience">观众</option>
+                </select>
+                <a class="primary-text" id="user-add-btn"><br />添加</a>
+            </div>
+             <span class="title gray-text">角色删除</span>
+            <div class="content-card card">
+                <span>请输入需要删除的用户名：</span>
+                <input class="form-control" id="user-delete-input" style="width: 200px;" type="text">
+                <a class="primary-text" id="user-delete-btn"><br />删除</a>
+            </div>
+             <span class="title gray-text">角色修改</span>
+            <div class="content-card card">
+                <span>请输入需要修改的用户名：</span>
+                <input class="form-control" id="user-change-name-input" style="width: 200px;" type="text">
+                <span><br />请输入修改后的用户名：</span>
+                <input class="form-control" id="user-changed-name-input" style="width: 200px;" type="text">
+                <span><br />请设置修改后的用户密码：</span>
+                <input class="form-control" id="user-changed-password-input" style="width: 200px;" type="password">
+                <span><br />请确认修改后的用户密码：</span>
+                <input class="form-control" id="user-changed-password-confirm" style="width: 200px;" type="password">
+                <a class="primary-text" id="user-change-btn"><br />修改</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

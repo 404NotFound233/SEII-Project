@@ -1,6 +1,7 @@
 package com.example.cinema.bl.promotion;
 
 import com.example.cinema.vo.CouponForm;
+import com.example.cinema.vo.GiveCouponVO;
 import com.example.cinema.vo.ResponseVO;
 
 /**
@@ -16,5 +17,9 @@ public interface CouponService {
 
     //自己写的
     ResponseVO deleteCouponUser(int couponId,int userId);
+    
+    ResponseVO giveCoupon(GiveCouponVO giveCoupon);
+    
+    ResponseVO getUserByTarget(int payTarget);
 
 }

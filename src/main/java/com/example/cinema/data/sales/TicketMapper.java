@@ -1,6 +1,8 @@
 package com.example.cinema.data.sales;
 
 import com.example.cinema.po.Ticket;
+import com.example.cinema.po.NormalRecord;
+import com.example.cinema.po.VIPRecord;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -31,5 +33,17 @@ public interface TicketMapper {
 
     @Scheduled(cron = "0/1 * * * * ?")
     void cleanExpiredTicket();
+
+    void insertVIPRecord(int userId, double amount, double before_Balance, int reason);
+
+    void insertNormalRecord(int userId, double amount, int reason);
+
+    List<NormalRecord> selectNormalRecord(int userId);
+
+    List<NormalRecord> selectAllNormalRecord();
+    
+    List<VIPRecord> selectVIPRecord(int userId);
+    
+    List<VIPRecord> selectAllVIPRecord();
 }
 
