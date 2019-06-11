@@ -104,4 +104,12 @@
         select * from normal_record where user_id=#{userId}
     </select>
 
+    <select id="selectAllNormalRecord" resultMap="NormalRecord">
+        select * from normal_record
+    </select>
+
+    <select id="selectAllVIPRecord" resultMap="VIPRecord">
+        select * from vip_record
+    </select>
+
 </mapper>

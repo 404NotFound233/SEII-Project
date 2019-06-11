@@ -170,7 +170,19 @@ $(document).ready(function() {
            reach: $("#vip-charge-reach").val(),
            send:  $("#vip-charge-send").val()
         };
-
+        if(!validateVIPForm(form)){
+            return;
+        }
+        if(form.discount==""){
+            form.discount=10;
+        }
+        if(form.reach==""||form.reach==0){
+            form.reach=100;
+        }
+        if(form.send==""){
+            form.reach=100;
+            form.send=0;
+        }
         postRequest(
             '/vip/publish',
             form,
@@ -186,6 +198,7 @@ $(document).ready(function() {
                 alert(JSON.stringify(error));
             }
         );
+        window.location.reload();
     });
 
     $("#modify-vip-btn").click(function(){
@@ -212,7 +225,19 @@ $(document).ready(function() {
                reach: $("#vipm-charge-reach").val(),
                send:  $("#vipm-charge-send").val()
            };
-
+        if(!validatemVIPForm(form)){
+            return;
+        }
+        if(form.discount==""){
+              form.discount=10;
+        }
+        if(form.reach==""||form.reach==0){
+              form.reach=100;
+        }
+        if(form.send==""){
+              form.reach=100;
+              form.send=0;
+        }
             postRequest(
                 '/vip/modify',
                 form,
@@ -228,7 +253,82 @@ $(document).ready(function() {
                     alert(JSON.stringify(error));
                 }
             );
+            window.location.reload();
         });
+
+        function validateVIPForm(data) {
+            var isValidate = true;
+            if(!data.price) {
+                 isValidate = false;
+                 $('#vip-price-input').parent('.form-group').addClass('has-error');
+                 $('#vip-price-error').css("visibility", "visible");
+            }
+            if(isNaN(data.discount)||data.discount<=0||data.discount>10) {
+                 if(data.discount!=""){
+                      isValidate = false;
+                      $('#vip-discount-input').parent('.form-group').addClass('has-error');
+                      $('#vip-discount-error').css("visibility", "visible");
+                 }
+            }
+            if(isNaN(data.reach)&&data.reach!=""){
+                 isValidate = false;
+                 $('#vip-charge-reach').parent('.form-group').addClass('has-error');
+                 $('#vip-charge-error').css("visibility", "visible");
+            }
+            else if(isNaN(data.send)&&data.send!=""){
+                 isValidate = false;
+                 $('#vip-charge-reach').parent('.form-group').addClass('has-error');
+                 $('#vip-charge-error').css("visibility", "visible");
+            }
+            else if((!isNaN(data.reach)&&data.reach<0)||(!isNaN(data.send)&&data.send<0)){
+                 isValidate = false;
+                 $('#vip-charge-reach').parent('.form-group').addClass('has-error');
+                 $('#vip-charge-error').css("visibility", "visible");
+            }
+            else if((data.reach==0||data.reach=="")&&(data.send!=""&&data.send>0)){
+                 isValidate = false;
+                 $('#vip-charge-reach').parent('.form-group').addClass('has-error');
+                 $('#vip-charge-error').css("visibility", "visible");
+            }
+            return isValidate;
+        }
+
+         function validatemVIPForm(data) {
+                    var isValidate = true;
+                    if(!data.price) {
+                         isValidate = false;
+                         $('#vipm-price-input').parent('.form-group').addClass('has-error');
+                         $('#vipm-price-error').css("visibility", "visible");
+                    }
+                    if(isNaN(data.discount)||data.discount<=0||data.discount>10) {
+                        if(data.discount!=""){
+                             isValidate = false;
+                             $('#vipm-discount-input').parent('.form-group').addClass('has-error');
+                             $('#vipm-discount-error').css("visibility", "visible");
+                        }
+                    }
+                    if(isNaN(data.reach)&&data.reach!=""){
+                         isValidate = false;
+                         $('#vipm-charge-reach').parent('.form-group').addClass('has-error');
+                         $('#vipm-charge-error').css("visibility", "visible");
+                    }
+                    else if(isNaN(data.send)&&data.send!=""){
+                         isValidate = false;
+                         $('#vipm-charge-reach').parent('.form-group').addClass('has-error');
+                         $('#vipm-charge-error').css("visibility", "visible");
+                    }
+                    else if((!isNaN(data.reach)&&data.reach<0)||(!isNaN(data.send)&&data.send<0)){
+                        isValidate = false;
+                        $('#vipm-charge-reach').parent('.form-group').addClass('has-error');
+                        $('#vipm-charge-error').css("visibility", "visible");
+                    }
+                    else if((data.reach==0||data.reach=="")&&(data.send!=""&&data.send>0)){
+                        isValidate = false;
+                        $('#vipm-charge-reach').parent('.form-group').addClass('has-error');
+                        $('#vipm-charge-error').css("visibility", "visible");
+                    }
+                    return isValidate;
+                }
 
     function getVIPInfo(){
         getRequest(

@@ -28,6 +28,7 @@
             <li role="presentation"><a href="/admin/promotion/manage"><i class="icon-gift"></i> 活动管理</a></li>
             <li role="presentation"><a href="/admin/cinema/manage"><i class="icon-cogs"></i> 影院管理</a></li>
             <li role="presentation"><a href="/admin/cinema/statistic"><i class="icon-bar-chart"></i> 影院统计</a></li>
+            <li role="presentation"><a href="/admin/user/manage"><i class="icon-pencil"></i> 角色管理</a></li>
             <li role="presentation"><a href="/admin/refund/manage"><i class="icon-gift"></i> 退票管理</a></li>
             <li role="presentation"  class="active"><a href="#"><i class="icon-cogs"></i> 会员卡管理</a></li>
         </ul>
@@ -64,8 +65,8 @@
                         <label class="col-sm-3 control-label" for="vip-price-input"><span class="error-text">*</span>价格（元）</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" id="vip-price-input" placeholder="请输入会员卡价格">
+                            <p id="vip-price-error" class="notice">会员卡价格不能为空</p>
                         </div>
-                        <p id="vip-price-error" class="notice">会员卡价格不能为空</p>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="vip-description-input">会员卡描述</label>
@@ -78,6 +79,7 @@
                         <label class="col-sm-3 control-label" for="vip-discount-input">购票优惠</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control" id="vip-discount-input" placeholder="请输入折扣">
+                            <p id="vip-discount-error" class="notice">会员卡折扣应为0-10之间的数字（不包含0）</p>
                         </div>
                         <p class="col-sm-1"><b>折</b></p>
                     </div>
@@ -92,12 +94,15 @@
                             <input type="text" class="form-control" id="vip-charge-send" placeholder="赠送金额">
                         </div>
                     </div>
+                    <div>
+                        <p id="vip-charge-error" class="notice">请输入正确的充值优惠</p>
+                    </div>
 
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button class="btn btn-primary" id="vip-form-btn" href="#" onclick="window.location.reload()">确认</button>
+                <button type="button" class="btn btn-primary" id="vip-form-btn" href="#">确认</button>
             </div>
         </div>
     </div>
@@ -116,8 +121,8 @@
                         <label class="col-sm-3 control-label" for="vip-price-input"><span class="error-text">*</span>价格（元）</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" id="vipm-price-input" placeholder="请输入会员卡价格">
+                            <p id="vipm-price-error" class="notice">会员卡价格不能为空</p>
                         </div>
-                        <p id="vipm-price-error" class="notice">会员卡价格不能为空</p>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="vipm-description-input">会员卡描述</label>
@@ -130,6 +135,7 @@
                         <label class="col-sm-3 control-label" for="vipm-discount-input">购票优惠</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control" id="vipm-discount-input" placeholder="请输入折扣">
+                            <p id="vipm-discount-error" class="notice">会员卡折扣应为0-10之间的数字（不包含0）</p>
                         </div>
                         <p class="col-sm-1"><b>折</b></p>
                     </div>
@@ -144,12 +150,14 @@
                             <input type="text" class="form-control" id="vipm-charge-send" placeholder="赠送金额">
                         </div>
                     </div>
-
+                    <div>
+                    <p id="vipm-charge-error" class="notice">请输入正确的充值优惠</p>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button class="btn btn-primary" id="vipm-form-btn" href="#" onclick="window.location.reload()">确认</button>
+                <button type="button" class="btn btn-primary" id="vipm-form-btn" href="#">确认</button>
             </div>
         </div>
     </div>

@@ -14,6 +14,9 @@ $(document).ready(function() {
             '/activity/get',
             function (res) {
                 var activities = res.content;
+                activities.forEach(function (activity) {
+                    $('#give-coupon-input').append("<option value="+ activity.coupon.id +">"+activity.coupon.name+"</option>");
+                });
                 renderActivities(activities);
             },
             function (error) {
@@ -111,7 +114,29 @@ $(document).ready(function() {
         );
     });
 
+ $("#coupon-form-btn").click(function () {
+           var payTarget = $('#pay-target-input').val();
+           var couponId = $('#give-coupon-input').val();
+           var givecoupon = {payTarget:payTarget,couponId:couponId};
+           postRequest(
+               '/coupon/give',
+               givecoupon,
+               function (res) {
+                   if (res.success) {
+                        $("#couponModal").modal('hide');
+                       alert("优惠券发放成功！");
+                   }  else {
+                    alert(res.message);
+                }
+               },
+               function (error) {
+                alert(JSON.stringify(error));
+            }
+           );
 
+       });
+
+       
         get_ac_movie();
     $('#activity-movie-input').change(function () {
         var movieId = $('#activity-movie-input').val();

@@ -163,21 +163,15 @@ $(document).ready(function(){
              '/movie/update',
             formData,
             function (res) {
-                getMovieList();
-                //获得新增电影之后的新电影列表
-
-				$("#movie-name").text(Name);
-				$("#movie-description").text(Description);
-				$("#movie-startDate").text(new Date(Startdate).toLocaleDateString());
-				$("#movie-type").text(Type);
-				$("#movie-country").text(Country);
-				$("#movie-img").attr('src',Img);
-				$("#movie-director").text(Director);
-				$("#movie-language").text(Language);
-				$("#movie-starring").text(Star);
-				$("#movie-writer").text(Writer);		
-
+                if(res.message=="更新失败"){
+                    alert("更新失败，有电影后续仍有排片或已有观众购票且未使用！");
+                    }
+                else{
+                    alert("修改成功");
+                }
                 $("#movieModal").modal('hide');
+                getMovieList();
+                window.location.reload();
 				
             },
              function (error) {

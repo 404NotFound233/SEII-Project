@@ -60,14 +60,14 @@ function getVIPInfo(){
 
          function compl_info(seatName,scheduleId,state,i,list){
          getRequest(
-                             "/schedule/"+list[i].scheduleId,
-                             function(res){
-                                   hallName=res.content.hallName;
-                                   movieName=res.content.movieName;
-                                   startTime=res.content.startTime.slice(0,10)+" "+res.content.startTime.slice(11,19);
-                                   endTime=res.content.endTime.slice(0,10)+" "+res.content.endTime.slice(11,19);
-                                   if(state=="已完成"){
-                                   bodyContent += "<tr><td>" + movieName + "</td>" +
+               "/schedule/"+list[i].scheduleId,
+               function(res){
+                     hallName=res.content.hallName;
+                     movieName=res.content.movieName;
+                     startTime=res.content.startTime.slice(0,10)+" "+res.content.startTime.slice(11,19);
+                     endTime=res.content.endTime.slice(0,10)+" "+res.content.endTime.slice(11,19);
+                     if(state=="已完成"){
+                     bodyContent += "<tr><td>" + movieName + "</td>" +
                                                   "<td>" + hallName + "</td>" +
                                                   "<td>" + seatName + "</td>" +
                                                   "<td>" + startTime + "</td>" +
@@ -76,9 +76,9 @@ function getVIPInfo(){
                                                   "<td>"+"<button type='button' id="+list[i].id+" class='btn btn-primary tp' data-backdrop='static' data-toggle='modal' data-target='#tpModal'>退票</button>"+"</td>"+
                                                   "<td>"+"<button type='button' id="+list[i].id*(-1)+" class='btn btn-primary cp'>出票</button>"+"</td>"+
                                                   "</tr>";
-                                   }
-                                   else{  if(state=="已失效"||state=="已出票"){
-                                   bodyContent += "<tr><td>" + movieName + "</td>" +
+                     }
+                     else{  if(state=="已失效"||state=="已出票"){
+                           bodyContent += "<tr><td>" + movieName + "</td>" +
                                                   "<td>" + hallName + "</td>" +
                                                   "<td>" + seatName + "</td>" +
                                                   "<td>" + startTime + "</td>" +
@@ -89,7 +89,7 @@ function getVIPInfo(){
                                                   "</tr>";
                                              }
                                            else{
-                                   bodyContent += "<tr><td>" + movieName + "</td>" +
+                           bodyContent += "<tr><td>" + movieName + "</td>" +
                                                   "<td>" + hallName + "</td>" +
                                                   "<td>" + seatName + "</td>" +
                                                   "<td>" + startTime + "</td>" +
@@ -335,6 +335,21 @@ $(document).ready(function () {
         }
     }
 
+    function validateForm() {
+        var isValidate = true;
+        if (!$('#userBuy-cardNum').val()) {
+            isValidate = false;
+            $('#userBuy-cardNum').parent('.form-group').addClass('has-error');
+            $('#userBuy-cardNum-error').css("visibility", "visible");
+        }
+        if (!$('#userBuy-cardPwd').val()) {
+            isValidate = false;
+            $('#userBuy-cardPwd').parent('.form-group').addClass('has-error');
+            $('#userBuy-cardPwd-error').css("visibility", "visible");
+        }
+        return isValidate;
+    }
+
     function postPayRequest(str) {
         alert("支付成功！");
         $('#gobackModal').modal('hide')
@@ -345,12 +360,12 @@ $(document).ready(function () {
         else{
             user_buy();
         }
-        getMovieList();
+        window.location.reload();
     }
 
     function vip_buy(){
         postRequest(
-                '/ticket/vip/buy/'+ticketIdclicked+'/'+0+'/'+fare,
+                '/ticket/vip/buy/'+ticketIdclicked+'/'+0+'/'+parseFloat(fare*(vip_discount/10)).toFixed(2),
                 ticketIdclicked,
                 0,
                 parseFloat(fare*(vip_discount/10)).toFixed(2),

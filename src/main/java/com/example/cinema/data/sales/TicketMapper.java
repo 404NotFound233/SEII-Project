@@ -45,5 +45,9 @@ public interface TicketMapper {
     List<NormalRecord> selectNormalRecord(int userId);
 
     List<VIPRecord> selectVIPRecord(int userId);
+    
+    List<NormalRecord> selectAllNormalRecord();
+    
+    List<VIPRecord> selectAllVIPRecord();
 }
 

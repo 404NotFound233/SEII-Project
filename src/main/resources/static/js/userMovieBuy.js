@@ -330,7 +330,6 @@ function postPayRequest(str) {
     }
     else{
         user_buy();
-
     }
     for(let couponToGet of coupons_get){
            give_coupons(couponToGet.id,userId);

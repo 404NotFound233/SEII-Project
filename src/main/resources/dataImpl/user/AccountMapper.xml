@@ -8,7 +8,28 @@
     <select id="getAccountByName" resultMap="User">
         select * from user where username=#{username}
     </select>
+    <delete id="deleteAccountByName">
+        delete from user where username=#{username}
+    </delete>
+    <update id="changeAccountByName">
+        update user 
+            set username=#{username},
+                password=#{password}
+            where username=#{preusername}; 
+    </update>
+    <insert id="addNewAdmin" useGeneratedKeys="true" keyProperty="id">
+        insert into admin(username)
+        values(#{username})
+    </insert>
+    <select id="getAllAdmin" resultMap="Admin">
+        select * from admin
+    </select>
+     <delete id="deleteAdminByName">
+        delete from admin where username=#{username}
+    </delete>
 
     <resultMap id="User" type="com.example.cinema.po.User">
+    </resultMap>
+    <resultMap id="Admin" type="com.example.cinema.po.Admin">
     </resultMap>
 </mapper>

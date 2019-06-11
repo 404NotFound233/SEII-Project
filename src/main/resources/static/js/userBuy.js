@@ -335,6 +335,21 @@ $(document).ready(function () {
         }
     }
 
+    function validateForm() {
+        var isValidate = true;
+        if (!$('#userBuy-cardNum').val()) {
+            isValidate = false;
+            $('#userBuy-cardNum').parent('.form-group').addClass('has-error');
+            $('#userBuy-cardNum-error').css("visibility", "visible");
+        }
+        if (!$('#userBuy-cardPwd').val()) {
+            isValidate = false;
+            $('#userBuy-cardPwd').parent('.form-group').addClass('has-error');
+            $('#userBuy-cardPwd-error').css("visibility", "visible");
+        }
+        return isValidate;
+    }
+
     function postPayRequest(str) {
         alert("支付成功！");
         $('#gobackModal').modal('hide')
@@ -345,12 +360,12 @@ $(document).ready(function () {
         else{
             user_buy();
         }
-        getMovieList();
+        window.location.reload();
     }
 
     function vip_buy(){
         postRequest(
-                '/ticket/vip/buy/'+ticketIdclicked+'/'+0+'/'+fare,
+                '/ticket/vip/buy/'+ticketIdclicked+'/'+0+'/'+parseFloat(fare*(vip_discount/10)).toFixed(2),
                 ticketIdclicked,
                 0,
                 parseFloat(fare*(vip_discount/10)).toFixed(2),

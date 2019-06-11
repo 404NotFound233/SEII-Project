@@ -110,12 +110,12 @@ $(document).ready(function() {
             $('#hall-name-input').parent('.form-group').addClass('has-error');
 			$('#hall-name-error').css("visibility", "visible");
         }
-        if(!data.column) {
+        if(data.column==""|| isNaN(data.column)) {
             isValidate = false;
             $('#hall-column-input').parent('.form-group').addClass('has-error');
 			$('#hall-column-error').css("visibility", "visible");
         }
-        if(!data.row) {
+        if(data.row==""||isNaN(data.row)) {
             isValidate = false;
             $('#hall-row-input').parent('.form-group').addClass('has-error');
 			$('#hall-row-error').css("visibility", "visible");

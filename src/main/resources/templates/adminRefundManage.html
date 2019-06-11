@@ -28,8 +28,9 @@
             <li role="presentation"><a href="/admin/promotion/manage"><i class="icon-gift"></i> 活动管理</a></li>
             <li role="presentation"><a href="/admin/cinema/manage"><i class="icon-cogs"></i> 影院管理</a></li>
             <li role="presentation"><a href="/admin/cinema/statistic"><i class="icon-bar-chart"></i> 影院统计</a></li>
+            <li role="presentation"><a href="/admin/user/manage"><i class="icon-pencil"></i> 角色管理</a></li>
             <li role="presentation" class="active"><a href="#"><i class="icon-gift"></i> 退票管理</a></li>
-			<li role="presentation"><a href="/admin/vip/manage"><i class="icon-cogs"></i>会员卡管理</a></li>
+			<li role="presentation"><a href="/admin/vip/manage"><i class="icon-cogs"></i> 会员卡管理</a></li>
         </ul>
     </div>
     <div class="content-container">
@@ -59,7 +60,7 @@
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" role="form">
-                    <p>输入规范：退款天数为整数且全价退款天数>>不退款天数</p>
+                    <p>输入规范：退款天数为整数且全价退款天数>不退款天数</p>
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="refund-free-input"><span class="error-text">*</span>全价退款期限</label>
                         <div class="col-sm-10">
@@ -91,6 +92,10 @@
                         <div id="selected-movies" class="col-sm-10">
 
                         </div>
+                    </div>
+                    <div class="form-group">
+                        <p id="NumError" class="red" hidden>error:免费期限和全价期限请输入数字且全价期限>退款期限且打折退款范围在0-100之内！</p>
+                        <p id="blankError" class="red" hidden>error:输入不能为空</p>
                     </div>
                 </form>
             </div>
@@ -145,6 +150,10 @@
                         <div id="c-selected-movies" class="col-sm-10">
 
                         </div>
+                    </div>
+                    <div class="form-group">
+                        <p id="c-NumError" class="red" hidden>error:免费期限和全价期限请输入数字且全价期限>退款期限且打折退款范围在0-100之内！</p>
+                        <p id="c-blankError" class="red" hidden>error:输入不能为空</p>
                     </div>
                 </form>
             </div>

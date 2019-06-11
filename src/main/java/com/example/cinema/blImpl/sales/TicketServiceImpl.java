@@ -25,7 +25,7 @@ import java.util.*;
  * Created by liying on 2019/4/16.
  */
 @Service
-public class TicketServiceImpl implements TicketService {
+public class TicketServiceImpl implements TicketService, TicketServiceForBl  {
 
     @Autowired
     TicketMapper ticketMapper;
@@ -316,6 +316,30 @@ public class TicketServiceImpl implements TicketService {
         }
     }
 
+    
+    //为forbl类提供的实现方法，收集普通票记录
+    @Override
+    public List<NormalRecord> collectAllNormalRecord() {
+    	 try{
+             return ticketMapper.selectAllNormalRecord();
+         }catch (Exception e) {
+             e.printStackTrace();
+             return null;
+         }
+    }
+    
+  //为forbl类提供的实现方法，收集VIP票记录
+    @Override
+    public List<VIPRecord> collectAllVIPRecord() {
+    	 try{
+             return ticketMapper.selectAllVIPRecord();
+         }catch (Exception e) {
+             e.printStackTrace();
+             return null;
+         }
+    }
+
+    
     //wqy
     private List<NormalRecordVO> normalRecord2NormalRecordVOList(List<NormalRecord> normalRecordList){
         List<NormalRecordVO> normalRecordVOList = new ArrayList<>();

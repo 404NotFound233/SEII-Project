@@ -121,7 +121,19 @@ $(document).ready(function() {
            discount: $("#refund-discount-input").val(),
            movieList: [...selectedMovieIds],
        };
-        console.log(form);
+       document.getElementById("NumError").setAttribute("hidden",true);
+       document.getElementById("blankError").setAttribute("hidden",true);
+       var pd=validaterefund(form);
+       if(pd!=0){
+            if(pd==1){
+                         var errortext=document.getElementById("NumError");
+                         errortext.removeAttribute("hidden");}
+                         else{
+                          var errortext=document.getElementById("blankError");
+                          errortext.removeAttribute("hidden");
+                         }
+        }
+       else{
         postRequest(
             '/refund/publish',
             form,
@@ -141,7 +153,7 @@ $(document).ready(function() {
             function (error) {
                 alert(JSON.stringify(error));
             }
-        );
+        );}
     });
 
 
@@ -155,6 +167,19 @@ $(document).ready(function() {
            discount: $("#c-refund-discount-input").val(),
            movieList: [...c_selectedMovieIds],
        };
+       document.getElementById("c-NumError").setAttribute("hidden",true);
+       document.getElementById("c-blankError").setAttribute("hidden",true);
+       var pd=validaterefund(form);
+       if(pd!=0){
+            if(pd==1){
+            var errortext=document.getElementById("c-NumError");
+            errortext.removeAttribute("hidden");}
+            else{
+             var errortext=document.getElementById("c-blankError");
+             errortext.removeAttribute("hidden");
+            }
+       }
+       else{
         postRequest(
             '/refund/publish',
             form,
@@ -172,7 +197,7 @@ $(document).ready(function() {
             function (error) {
                 alert(JSON.stringify(error));
             }
-        );
+        );}
     });
 
 //选择电影的按钮
@@ -202,6 +227,7 @@ $(document).ready(function() {
         renderSelectedMovies();
     });
 
+
 //点击修改按钮时将选择电影栏清空
      $("#changeBtn").click(function () {
         init_select_movie=true;
@@ -226,6 +252,24 @@ $(document).ready(function() {
                         alert(error);
                     }
              );
+        }
+    function validaterefund(form) {
+            var timeone= form.freetime;
+            var timetwo= form.fulltime;
+            var discount= form.discount;
+            if(timeone.length==0||timetwo.length==0||discount.length==0){return 2;}
+            else{
+                if(isNaN(timeone)||isNaN(timetwo)||isNaN(discount)||eval(timeone)<eval(timetwo)){
+                    return 1;
+                }
+                else{
+                    if(eval(timeone)<0||eval(timetwo<0)||eval(discount<0)||eval(discount>100)){
+                                            return 1;
+                                           }
+                    else{return 0;}
+                }
+
+            }
         }
 
     //渲染选择的参加活动的电影

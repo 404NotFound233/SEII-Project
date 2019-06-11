@@ -397,11 +397,6 @@ UNLOCK TABLES;
 
 
 
-
-
-
-
-
 --
 -- Table structure for table `vip`
 --
@@ -412,7 +407,7 @@ DROP TABLE IF EXISTS `vip`;
 CREATE TABLE `vip` (
   `price` decimal(10,2),
   `description` varchar(100),
-  `discount` decimal(2,1),
+  `discount` decimal(3,1),
   `reach` decimal(10,2), 
   `send` decimal(10,2)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
@@ -445,7 +440,7 @@ CREATE TABLE `vip_record` (
   `user_id` int(11) DEFAULT NULL,
   `before_Balance` decimal(10,2),
   `amount` decimal(10,2),
-   `reason` varchar(100),
+   `reason` int(11),
   `join_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
@@ -482,7 +477,7 @@ CREATE TABLE `normal_record` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
   `amount` decimal(10,2),
-   `reason` varchar(100),
+   `reason` int(11),
   `join_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
@@ -539,6 +534,30 @@ LOCK TABLES `recharge_record` WRITE;
 /*!40000 ALTER TABLE `recharge_record` DISABLE KEYS */;
 INSERT INTO `recharge_record` VALUES (1,15,375,100,475,'2019-04-21 13:54:38'),(2,12,660,190,850,'2019-04-17 18:47:42');
 /*!40000 ALTER TABLE `recharge_record` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `admin`
+--
+
+DROP TABLE IF EXISTS `admin`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `admin` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(50) NOT NULL UNIQUE,
+  PRIMARY KEY(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `activity_movie`
+--
+
+LOCK TABLES `admin` WRITE;
+/*!40000 ALTER TABLE `admin` DISABLE KEYS */;
+INSERT INTO `admin` VALUES (1,'root');
+/*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --

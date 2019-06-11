@@ -108,7 +108,7 @@ public class MovieServiceImpl implements MovieService, MovieServiceForBl {
             int id=updateMovieForm.getId();
             ResponseVO responseVO = preCheck(Arrays.asList(id));
             if(!responseVO.getSuccess()){
-                return responseVO;
+                return responseVO.buildFailure("更新失败");
             }
             movieMapper.updateMovie(updateMovieForm);
             return ResponseVO.buildSuccess(movieMapper.selectMovieById(id));

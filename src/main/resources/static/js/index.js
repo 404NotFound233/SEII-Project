@@ -1,5 +1,6 @@
 $(document).ready(function () {
-//文档就绪函数，避免在完全加载之前运行jquery
+
+    //文档就绪函数，避免在完全加载之前运行jquery
 
     $("#login-btn").click(function () {
         var formData = getLoginForm();
