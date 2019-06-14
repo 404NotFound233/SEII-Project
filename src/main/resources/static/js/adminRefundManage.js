@@ -30,6 +30,10 @@ $(document).ready(function() {
                 '/refund/get',
                 function (res) {
                     var refunds = res.content;
+       if(refunds.length!=0){
+       document.getElementById("c-refund-free-input").value=refunds[0].freetime;
+       document.getElementById("c-refund-full-input").value=refunds[0].fulltime;
+       document.getElementById("c-refund-discount-input").value=refunds[0].discount;}
                     renderRefunds(refunds);
                 },
                 function (error) {
@@ -114,6 +118,9 @@ $(document).ready(function() {
     $("#refund-form-btn").click(function () {
        initstate=false;
        var name=$("#refund-name-input").val();
+       $("#c-refund-free-input").value=$("#refund-free-input").val();
+       $("#c-refund-full-input").value=$("#refund-full-input").val();
+       $("#c-refund-discount-input").value=$("#refund-discount-input").val();
        var form = {
            freetime: $("#refund-free-input").val(),
            //discounttime: $("#refund-time-input").val(),
@@ -122,16 +129,50 @@ $(document).ready(function() {
            movieList: [...selectedMovieIds],
        };
        document.getElementById("NumError").setAttribute("hidden",true);
-       document.getElementById("blankError").setAttribute("hidden",true);
+       document.getElementById("blankError-one").setAttribute("hidden",true);
+       document.getElementById("blankError-two").setAttribute("hidden",true);
+       document.getElementById("blankError-three").setAttribute("hidden",true);
        var pd=validaterefund(form);
        if(pd!=0){
-            if(pd==1){
-                         var errortext=document.getElementById("NumError");
-                         errortext.removeAttribute("hidden");}
-                         else{
-                          var errortext=document.getElementById("blankError");
-                          errortext.removeAttribute("hidden");
-                         }
+            switch(pd){
+                case 7:var errortext=document.getElementById("NumError");
+                       errortext.removeAttribute("hidden");
+                       break;
+                case 1:var errortext=document.getElementById("blankError-one");
+                       errortext.removeAttribute("hidden");
+                       break;
+                case 2:var errortext=document.getElementById("blankError-two");
+                       errortext.removeAttribute("hidden");
+                       break;
+                case 3:var errortext=document.getElementById("blankError-three");
+                       errortext.removeAttribute("hidden");
+                       break;
+                case 123:var errortext=document.getElementById("blankError-one");
+                       errortext.removeAttribute("hidden");
+                       var errortext=document.getElementById("blankError-two");
+                       errortext.removeAttribute("hidden");
+                       var errortext=document.getElementById("blankError-three");
+                       errortext.removeAttribute("hidden");
+                       break;
+                case 12:var errortext=document.getElementById("blankError-one");
+                       errortext.removeAttribute("hidden");
+                       var errortext=document.getElementById("blankError-two");
+                       errortext.removeAttribute("hidden");
+                       break;
+                case 13:
+                       var errortext=document.getElementById("blankError-one");
+                       errortext.removeAttribute("hidden");
+                       var errortext=document.getElementById("blankError-three");
+                       errortext.removeAttribute("hidden");
+                       break;
+                case 23:
+                       var errortext=document.getElementById("blankError-two");
+                       errortext.removeAttribute("hidden");
+                       var errortext=document.getElementById("blankError-three");
+                       errortext.removeAttribute("hidden");
+                       break;
+
+            }
         }
        else{
         postRequest(
@@ -168,15 +209,48 @@ $(document).ready(function() {
            movieList: [...c_selectedMovieIds],
        };
        document.getElementById("c-NumError").setAttribute("hidden",true);
-       document.getElementById("c-blankError").setAttribute("hidden",true);
+       document.getElementById("c-blankError-one").setAttribute("hidden",true);
+       document.getElementById("c-blankError-two").setAttribute("hidden",true);
+       document.getElementById("c-blankError-three").setAttribute("hidden",true);
        var pd=validaterefund(form);
        if(pd!=0){
-            if(pd==1){
-            var errortext=document.getElementById("c-NumError");
-            errortext.removeAttribute("hidden");}
-            else{
-             var errortext=document.getElementById("c-blankError");
-             errortext.removeAttribute("hidden");
+            switch(pd){
+                case 7:var errortext=document.getElementById("c-NumError");
+                       errortext.removeAttribute("hidden");
+                       break;
+                case 1:var errortext=document.getElementById("c-blankError-one");
+                       errortext.removeAttribute("hidden");
+                       break;
+                case 2:var errortext=document.getElementById("c-blankError-two");
+                       errortext.removeAttribute("hidden");
+                       break;
+                case 3:var errortext=document.getElementById("c-blankError-three");
+                       errortext.removeAttribute("hidden");
+                       break;
+                case 123:var errortext=document.getElementById("c-blankError-one");
+                       errortext.removeAttribute("hidden");
+                       var errortext=document.getElementById("c-blankError-two");
+                       errortext.removeAttribute("hidden");
+                       var errortext=document.getElementById("c-blankError-three");
+                       errortext.removeAttribute("hidden");
+                       break;
+                case 12:var errortext=document.getElementById("c-blankError-one");
+                       errortext.removeAttribute("hidden");
+                       var errortext=document.getElementById("c-blankError-two");
+                       errortext.removeAttribute("hidden");
+                       break;
+                case 13:
+                       var errortext=document.getElementById("c-blankError-one");
+                       errortext.removeAttribute("hidden");
+                       var errortext=document.getElementById("c-blankError-three");
+                       errortext.removeAttribute("hidden");
+                       break;
+                case 23:
+                       var errortext=document.getElementById("c-blankError-two");
+                       errortext.removeAttribute("hidden");
+                       var errortext=document.getElementById("c-blankError-three");
+                       errortext.removeAttribute("hidden");
+                       break;
             }
        }
        else{
@@ -257,14 +331,22 @@ $(document).ready(function() {
             var timeone= form.freetime;
             var timetwo= form.fulltime;
             var discount= form.discount;
-            if(timeone.length==0||timetwo.length==0||discount.length==0){return 2;}
+            if(timeone.length==0||timetwo.length==0||discount.length==0){
+                if(timeone.length==0&&timetwo.length==0&&discount.length==0){return 123;}
+                if(timeone.length==0&&timetwo.length==0){return 13;}
+                if(timeone.length==0&&discount.length==0){return 12;}
+                if(timetwo.length==0&&discount.length==0){return 23;}
+                if(timeone.length==0){return 1;}
+                if(timetwo.length==0){return 3;}
+                if(discount.length==0){return 2;}
+            }
             else{
                 if(isNaN(timeone)||isNaN(timetwo)||isNaN(discount)||eval(timeone)<eval(timetwo)){
-                    return 1;
+                    return 7;
                 }
                 else{
                     if(eval(timeone)<0||eval(timetwo<0)||eval(discount<0)||eval(discount>100)){
-                                            return 1;
+                                            return 7;
                                            }
                     else{return 0;}
                 }

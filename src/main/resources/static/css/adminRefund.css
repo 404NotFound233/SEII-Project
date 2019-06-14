@@ -4,6 +4,9 @@
     min-height: 200px;
     margin: 20px 0;
 }
+.red{
+    color:red;
+}
 .refund-card {
     padding: 20px;
     display: flex;

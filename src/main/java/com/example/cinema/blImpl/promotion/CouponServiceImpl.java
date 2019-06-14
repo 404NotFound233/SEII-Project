@@ -79,19 +79,32 @@ public class CouponServiceImpl implements CouponService {
              double sum;
              int idi;
              int idj;
+             int reasonj;
              for (int i=0;i<normalRecordList.size();++i) {
              	sum = 0;
              	idi = normalRecordList.get(i).getUserId();
              	for (int j=0;j<normalRecordList.size();++j) {
              		idj = normalRecordList.get(j).getUserId();
+             		reasonj = normalRecordList.get(j).getReason();
              		if (idj == idi) {
-             			sum += normalRecordList.get(j).getAmount();
+             			if (reasonj == 4) {
+             				sum -= normalRecordList.get(j).getAmount();
+             			}
+             			else {
+             				sum += normalRecordList.get(j).getAmount();
+             			}
              		}
              	}
              	for (int j=0;j<VIPRecordList.size();++j) {
              		idj = VIPRecordList.get(j).getUserId();
+             		reasonj = VIPRecordList.get(j).getReason();
              		if (idj == idi) {
-             			sum += VIPRecordList.get(j).getAmount();
+             			if (reasonj == 2) {
+             				sum += VIPRecordList.get(j).getAmount();
+             			}
+             			else {
+             				sum -= VIPRecordList.get(j).getAmount();
+             			}
              		}
              	}
              	NormalRecord totalRecord = new NormalRecord();

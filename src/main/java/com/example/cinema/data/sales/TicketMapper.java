@@ -38,9 +38,9 @@ public interface TicketMapper {
     @Scheduled(cron = "0/1 * * * * ?")
     void cleanExpiredTicket();
 
-    void insertVIPRecord(int userId, double amount, double before_Balance, int reason);
+    void insertVIPRecord(@Param("userId") int userId, @Param("amount") double amount, @Param("before_Balance") double before_Balance, @Param("reason") int reason);
 
-    void insertNormalRecord(int userId, double amount, int reason);
+    void insertNormalRecord(@Param("userId") int userId, @Param("amount") double amount, @Param("reason") int reason);
 
     List<NormalRecord> selectNormalRecord(int userId);
 

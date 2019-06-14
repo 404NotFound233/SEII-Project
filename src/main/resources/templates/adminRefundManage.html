@@ -62,34 +62,52 @@
                 <form class="form-horizontal" role="form">
                     <p>输入规范：退款天数为整数且全价退款天数>不退款天数</p>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="refund-free-input"><span class="error-text">*</span>全价退款期限</label>
-                        <div class="col-sm-10">
+                        <label class="col-sm-3 control-label" for="refund-free-input"><span class="error-text">*</span>全价退款期限</label>
+                        <div class="col-sm-9">
                             <input type="text" class="form-control" id="refund-free-input" placeholder="请输入全价退款期限（天）">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="refund-discount-input"><span class="error-text">*</span>退款折算</label>
-                        <div class="col-sm-10">
+                        <label class="col-sm-3 control-label"></label>
+                        <div class="col-sm-9">
+                            <p id="blankError-one" class="red" hidden>全价退款期限输入不能为空!!!</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="refund-discount-input"><span class="error-text">*</span>退款折算</label>
+                        <div class="col-sm-9">
                             <input type="text" class="form-control" id="refund-discount-input" placeholder="请输入退票金额百分比，若退票价50%请输入50">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="refund-full-input"><span class="error-text">*</span>无法退款期限</label>
-                        <div class="col-sm-10">
+                        <label class="col-sm-3 control-label"></label>
+                        <div class="col-sm-9">
+                            <p id="blankError-two" class="red" hidden>折算退款输入不能为空!!!</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="refund-full-input"><span class="error-text">*</span>无法退款期限</label>
+                        <div class="col-sm-9">
                             <input type="text" class="form-control" id="refund-full-input" placeholder="请输入无法退款期限（天）">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="refund-movie-input">电影范围</label>
-                        <div class="col-sm-10">
+                        <label class="col-sm-3 control-label"></label>
+                        <div class="col-sm-9">
+                            <p id="blankError-three" class="red" hidden>无法退款期限输入不能为空!!!</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="refund-movie-input">电影范围</label>
+                        <div class="col-sm-9">
                             <select id="refund-movie-input" class="form-control">
                             </select>
                             <p class="help-block">不选择代表所有电影</p>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="refund-movie-input">已选电影</label>
-                        <div id="selected-movies" class="col-sm-10">
+                        <label class="col-sm-3 control-label" for="refund-movie-input">已选电影</label>
+                        <div id="selected-movies" class="col-sm-9">
 
                         </div>
                     </div>
@@ -120,40 +138,57 @@
                 <form class="form-horizontal" role="form">
                     <p>输入规范：退款天数为整数且全价退款天数>不退款天数</p>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="c-refund-free-input"><span class="error-text">*</span>全价退款期限</label>
-                        <div class="col-sm-10">
+                        <label class="col-sm-3 control-label" for="c-refund-free-input"><span class="error-text">*</span>全价退款期限</label>
+                        <div class="col-sm-9">
                             <input type="text" class="form-control" id="c-refund-free-input" placeholder="<输入>天外全价退款期限">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="c-refund-discount-input"><span class="error-text">*</span>折算退款</label>
-                        <div class="col-sm-10">
+                        <label class="col-sm-3 control-label"></label>
+                        <div class="col-sm-9">
+                            <p id="c-blankError-one" class="red" hidden>全价退款期限输入不能为空!!!</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="c-refund-discount-input"><span class="error-text">*</span>折算退款</label>
+                        <div class="col-sm-9">
                             <input type="text" class="form-control" id="c-refund-discount-input" placeholder="请输入退票金额百分比，若退票价50%请输入50">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="c-refund-full-input"><span class="error-text">*</span>无法退款期限</label>
-                        <div class="col-sm-10">
+                        <label class="col-sm-3 control-label"></label>
+                        <div class="col-sm-9">
+                            <p id="c-blankError-two" class="red" hidden>折算退款输入不能为空!!!</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="c-refund-full-input"><span class="error-text">*</span>无法退款期限</label>
+                        <div class="col-sm-9">
                             <input type="text" class="form-control" id="c-refund-full-input" placeholder="<输入>天内无法退款期限">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="c-refund-movie-input">电影范围</label>
-                        <div class="col-sm-10">
+                        <label class="col-sm-3 control-label"></label>
+                        <div class="col-sm-9">
+                            <p id="c-blankError-three" class="red" hidden>无法退款期限输入不能为空!!!</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="c-refund-movie-input">电影范围</label>
+                        <div class="col-sm-9">
                             <select id="c-refund-movie-input" class="form-control">
                             </select>
                             <p class="help-block">不选择代表所有电影</p>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="c-refund-movie-input">已选电影</label>
-                        <div id="c-selected-movies" class="col-sm-10">
+                        <label class="col-sm-3 control-label" for="c-refund-movie-input">已选电影</label>
+                        <div id="c-selected-movies" class="col-sm-9">
 
                         </div>
                     </div>
                     <div class="form-group">
                         <p id="c-NumError" class="red" hidden>error:免费期限和全价期限请输入数字且全价期限>退款期限且打折退款范围在0-100之内！</p>
-                        <p id="c-blankError" class="red" hidden>error:输入不能为空</p>
                     </div>
                 </form>
             </div>

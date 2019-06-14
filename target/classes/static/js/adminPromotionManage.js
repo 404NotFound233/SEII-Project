@@ -118,6 +118,11 @@ $(document).ready(function() {
            var payTarget = $('#pay-target-input').val();
            var couponId = $('#give-coupon-input').val();
            var givecoupon = {payTarget:payTarget,couponId:couponId};
+           if (payTarget == '' || payTarget < 0) {
+               $('#coupon-target-error').css("visibility","visible");
+           }
+           else {
+
            postRequest(
                '/coupon/give',
                givecoupon,
@@ -133,6 +138,7 @@ $(document).ready(function() {
                 alert(JSON.stringify(error));
             }
            );
+           }
 
        });
 

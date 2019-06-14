@@ -23,7 +23,7 @@ $(document).ready(function() {
             if (movie.status != 1 && new Date(movie.startDate)<=new Date()) {
                 movieDomStr +=
                 "<li class='movie-item-home'>" +
-                "<img class='movie-img' src='" + (movie.posterUrl || "../images/defaultAvatar.jpg") + "'/>" +
+                "<a href='/user/movieDetail?id="+ movie.id +"'><img class='movie-img' src='" + (movie.posterUrl || "../images/defaultAvatar.jpg") + "'/></a>" +
                  "<span class='primary-text-home'>" + movie.name + "</span>" +
                 "</li>";
             }  
@@ -34,7 +34,7 @@ $(document).ready(function() {
             if (movie.status != 1 && new Date(movie.startDate)>new Date()) {
                 movieDomStr +=
                 "<li class='movie-item-home'>" +
-                "<img class='movie-img' src='" + (movie.posterUrl || "../images/defaultAvatar.jpg") + "'/>" +
+                "<a href='/user/movieDetail?id="+ movie.id +"'><img class='movie-img' src='" + (movie.posterUrl || "../images/defaultAvatar.jpg") + "'/></a>" +
                  "<span class='primary-text-home'>" + movie.name + "</span>" +
                 "</li>";
             }  

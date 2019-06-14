@@ -77,41 +77,41 @@ $(document).ready(function() {
 
     function getBoxOffice() {
 
-        getRequest(
-            '/statistics/boxOffice/total',
-            function (res) {
-                var data = res.content || [];
-                var tableData = data.map(function (item) {
-                    return item.boxOffice;
+            getRequest(
+                '/statistics/boxOffice/total',
+                function (res) {
+                    var data = res.content || [];
+                    var tableData = data.map(function (item) {
+                        return item.boxOffice;
+                    });
+                    var nameList = data.map(function (item) {
+                        return item.name;
+                    });
+                    var option = {
+                        title : {
+                            text: '所有电影票房',
+                            subtext: '截止至'+new Date().toLocaleDateString(),
+                            x:'center'
+                        },
+                        xAxis: {
+                            type: 'category',
+                            data: nameList
+                        },
+                        yAxis: {
+                            type: 'value'
+                        },
+                        series: [{
+                            data: tableData,
+                            type: 'bar'
+                        }]
+                    };
+                    var scheduleRateChart = echarts.init($("#box-office-container")[0]);
+                    scheduleRateChart.setOption(option);
+                },
+                function (error) {
+                    alert(JSON.stringify(error));
                 });
-                var nameList = data.map(function (item) {
-                    return item.date;
-                });
-                var option = {
-                    title : {
-                        text: '所有电影票房',
-                        subtext: '截止至'+new Date().toLocaleDateString(),
-                        x:'center'
-                    },
-                    xAxis: {
-                        type: 'category',
-                        data: nameList
-                    },
-                    yAxis: {
-                        type: 'value'
-                    },
-                    series: [{
-                        data: tableData,
-                        type: 'bar'
-                    }]
-                };
-                var scheduleRateChart = echarts.init($("#box-office-container")[0]);
-                scheduleRateChart.setOption(option);
-            },
-            function (error) {
-                alert(JSON.stringify(error));
-            });
-    }
+        }
 
     function getAudiencePrice() {
         getRequest(
