@@ -7,9 +7,24 @@ import com.example.cinema.po.Hall;
  * @date 2019/4/11 3:46 PM
  */
 public class HallVO {
+    /**
+     * 影厅id
+     */
     private Integer id;
+
+    /**
+     * 影厅名称
+     */
     private String name;
+
+    /**
+     * 影厅行数
+     */
     private Integer row;
+
+    /**
+     * 影厅列数
+     */
     private Integer column;
 
     public HallVO(Hall hall){

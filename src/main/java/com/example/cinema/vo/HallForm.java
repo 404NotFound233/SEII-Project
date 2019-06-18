@@ -1,10 +1,25 @@
 package com.example.cinema.vo;
 
 public class HallForm {
+    /**
+     * 影厅id
+     */
     private Integer id;
+
+    /**
+     * 影厅名称
+     */
     private String name;
-    private Integer column;
+
+    /**
+     * 影厅行数
+     */
     private Integer row;
+
+    /**
+     * 影厅列数
+     */
+    private Integer column;
 
     public Integer getId(){
         return id;

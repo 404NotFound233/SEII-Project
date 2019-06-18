@@ -5,9 +5,24 @@ package com.example.cinema.po;
  * @date 2019/4/28 5:09 PM
  */
 public class Hall {
+    /**
+     * 影厅id
+     */
     private Integer id;
+
+    /**
+     * 影厅名称
+     */
     private String name;
+
+    /**
+     * 影厅行数
+     */
     private Integer row;
+
+    /**
+     * 影厅列数
+     */
     private Integer column;
 
     public Integer getId() {

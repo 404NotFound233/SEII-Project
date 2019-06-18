@@ -91,7 +91,6 @@ public class HallServiceImpl implements HallService, HallServiceForBl {
         Date today = simpleDateFormat.parse(simpleDateFormat.format(new Date()));
         Date lastDay;
         for(int id: hallIdList) {
-            //System.out.println("id:"+id+hallMapper.getEndDate(id));
             Date endDate=hallMapper.getEndDate(id);
             if (endDate==null){
                 return false;//影厅未被占用
