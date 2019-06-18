@@ -139,7 +139,6 @@ public class VIPServiceImpl implements VIPService {
         return VIPRechargeRecordList;
     }
 
-    //自己定义的接口的实现
     @Override
     public ResponseVO payByCard(int userId,double balance){
         try{
@@ -151,8 +150,6 @@ public class VIPServiceImpl implements VIPService {
         }
     }
 
-    //wqy
-    //如何限制数据库里面只有一条记录？
     @Override
     public ResponseVO publishVIP(VIPInfoVO vip_vo) {
         try {
@@ -170,7 +167,6 @@ public class VIPServiceImpl implements VIPService {
         }
     }
 
-    //wqy
     @Override
     public ResponseVO modifyVIP(VIPInfoVO vip_vo){
         try {
@@ -187,7 +183,6 @@ public class VIPServiceImpl implements VIPService {
         }
     }
 
-    //wqy
     @Override
     public ResponseVO getLength(){
         try{

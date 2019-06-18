@@ -56,7 +56,7 @@ public class AccountController {
         return accountService.searchUserPassword(username);
     }
   
-    //添加用户辣！
+    //添加用户
     @RequestMapping(value = "user/add", method = RequestMethod.POST)
     public ResponseVO addUser(@RequestBody  UserForm userForm){
         return accountService.addUser(userForm);

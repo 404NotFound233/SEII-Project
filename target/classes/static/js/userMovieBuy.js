@@ -15,7 +15,7 @@ var actualTotal;
 var disc_actual;
 var vip_discount;
 var total;
-var balance=1000000;//此处表示银行卡或会员卡的余额，初始化为银行卡余额，应该是无穷大嘛？
+var balance=1000000;//此处表示银行卡或会员卡的余额，初始化为银行卡余额
 
 //var ticketprice;
 var orderInfo="";
@@ -23,7 +23,6 @@ var orderInfo="";
 $(document).ready(function () {
     scheduleId = parseInt(window.location.href.split('?')[1].split('&')[1].split('=')[1]);
     userId=sessionStorage.getItem('id');
-    //userId=parseInt(window.location.href.split('?')[1].split('&')[0].split('=')[1]);
 
     getInfo();
     getVIPInfo();
@@ -161,36 +160,6 @@ function orderConfirmClick() {
     };
     // TODO:这里是假数据，需要连接后端获取真数据，数据格式可以自行修改，但如果改了格式，别忘了修改renderOrder方法
     var orderInfo={ }
-    /*
-        "ticketVOList":ticket_vo_list,
-        "total": selectedSeats.length*schedule00.fare.toFixed(2),
-        "coupons":coupons,
-        "activities":activities*/
-
-/*
-    var orderInfo = {
-            "ticketVOList":ticket_vo_list,
-            "total": selectedSeats.length*schedule00.fare.toFixed(2),
-            "coupons":coupons,
-            "activities":activities
-    };
-
-    //renderOrder(orderInfo);
-
-
-	$('#order-total').text(ticketprice*selectedSeats);
-	var SeatFormlist = [];
-	for (let seatLoc of selectedSeats){
-		//seat是后台Seat的json对象
-			var seat={"columnIndex":(seatLoc[1] ),"rowIndex":(seatLoc[0])};
-			SeatFormlist.push(seat);}
-	var userId=parseInt(window.location.href.split('?')[1].split('&')[0].split('=')[1]);
-	var TicketForm={
-		"userId":userId,
-		"scheduleId":scheduleId,
-		"seats":SeatFormlist
-	};
-	*/
     getRequest(
         '/vip/' + sessionStorage.getItem('id') + '/get',
         function (res) {
@@ -343,7 +312,7 @@ function vip_buy(){
             order.couponId,
             disc_actual,
             function (res) {
-            //此处经过测试可以运行到
+
             },
             function (error) {
                  alert(error);
@@ -357,7 +326,7 @@ function vip_pay(){
             sessionStorage.getItem('id'),
             parseFloat(balance-disc_actual),
             function(res){
-             alert("ok!!!!!");//此处未能运行到
+
             },
             function(error){
                 alert(error);

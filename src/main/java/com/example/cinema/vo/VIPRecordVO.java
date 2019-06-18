@@ -4,18 +4,39 @@ import java.sql.Timestamp;
 
 
 public class VIPRecordVO {
+    /**
+     * 会员卡id
+     */
     private int id;
 
+    /**
+     * 用户id
+     */
     private int userId;
 
+    /**
+     * 会员卡变动金额
+     */
     private String amountString;
 
+    /**
+     * 会员卡变动前的金额
+     */
     private double before_Balance;
 
+    /**
+     * 会员卡变动后的金额
+     */
     private double after_Balance;
 
+    /**
+     * 会员卡余额变动原因
+     */
     private String reasonString;
 
+    /**
+     * 会员卡余额变动时间
+     */
     private Timestamp join_time;
 
     public int getId() {

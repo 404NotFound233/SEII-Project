@@ -8,11 +8,6 @@ import java.sql.Timestamp;
  */
 
 public class VIPCard {
-/*
-    public static final double price = 25;
-
-    public static final String description="满200送30";*/
-
 
     /**
      * 用户id
@@ -71,6 +66,4 @@ public class VIPCard {
     public void setJoinDate(Timestamp joinDate) {
         this.joinDate = joinDate;
     }
-
-
 }

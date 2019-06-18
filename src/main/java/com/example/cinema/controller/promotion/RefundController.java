@@ -27,7 +27,6 @@ public class RefundController {
         return refundService.getRefunds();
     }
 
-    //以下为自己写的
     @GetMapping("/get/{movieId}")
     public ResponseVO getRefundsByMovieId(@PathVariable int movieId){
         return refundService.getRefundsByMovieId(movieId);

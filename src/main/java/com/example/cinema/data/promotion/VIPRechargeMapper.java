@@ -11,7 +11,15 @@ import java.util.List;
  */
 @Mapper
 public interface VIPRechargeMapper {
+    /**
+     * 添加一条充值记录
+     * @return
+     */
     int insertOneRecharge(@Param("user_id") int user_id,@Param("before_balance") double before_balance,@Param("single_recharge") double single_recharge,@Param("after_balance") double after_balance);
 
+    /**
+     * 根据userId获取充值记录
+     * @return
+     */
     List<VIPRecharge> getRecordByUserId(int userId);
 }

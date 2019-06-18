@@ -11,24 +11,52 @@ import java.util.List;
  */
 @Mapper
 public interface RefundMapper {
-
+    /**
+     * 添加退票策略
+     * @return
+     */
     int insertRefund(Refund refund);
 
-    //清除refund和refund_movie数据库中所有内容
+    /**
+     * 清除refund数据库中的所有内容
+     * @return
+     */
     void clearRefund();
+
+    /**
+     * 清除refund_movie数据库中的所有内容
+     * @return
+     */
     void clearRefundAndMovie();
-	//不知道下面这个方法有啥子用
-	//我现在就是不太想实现它
+
+    /**
+     * 添加对应于电影的退票策略
+     * @return
+     */
     int insertRefundAndMovie(@Param("refundId") int refundId,@Param("movieId") List<Integer> movieId);
 
+    /**
+     * 获取全部退票策略
+     * @return
+     */
     List<Refund> selectRefunds();
-	//突然发现这个方法贼有用
-	//突然意识到上面的方法贼有用
-    //助教nb
+
+    /**
+     * 根据movieId获取退票策略
+     * @return
+     */
     List<Refund> selectRefundsByMovie(int movieId);
 
+    /**
+     * 根据id获取退票策略
+     * @return
+     */
     Refund selectById(int id);
-	//突然又觉得这个方法没啥子用
+
+    /**
+     * 获取不对应于电影的退票策略
+     * @return
+     */
     List<Refund> selectRefundsWithoutMovie();
 
 

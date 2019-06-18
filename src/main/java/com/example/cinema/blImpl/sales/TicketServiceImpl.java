@@ -59,7 +59,6 @@ public class TicketServiceImpl implements TicketService, TicketServiceForBl  {
                 Ticket t1=ticketMapper.selectTicketByScheduleIdAndSeat(ticketForm.getScheduleId(),ticketForm.getSeats().get(i).getColumnIndex(),ticketForm.getSeats().get(i).getRowIndex());
                 ticketVOList.add(t1.getVO());
             }
-
             List<Activity> activities=activityMapper.selectActivities();
             List<Coupon> coupons=couponMapper.selectCouponByUser(ticketForm.getUserId());
             TicketWithCouponVO ticketWithCouponVO=new TicketWithCouponVO();
@@ -69,44 +68,6 @@ public class TicketServiceImpl implements TicketService, TicketServiceForBl  {
             ScheduleItem scheduleItem=scheduleMapper.selectScheduleById(ticketForm.getScheduleId());
             ticketWithCouponVO.setTotal(scheduleItem.getFare()*ticketVOList.size());
             return ResponseVO.buildSuccess(ticketWithCouponVO);
-
-            /*
-            //ticketMapper.deleteTicket(70);
-            int UserId=ticketForm.getUserId();
-            int scheduleId=ticketForm.getScheduleId();
-            List<SeatForm> seats=ticketForm.getSeats();
-            List<Ticket> ticketList=new ArrayList<Ticket>();
-            List<TicketVO> ticketVOList=new ArrayList<TicketVO>();
-            for(int i=0;i<seats.size();i++){
-                SeatForm seat=seats.get(i);
-                Ticket ticket=new Ticket();
-                ticket.setUserId(ticketForm.getUserId());
-                ticket.setState(0);
-                ticket.setScheduleId(ticketForm.getScheduleId());
-                ticket.setRowIndex(seat.getRowIndex());
-                ticket.setColumnIndex(seat.getColumnIndex());
-                ticket.setTime( new Timestamp(System.currentTimeMillis()));
-                ticket.setId(996);
-                ticketList.add(ticket);
-                ticketVOList.add(ticket.getVO());
-            }
-            ticketMapper.insertTickets(ticketList);
-            List<Activity> activities=activityMapper.selectActivities();
-            List<Coupon> coupons=couponMapper.selectCouponByUser(UserId);
-            TicketWithCouponVO ticketWithCouponVO=new TicketWithCouponVO();
-            ticketWithCouponVO.setActivities(activities);
-            ticketWithCouponVO.setCoupons(coupons);
-            ticketWithCouponVO.setTicketVOList(ticketVOList);
-            ScheduleItem scheduleItem=scheduleMapper.selectScheduleById(scheduleId);
-            ticketWithCouponVO.setTotal(scheduleItem.getFare()*ticketList.size());
-            /*
-            System.out.println("size:"+ticketVOList.size());
-            List<Integer> id=new ArrayList<Integer>();
-            for(int i=63;i<70;i++){
-                id.add(i);
-            }
-            cancelTicket(id);
-            return ResponseVO.buildSuccess(ticketWithCouponVO);*/
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseVO.buildFailure("失败");
@@ -237,7 +198,6 @@ public class TicketServiceImpl implements TicketService, TicketServiceForBl  {
             long day=(startTime.getTime()-moment.getTime())/(24*60*60*1000);
             //不知道要不要加一
             day+=1;
-            System.out.println("时间差："+day);
             int len=refundMapper.selectRefundsByMovie(movieId).size();
             Refund refund=new Refund();
             if(len!=0){refund=refundMapper.selectRefundsByMovie(movieId).get(0);}
@@ -273,7 +233,6 @@ public class TicketServiceImpl implements TicketService, TicketServiceForBl  {
                 list[2]=ticket.getActualTotal();
                 list[3]=money;
             }
-
             return ResponseVO.buildSuccess(list);
         } catch (Exception e) {
             e.printStackTrace();
@@ -281,7 +240,6 @@ public class TicketServiceImpl implements TicketService, TicketServiceForBl  {
         }
     }
 
-    //wqy
     @Override
     public ResponseVO VIPRecord(int userId, double amount, double before_Balance, int reason){
         try{
@@ -293,7 +251,6 @@ public class TicketServiceImpl implements TicketService, TicketServiceForBl  {
         }
     }
 
-    //wqy
     @Override
     public ResponseVO normalRecord(int userId, double amount, int reason){
         try{
@@ -305,7 +262,6 @@ public class TicketServiceImpl implements TicketService, TicketServiceForBl  {
         }
     }
 
-    //wqy
     @Override
     public ResponseVO getNormalRecord(int userId){
         try{
@@ -316,7 +272,6 @@ public class TicketServiceImpl implements TicketService, TicketServiceForBl  {
         }
     }
 
-    
     //为forbl类提供的实现方法，收集普通票记录
     @Override
     public List<NormalRecord> collectAllNormalRecord() {
@@ -339,8 +294,6 @@ public class TicketServiceImpl implements TicketService, TicketServiceForBl  {
          }
     }
 
-    
-    //wqy
     private List<NormalRecordVO> normalRecord2NormalRecordVOList(List<NormalRecord> normalRecordList){
         List<NormalRecordVO> normalRecordVOList = new ArrayList<>();
         for(NormalRecord normalRecord : normalRecordList){
@@ -349,7 +302,6 @@ public class TicketServiceImpl implements TicketService, TicketServiceForBl  {
         return normalRecordVOList;
     }
 
-    //wqy
     @Override
     public ResponseVO getVIPRecord(int userId){
         try{
@@ -360,7 +312,6 @@ public class TicketServiceImpl implements TicketService, TicketServiceForBl  {
         }
     }
 
-    //wqy
     private List<VIPRecordVO> vipRecord2VIPRecordVOList(List<VIPRecord> vipRecordList){
         List<VIPRecordVO> vipRecordVOList = new ArrayList<>();
         for(VIPRecord vipRecord : vipRecordList){

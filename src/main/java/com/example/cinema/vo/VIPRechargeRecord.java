@@ -13,8 +13,14 @@ public class VIPRechargeRecord {
      */
     private int id;
 
+    /**
+     * 会员卡充值前余额
+     */
     private double before_balance;
 
+    /**
+     * 会员卡充值金额
+     */
     private double single_recharge;
 
     //private double extra;
@@ -24,7 +30,7 @@ public class VIPRechargeRecord {
     private double after_balance;
 
     /**
-     * 办卡日期
+     * 充值时间
      */
     private Timestamp joinDate;
 

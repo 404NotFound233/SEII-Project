@@ -26,24 +26,19 @@
         update vip_card set balance = #{balance} where id=#{id}
     </update>
 
-    <!--自己写的-->
     <update id="updateCardBalanceByUserId" >
         update vip_card set balance = #{balance} where user_id=#{user_id}
     </update>
 
-
-    <!--wqy-->
     <insert id="insertVIPInfo">
         insert into vip(price,description,discount,reach,send)
         values(#{price}, #{description}, #{discount}, #{reach}, #{send})
     </insert>
 
-    <!--wqy-->
     <select id="selectVIPInfo" resultMap="VIPInfo">
         select * from vip
     </select>
 
-    <!--wqy-->
     <update id="updateVIPInfo" >
         update vip set price = #{price},description=#{description},discount=#{discount},reach=#{reach},send=#{send}
     </update>
@@ -52,14 +47,10 @@
 		select user_id from vip_card where id=#{id};
 	</select>
 
-
-    <!--wqy-->
     <select id="selectLength" resultType="java.lang.Integer">
         select count(*) from vip
     </select>
 
-
-    <!--wqy-->
     <resultMap id="VIPInfo" type="com.example.cinema.po.VIPInfo">
         <result column="price" property="price"></result>
         <result column="description" property="description"></result>

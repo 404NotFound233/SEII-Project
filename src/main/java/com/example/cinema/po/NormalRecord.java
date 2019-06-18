@@ -5,14 +5,29 @@ import com.example.cinema.vo.NormalRecordVO;
 import java.sql.Timestamp;
 
 public class NormalRecord {
+    /**
+     * id
+     */
     private int id;
 
+    /**
+     * 用户id
+     */
     private int userId;
 
+    /**
+     * 退款或付款金额
+     */
     private double amount;
 
+    /**
+     * 退款或付款原因
+     */
     private int reason;
 
+    /**
+     * 金额变动时间
+     */
     private Timestamp join_time;
 
     public int getId() {

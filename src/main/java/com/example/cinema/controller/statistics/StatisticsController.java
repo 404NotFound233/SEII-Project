@@ -41,14 +41,4 @@ public class StatisticsController {
     public ResponseVO getPopularMovies(@PathVariable int days, @PathVariable int movieNum){
         return statisticsService.getPopularMovies(days, movieNum);
     }
-
-
-
-
-
-
-
-
-
-
 }

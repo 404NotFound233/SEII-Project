@@ -2,10 +2,29 @@ package com.example.cinema.po;
 import com.example.cinema.vo.VIPInfoVO;
 
 public class VIPInfo {
+    /**
+     * 会员卡价格
+     */
     private double price;
+
+    /**
+     * 会员卡描述
+     */
     private String description;
+
+    /**
+     * 会员卡购票折扣
+     */
     private double discount;
+
+    /**
+     * 会员卡充值优惠需满金额
+     */
     private double reach;
+
+    /**
+     * 会员卡充值优惠达到需满金额后的赠送金额
+     */
     private double send;
 
     public double getPrice() {

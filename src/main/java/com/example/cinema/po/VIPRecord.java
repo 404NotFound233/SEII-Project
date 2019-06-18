@@ -4,16 +4,34 @@ import com.example.cinema.vo.VIPRecordVO;
 import java.sql.Timestamp;
 
 public class VIPRecord {
+    /**
+     * 会员卡id
+     */
     private int id;
 
+    /**
+     * 用户id
+     */
     private int userId;
 
+    /**
+     * 会员卡变动的金额
+     */
     private double amount;
 
+    /**
+     * 会员卡变动前的金额
+     */
     private double before_Balance;
 
+    /**
+     * 会员卡余额变动原因
+     */
     private int reason;
 
+    /**
+     * 会员卡余额变动时间
+     */
     private Timestamp join_time;
 
     public int getId() {

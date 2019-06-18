@@ -1,9 +1,3 @@
-/*
-感觉写的差不多了
-还有一丢丢小Bug没调完
-选电影的时候还有一些无法言说的问题
-anyway加油吧
-*/
 var movieList=[];
 var initstate=true;
 var init_select_movie=true;
@@ -19,11 +13,6 @@ $(document).ready(function() {
     getAllMovies();
     getRefunds();
 
-
-//emm我觉得这个部分也要写的
-//等我写掉点七七八八的东西再来写它
-    //getRefunds();
-//看起来get方法挺对的了
     function getRefunds() {
         var that=this;
             getRequest(
@@ -85,11 +74,6 @@ $(document).ready(function() {
                 "               <ul>"+movieDomStr+"</ul>" +
                 "       </div>" +
                 "    </div>" +
-                /*
-                "    <div class='refund-coupon primary-bg'>" +
-                "        <span class='title'>退票策略包含退票时间、电影范围和退票范围 咱也不知道还有啥需求</span>" +
-                "    </div>" +
-                */
                 "</div>";
         });
         $(".content-refund").append(refundsDomStr);

@@ -3,14 +3,29 @@ package com.example.cinema.vo;
 import java.sql.Timestamp;
 
 public class NormalRecordVO {
+    /**
+     * id
+     */
     private int id;
 
+    /**
+     * 用户id
+     */
     private int userId;
 
+    /**
+     * 退款或付款金额
+     */
     private String amountString;
 
+    /**
+     * 退款或付款原因
+     */
     private String reasonString;
 
+    /**
+     * 金额变动时间
+     */
     private Timestamp join_time;
 
     public int getId() {

@@ -27,24 +27,20 @@ public class CouponController {
         return couponService.getCouponsByUser(userId);
     }
 
-    //以下为自己写的
     @PostMapping("/add")
     public ResponseVO add_Coupon(@RequestBody CouponForm couponForm){
         return couponService.addCoupon(couponForm);
     }
 
-    //以下为自己写的
     @PostMapping("/issue/{couponId}/{userId}")
     public ResponseVO issue_Coupon(@PathVariable int couponId,@PathVariable int userId){
         return couponService.issueCoupon(couponId,userId);
     }
 
-    //以下为自己写的
     @PostMapping("/delete/{couponId}/{userId}")
     public ResponseVO delete_Coupon(@PathVariable int couponId,@PathVariable int userId){
         return couponService.deleteCouponUser(couponId,userId);
     }
-    
     
     //批量赠送优惠券
     @PostMapping(value = "/give")

@@ -55,7 +55,6 @@ public class ActivityServiceImpl implements ActivityService {
         }
     }
 
-    //以下为自己写的
     @Override
     public ResponseVO getActivitiesByMovieId(int movieId){
         try {

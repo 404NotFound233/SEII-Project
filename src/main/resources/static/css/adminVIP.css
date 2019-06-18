@@ -30,6 +30,7 @@
     font-size: 24px;
     font-weight: 500;
 }
+
 .form {
   display: block;
   width: 100%;
@@ -41,15 +42,13 @@
   background-color: #ffffff;
 }
 
-
-
-
 .refund-container {
     display: flex;
     width: 100%;
     min-height: 200px;
     margin: 20px 0;
 }
+
 .refund-card {
     padding: 20px;
     display: flex;

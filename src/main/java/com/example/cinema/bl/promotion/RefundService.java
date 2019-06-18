@@ -3,16 +3,24 @@ package com.example.cinema.bl.promotion;
 import com.example.cinema.vo.RefundForm;
 import com.example.cinema.vo.ResponseVO;
 
-/**
- * Created by liying on 2019/4/20.
- */
+
 public interface RefundService {
-    
+    /**
+     * 发布退票策略
+     * @return
+     */
     ResponseVO publishRefund(RefundForm refundForm);
 
+    /**
+     * 获取退票策略
+     * @return
+     */
     ResponseVO getRefunds();
 
-    //以下为我自己写的
+    /**
+     * 根据movieId获取退票策略
+     * @return
+     */
     ResponseVO getRefundsByMovieId(int movieId);
 
 

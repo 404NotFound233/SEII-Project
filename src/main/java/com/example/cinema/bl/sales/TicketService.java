@@ -60,16 +60,34 @@ public interface TicketService {
      */
     ResponseVO cancelTicket(int id);
     ResponseVO changeTicket(int id);
-   
+
+    /**
+     * 添加会员卡消费记录
+     * @return
+     */
     ResponseVO VIPRecord(int userId, double amount, double before_Balance, int reason);
 
+    /**
+     * 添加银行卡消费记录
+     * @return
+     */
     ResponseVO normalRecord(int userId, double amount, int reason);
 
+    /**
+     * 获取银行卡消费记录
+     * @return
+     */
     ResponseVO getNormalRecord(int userId);
 
+    /**
+     * 获取会员卡消费记录
+     * @return
+     */
     ResponseVO getVIPRecord(int userId);
 
-    //wqy
-    //取消订单
+    /**
+     * 删除电影票
+     * @return
+     */
     ResponseVO deleteTicket(int id);
 }

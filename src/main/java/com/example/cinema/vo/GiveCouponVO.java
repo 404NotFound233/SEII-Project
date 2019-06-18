@@ -8,7 +8,9 @@ import java.util.*;
  *
  */
 public class GiveCouponVO {
-	
+	/**
+	 * 赠送优惠券的目标金额
+	 */
 	private int payTarget;
 	
 	private int couponId;

@@ -134,8 +134,7 @@ public class CouponServiceImpl implements CouponService {
         }
 
     }
-    
-    //自己写的
+
     @Override
     public ResponseVO deleteCouponUser(int couponId,int userId){
         try{
@@ -146,5 +145,4 @@ public class CouponServiceImpl implements CouponService {
             return ResponseVO.buildFailure("失败");
         }
     }
-    
 }

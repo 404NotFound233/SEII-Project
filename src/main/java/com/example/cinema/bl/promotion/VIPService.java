@@ -11,30 +11,63 @@ import com.example.cinema.vo.VIPInfoVO;
 
 public interface VIPService {
 
+    /**
+     * 增加会员卡
+     * @return
+     */
     ResponseVO addVIPCard(int userId, double price);
 
+    /**
+     * 根据id获取会员卡
+     * @return
+     */
     ResponseVO getCardById(int id);
 
+    /**
+     * 获取会员卡优惠策略
+     * @return
+     */
     ResponseVO getVIPInfo();
 
+    /**
+     * 充值会员卡
+     * @return
+     */
     ResponseVO charge(VIPCardForm vipCardForm);
 
+    /**
+     * 根据userId获取会员卡
+     * @return
+     */
     ResponseVO getCardByUserId(int userId);
 
-    //自己写的接口
+    /**
+     * 会员卡扣款
+     * @return
+     */
     ResponseVO payByCard(int userId,double balance);
 
-
-    //wqy
+    /**
+     * 发布会员卡优惠策略
+     * @return
+     */
     ResponseVO publishVIP(VIPInfoVO vip);
 
-    //wqy
+    /**
+     * 修改会员卡优惠策略
+     * @return
+     */
     ResponseVO modifyVIP(VIPInfoVO vip);
 
-    //wqy
+    /**
+     * 获取会员卡优惠策略的条数
+     * @return
+     */
     ResponseVO getLength();
 
+    /**
+     * 获取会员卡充值记录
+     * @return
+     */
     ResponseVO getRecord(int userId);
-
-
 }

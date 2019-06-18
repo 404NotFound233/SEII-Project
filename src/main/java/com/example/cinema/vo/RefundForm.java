@@ -7,10 +7,29 @@ import java.util.List;
  * Created by liying on 2019/4/20.
  */
 public class RefundForm {
+    /**
+     * 退还的票款比例
+     */
 	private int discount;
+
+    /**
+     * 全额退款时间
+     */
     private int freetime;
+
+    /**
+     * 收取手续费退款时间
+     */
     private int discounttime;
+
+    /**
+     * 不可退款时间
+     */
     private int fulltime;
+
+    /**
+     * 可退款电影列表
+     */
     private List<Integer> movieList;
 
 

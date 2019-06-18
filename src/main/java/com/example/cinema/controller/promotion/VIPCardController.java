@@ -47,19 +47,16 @@ public class VIPCardController {
         return vipService.payByCard(userId,balance);
     }
 
-    //wqy
     @PostMapping("/publish")
     public ResponseVO publishVip(@RequestBody VIPInfoVO vip){
         return vipService.publishVIP(vip);
     }
 
-    //wqy
     @PostMapping("/modify")
     public ResponseVO modifyVip(@RequestBody VIPInfoVO vip){
         return vipService.modifyVIP(vip);
     }
 
-    //wqy
     @GetMapping("/length")
     public ResponseVO getLength(){
         return vipService.getLength();

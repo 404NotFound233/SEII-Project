@@ -1,5 +1,3 @@
-//愿我能de出优美的bug
-//js我是你爸爸
 var hallName="hallName";
 var movieName="movieName";
 var startTime=null;
@@ -42,7 +40,6 @@ function getVIPInfo(){
         }
 
 // TODO:填空
-         //此处还需继续修改
          //list是<List>ticketVO
          function renderTicketList(list) {
               movieList=list;
@@ -157,7 +154,6 @@ $(document).ready(function () {
                      for (var i = 0; i < list.length; i++) {
                         var ticketVO=list[i];
                         if(ticketVO.id==movieId){
-                            //alert("I found it"+movieId);
                             ticketIdclicked=list[i].id;
                             getRequest(
                                    "/ticket/change?ticketId="+ticketIdclicked,
@@ -179,10 +175,7 @@ $(document).ready(function () {
                         var movieId=e.target.id;
                          for (var i = 0; i < list.length; i++) {
                             var ticketVO=list[i];
-
                             if(ticketVO.id==movieId){
-
-                                //alert("I found it"+movieId);
                                 ticketIdclicked=list[i].id;
                                 postRequest(
                                        "/ticket/delete/"+ticketIdclicked,
@@ -193,7 +186,7 @@ $(document).ready(function () {
                                               },
                                        function(error){
                                               alert(error);
-                                                            }
+                                      }
                                 );
                             }
                          }
@@ -208,8 +201,6 @@ $(document).ready(function () {
                   for (var i = 0; i < list.length; i++) {
                        var ticketVO=list[i];
                        if(ticketVO.id==movieId){
-
-                            //alert("I found it"+movieId);
                             ticketIdclicked=list[i].id;
                             scheduleId=ticketVO.scheduleId;
                            getRequest(
@@ -370,7 +361,7 @@ $(document).ready(function () {
                 0,
                 parseFloat(fare*(vip_discount/10)).toFixed(2),
                 function (res) {
-                //此处经过测试可以运行到
+
                 },
                 function (error) {
                      alert(error);
@@ -384,7 +375,7 @@ $(document).ready(function () {
                 sessionStorage.getItem('id'),
                 parseFloat(balance-parseFloat(fare*(vip_discount/10)).toFixed(2)),
                 function(res){
-                 alert("ok!!!!!");//此处未能运行到
+
                 },
                 function(error){
                     alert(error);

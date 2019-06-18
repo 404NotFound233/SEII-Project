@@ -50,7 +50,6 @@ public class RefundServiceImpl implements RefundService {
         }
     }
 
-    //以下为自己写的
     @Override
     public ResponseVO getRefundsByMovieId(int movieId){
         try {
