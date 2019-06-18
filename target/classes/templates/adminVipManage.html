@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>会员卡管理</title>
+    <link rel="stylesheet" type="text/css" href="/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/movieList.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/adminVIP.css"/>
+
+    <script src="/js/jquery.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/request.js"></script>
+    <script src="/js/adminVipManage.js"></script>
+</head>
+
+<body>
+<div class="main-container">
+    <div class="nav-left-container">
+        <div class="nav-user-container" style="margin-bottom: 50px;">
+            <img class="avatar-lg" src="/images/defaultAvatar.jpg" />
+            <p class="title">Admin</p>
+        </div>
+        <ul class="nav nav-pills nav-stacked">
+            <li role="presentation"><a href="/admin/movie/manage"><i class="icon-film"></i> 电影管理</a></li>
+            <li role="presentation"><a href="/admin/session/manage"><i class="icon-calendar"></i> 排片管理</a></li>
+            <li role="presentation"><a href="/admin/promotion/manage"><i class="icon-gift"></i> 活动管理</a></li>
+            <li role="presentation"><a href="/admin/cinema/manage"><i class="icon-cogs"></i> 影院管理</a></li>
+            <li role="presentation"><a href="/admin/cinema/statistic"><i class="icon-bar-chart"></i> 影院统计</a></li>
+            <li role="presentation"><a href="/admin/user/manage"><i class="icon-pencil"></i> 角色管理</a></li>
+            <li role="presentation"><a href="/admin/refund/manage"><i class="icon-gift"></i> 退票管理</a></li>
+            <li role="presentation"  class="active"><a href="#"><i class="icon-cogs"></i> 会员卡管理</a></li>
+        </ul>
+    </div>
+    <div class="content-container">
+        <div class="content-header">
+        <span class="title gray-text">会员卡管理</span>
+        <!--此处为右上角的发布修改按钮，可自行选择是否需要-->
+        <div>
+            <button type="button" class="btn btn-primary" id="publish-vip-btn"data-backdrop="static" data-toggle="modal" data-target="#vipModal"><i class="icon-plus-sign"></i>发布</button>
+            <button type="button" class="btn btn-primary" id="modify-vip-btn" data-backdrop="static" data-toggle="modal" data-target="#vip-modify-Modal">修改</button>
+        </div>
+        </div>
+        <div class="content-item">
+            <div class="content-card card">
+                <div class="content-vip">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="vipModal" tabindex="-1" role="dialog" aria-labelledby="vipModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <!--此处的activity是否要修改？-->
+                <h4 class="modal-title" id="vipModalLabel">发布会员卡</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="vip-price-input"><span class="error-text">*</span>价格（元）</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="vip-price-input" placeholder="请输入会员卡价格">
+                            <p id="vip-price-error" class="notice">会员卡价格不能为空</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="vip-description-input">会员卡描述</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="vip-description-input" placeholder="请输入会员卡描述">
+                        </div>
+                    </div>
+                    <!--增加输入是否合法的检测-->
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="vip-discount-input">购票优惠</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="vip-discount-input" placeholder="请输入折扣">
+                            <p id="vip-discount-error" class="notice">会员卡折扣应为0-10之间的数字（不包含0）</p>
+                        </div>
+                        <p class="col-sm-1"><b>折</b></p>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">充值优惠</label>
+                        <p class="col-sm-1" for="vip-charge-reach"><b>满</b></p>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="vip-charge-reach" placeholder="充值金额">
+                        </div>
+                        <p class="col-sm-1" for="vip-charge-send"><b>送</b></p>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="vip-charge-send" placeholder="赠送金额">
+                        </div>
+                    </div>
+                    <div>
+                        <p id="vip-charge-error" class="notice">请输入正确的充值优惠</p>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="vip-form-btn" href="#">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="vip-modify-Modal" tabindex="-1" role="dialog" aria-labelledby="vipModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">修改会员卡</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="vip-price-input"><span class="error-text">*</span>价格（元）</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="vipm-price-input" placeholder="请输入会员卡价格">
+                            <p id="vipm-price-error" class="notice">会员卡价格不能为空</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="vipm-description-input">会员卡描述</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="vipm-description-input" placeholder="请输入会员卡描述">
+                        </div>
+                    </div>
+                    <!--增加输入是否合法的检测-->
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="vipm-discount-input">购票优惠</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="vipm-discount-input" placeholder="请输入折扣">
+                            <p id="vipm-discount-error" class="notice">会员卡折扣应为0-10之间的数字（不包含0）</p>
+                        </div>
+                        <p class="col-sm-1"><b>折</b></p>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">充值优惠</label>
+                        <p class="col-sm-1" for="vipm-charge-reach"><b>满</b></p>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="vipm-charge-reach" placeholder="充值金额">
+                        </div>
+                        <p class="col-sm-1" for="vipm-charge-send"><b>送</b></p>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="vipm-charge-send" placeholder="赠送金额">
+                        </div>
+                    </div>
+                    <div>
+                    <p id="vipm-charge-error" class="notice">请输入正确的充值优惠</p>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="vipm-form-btn" href="#">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,68 @@
+.table-wrapper {
+    padding: 20px;
+}
+
+.table-wrapper .table b {
+    color: #1caf9a;
+    font-size: 20px;
+}
+
+.table-wrapper .table td{
+    height: 60px;
+    vertical-align: middle;
+}
+
+.card {
+    padding: 30px 40px;
+    color: #444444;
+    margin-bottom: 40px;
+}
+
+.card .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0 5px 0;
+}
+
+.card .header .title {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.form {
+  display: block;
+  width: 100%;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555555;
+  background-color: #ffffff;
+}
+
+.refund-container {
+    display: flex;
+    width: 100%;
+    min-height: 200px;
+    margin: 20px 0;
+}
+
+.refund-card {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    justify-content: space-around;
+}
+
+.refund-line {
+    display: flex;
+    align-items: baseline;
+}
+
+.content-header {
+    display: flex;
+    justify-content: space-between;
+}
